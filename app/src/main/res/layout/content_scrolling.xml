@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearStarter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Starter" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Starter" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/addStarterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <LinearLayout
+            android:id ="@+id/linearMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Main" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Main" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/addMainBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <LinearLayout
+            android:id="@+id/linearEfter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Efter" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteEfter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Starter" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/addEfterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <LinearLayout
+            android:id="@+id/linearDrink"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Drink" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Starter" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/addDrinkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <Button
+            android:id="@+id/okBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ok" />
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
