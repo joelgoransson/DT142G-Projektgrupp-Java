@@ -13,12 +13,12 @@
     <fragment
         android:id="@+id/navigation_tables"
         android:name="com.example.orderapp1_2.tables.TablesFragment"
-        android:label="tables_fragment"
+        android:label="Servering"
         tools:layout="@layout/tables_fragment" />
     <fragment
         android:id="@+id/navigation_kitchen"
         android:name="com.example.orderapp1_2.kitchen.KitchenFragment"
-        android:label="kitchen_fragment"
+        android:label="Köket"
         tools:layout="@layout/kitchen_fragment" />
 
 </navigation>

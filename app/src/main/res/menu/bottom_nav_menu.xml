@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_order"
-        android:title="Order" />
+        android:title="Beställning" />
     <item
         android:id="@+id/navigation_tables"
-        android:title="Tables" />
+        android:title="Servering" />
     <item
         android:id="@+id/navigation_kitchen"
-        android:title="Navigation" />
+        android:title="Köket" />
 </menu>

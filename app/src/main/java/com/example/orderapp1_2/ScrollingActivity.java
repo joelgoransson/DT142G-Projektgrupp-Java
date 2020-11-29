@@ -101,7 +101,7 @@ public class ScrollingActivity extends AppCompatActivity {
         addStarterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Starter", starter);
+                AutoCompleteTextView temp = addACTV("Förrätt", starter);
                 starterLayout.addView(temp);
             }
         });
@@ -115,7 +115,7 @@ public class ScrollingActivity extends AppCompatActivity {
         addMainBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Main", main);
+                AutoCompleteTextView temp = addACTV("Varmrätt", main);
                 mainLayout.addView(temp);
             }
         });
@@ -129,7 +129,7 @@ public class ScrollingActivity extends AppCompatActivity {
         addEfterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Efter", efter);
+                AutoCompleteTextView temp = addACTV("Efterrätt", efter);
                 efterLayout.addView(temp);
             }
         });
@@ -143,7 +143,7 @@ public class ScrollingActivity extends AppCompatActivity {
         addDrinkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Drink", drink);
+                AutoCompleteTextView temp = addACTV("Dryck", drink);
                 drinkLayout.addView(temp);
             }
         });

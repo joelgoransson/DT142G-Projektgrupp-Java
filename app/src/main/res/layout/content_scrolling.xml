@@ -23,13 +23,13 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Starter" />
+                android:text="Förrätt" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteStart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Starter" />
+                android:hint="Förrätt" />
 
         </LinearLayout>
 
@@ -49,13 +49,13 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Main" />
+                android:text="Varmrätt" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Main" />
+                android:hint="Varmrätt" />
         </LinearLayout>
 
         <ImageButton
@@ -74,13 +74,13 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Efter" />
+                android:text="Efterrätt" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteEfter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Starter" />
+                android:hint="Efterrätt" />
         </LinearLayout>
 
         <ImageButton
@@ -99,13 +99,13 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Drink" />
+                android:text="Dryck" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteDrink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Starter" />
+                android:hint="Dryck" />
         </LinearLayout>
 
         <ImageButton
