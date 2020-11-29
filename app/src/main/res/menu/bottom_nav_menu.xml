@@ -8,5 +8,5 @@
         android:title="Tables" />
     <item
         android:id="@+id/navigation_kitchen"
-        android:title="Navigation" />
+        android:title="Kitchen" />
 </menu>
