@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_order"
-        android:title="Beställning" />
+        android:title="Beställning"
+        android:icon="@drawable/ic_baseline_shopping_basket_24"/>
     <item
         android:id="@+id/navigation_tables"
-        android:title="Servering" />
+        android:title="Servering"
+        android:icon="@drawable/ic_baseline_room_service_24"/>
     <item
         android:id="@+id/navigation_kitchen"
-        android:title="Köket" />
+        android:title="Köket"
+        android:icon="@drawable/ic_baseline_outdoor_grill_24"/>
 </menu>

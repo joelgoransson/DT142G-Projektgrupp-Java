@@ -40,12 +40,6 @@ public class ScrollingActivity extends AppCompatActivity {
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
     List<String> drink = new ArrayList<>(); //en lista för namnen över alla olika drinkar
 
-    //De olika inmatningsfälten
-    AutoCompleteTextView starterACTV;
-    AutoCompleteTextView mainACTV;
-    AutoCompleteTextView efterACTV;
-    AutoCompleteTextView drinkACTV;
-
     //De olika lägg till knapparna
     private ImageButton addStarterBtn;
     private ImageButton addMainBtn;
@@ -61,8 +55,6 @@ public class ScrollingActivity extends AppCompatActivity {
     private AutoCompleteListener listenerACTV; //Event lyssnare för AutoComplete listorna
 
     private Button okBtn; //Skicka beställnings knapp
-
-    Button btn;
 
     /**
      * Interface som retrofit använder sig av Feed för att läsa API
@@ -153,7 +145,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            LinearLayout ll1 = findViewById(getResources().getIdentifier(id, "id", getPackageName()));
+            LinearLayout layout = findViewById(getResources().getIdentifier(id, "id", getPackageName()));
             LayoutInflater inflater = LayoutInflater.from(ScrollingActivity.this);
             View row = inflater.inflate(R.layout.order_row, null);
 
@@ -173,7 +165,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 }
             });
 
-            ll1.addView(row);
+            layout.addView(row);
         }
     }
 

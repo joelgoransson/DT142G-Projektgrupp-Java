@@ -1,13 +1,11 @@
 package com.example.orderapp1_2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * AutoCompleteListener skapar en event lyssnare som ska stänga inputen(tangentbordet) när en autoComplete blir vaLd
