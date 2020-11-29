@@ -20,16 +20,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/starterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Starter" />
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Starter" />
+                android:text="Förrätt" />
 
         </LinearLayout>
 
@@ -46,16 +40,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/mainTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Main" />
+                android:text="Varmrätt" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Main" />
         </LinearLayout>
 
         <ImageButton
@@ -71,16 +60,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/efterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Efter" />
+                android:text="Efterrätt" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteEfter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Starter" />
         </LinearLayout>
 
         <ImageButton
@@ -96,16 +80,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/drinkTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Drink" />
+                android:text="Dryck" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteDrink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Starter" />
         </LinearLayout>
 
         <ImageButton

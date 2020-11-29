@@ -1,30 +1,23 @@
 package com.example.orderapp1_2;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.example.orderapp1_2.retorofit.classes.Feed;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +62,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private Button okBtn; //Skicka beställnings knapp
 
+    Button btn;
+
     /**
      * Interface som retrofit använder sig av Feed för att läsa API
      */
@@ -91,62 +86,29 @@ public class ScrollingActivity extends AppCompatActivity {
 
         listenerACTV = new AutoCompleteListener();
 
-        //autocomplete text fält
-        starterACTV = findViewById(R.id.autoCompleteStart);
-        addAdapter(starterACTV, starter);
-
         //Lägget till starter input fält
         starterLayout = findViewById(R.id.linearStarter);
         addStarterBtn = findViewById(R.id.addStarterBtn);
-        addStarterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Starter", starter);
-                starterLayout.addView(temp);
-            }
-        });
+        addStarterBtn.setOnClickListener(new AddButtonListener("Förrätt", starter, "linearStarter"));
+        addStarterBtn.performClick();
 
         //Lägget till main input fält
-        mainACTV = findViewById(R.id.autoCompleteMain);
-        addAdapter(mainACTV, main);
-
         mainLayout = findViewById(R.id.linearMain);
         addMainBtn = findViewById(R.id.addMainBtn);
-        addMainBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Main", main);
-                mainLayout.addView(temp);
-            }
-        });
+        addMainBtn.setOnClickListener(new AddButtonListener("Varmrätt", main, "linearMain"));
+        addMainBtn.performClick();
 
         //Lägget till main input fält
-        efterACTV = findViewById(R.id.autoCompleteEfter);
-        addAdapter(efterACTV, efter);
-
         efterLayout = findViewById(R.id.linearEfter);
         addEfterBtn = findViewById(R.id.addEfterBtn);
-        addEfterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Efter", efter);
-                efterLayout.addView(temp);
-            }
-        });
+        addEfterBtn.setOnClickListener(new AddButtonListener("Efterrätt", efter, "linearEfter"));
+        addEfterBtn.performClick();
 
         //Lägget till main input fält
-        drinkACTV = findViewById(R.id.autoCompleteDrink);
-        addAdapter(drinkACTV, drink);
-
         drinkLayout = findViewById(R.id.linearDrink);
         addDrinkBtn = findViewById(R.id.addDrinkBtn);
-        addDrinkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AutoCompleteTextView temp = addACTV("Drink", drink);
-                drinkLayout.addView(temp);
-            }
-        });
+        addDrinkBtn.setOnClickListener(new AddButtonListener("Dryck", drink, "linearDrink"));
+        addDrinkBtn.performClick();
 
         okBtn = findViewById(R.id.okBtn);
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -154,67 +116,66 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    AutoCompleteTextView child = (AutoCompleteTextView) starterLayout.getChildAt(i);
-                    System.out.println(child.getText());
+                    System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    AutoCompleteTextView child = (AutoCompleteTextView) mainLayout.getChildAt(i);
-                    System.out.println(child.getText());
+                    System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    AutoCompleteTextView child = (AutoCompleteTextView) efterLayout.getChildAt(i);
-                    System.out.println(child.getText());
+                    System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    AutoCompleteTextView child = (AutoCompleteTextView) drinkLayout.getChildAt(i);
-                    System.out.println(child.getText());
+                    System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                 }
             }
         });
-
     }
 
-    /**
-     * Lägger till arrayadapter till ett AutoCompleteTextView, lägger även till en onClickListener
-     * @param actv AutoCompleteTextView som ska få en adapter
-     * @param list Listan med String som ska auto completa till
-     */
-    void addAdapter(AutoCompleteTextView actv, List<String> list){
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-        actv.setAdapter(adapter);
-        actv.setOnItemClickListener(listenerACTV);
+    private String getOrderItem(LinearLayout row){
+        AutoCompleteTextView child = (AutoCompleteTextView) row.getChildAt(0);
+        return String.valueOf(child.getText());
     }
 
-    /**
-     * Skapar ett nytt auto complete inmatningsfält och returnar det
-     * @param hint Vilken hint som ska vara i fältet
-     * @param list Listan med String som ska auto completa till
-     * @return Det nya AutoCompleteTextView elementet
-     */
-    AutoCompleteTextView addACTV(String hint, List<String> list){
-        AutoCompleteTextView newACTV = new AutoCompleteTextView(getApplicationContext());
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-        newACTV.setAdapter(adapter);
-        newACTV.setOnItemClickListener(listenerACTV);
-        newACTV.setHint(hint);
-        return newACTV;
-    }
 
-    /**
-     * OnItemClickListener till AutoCompleteTextView som stänger inputen(tangentbordet) när en autoComplete blir vaLd
-     */
-    protected class AutoCompleteListener implements AdapterView.OnItemClickListener{
+    private class AddButtonListener implements View.OnClickListener{
+        private String hint;
+        private List<String> list;
+        private String id;
+
+        AddButtonListener(String hint, List<String> list, String id){
+            this.hint = hint;
+            this.list = list;
+            this.id = id;
+        }
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); //Hitta tangentbordet
-            in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0); //sätt tangentbordets token till 0
+        public void onClick(View v) {
+            LinearLayout ll1 = findViewById(getResources().getIdentifier(id, "id", getPackageName()));
+            LayoutInflater inflater = LayoutInflater.from(ScrollingActivity.this);
+            View row = inflater.inflate(R.layout.order_row, null);
+
+            AutoCompleteTextView ACTV = row.findViewById(R.id.actvIn);
+            ImageButton imgBtn = row.findViewById(R.id.comBtn);
+
+            ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+            ACTV.setAdapter(adapter);
+            ACTV.setOnItemClickListener(listenerACTV);
+            ACTV.setHint(hint);
+
+            imgBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar.make(v, "This does nothing yet...;)", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+
+            ll1.addView(row);
         }
     }
-
 
     /**
      * Funktionen använder ApiInterface och MenuItem klassen för att köra retrofit.builder på api
