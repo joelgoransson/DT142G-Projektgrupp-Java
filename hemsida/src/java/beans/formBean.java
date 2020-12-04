@@ -5,16 +5,20 @@
  */
 package beans;
 
+import entities.Day;
 import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -35,20 +39,25 @@ public class formBean implements Serializable {
      */
     public formBean() {
     }
-    public Integer getLunchCount(){
-        TypedQuery<Lunch> messageQuery = em.createNamedQuery("Lunch.findAll", Lunch.class);
-        List<Lunch> resultList = messageQuery.getResultList();
-        return resultList.size();
+    
+    public String action(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return "lunchmeny.xhtml";
+    }
+   
+    public List<Lunch> getLunchDay(int day){
+        List<Lunch> resultList = em.createNamedQuery("Lunch.findByDay", Lunch.class).setParameter("day", day).getResultList();
+        return resultList;
     }
     
+    public List<Day> getDays(){
+        return em.createNamedQuery("Day.findAll", Day.class).getResultList();
+    }
     
-    
-    /*
-    public List<Lunch> getLunch(){
-        TypedQuery<Lunch> messageQuery = em.createNamedQuery("Message.findAll", Lunch.class);
-        List<Lunch> resultList = messageQuery.getResultList();
-        return resultList;
-    }*/
+    public void updateName(int id, String name){
+        em.createNamedQuery("Lunch.updateById", Day.class).setParameter("id", id).setParameter("name", name);
+    }
 
     public void persist(Object object) {
         try {

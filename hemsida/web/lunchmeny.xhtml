@@ -7,8 +7,15 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        ${formBean.lunchCount}
+        <h:form>
+            <h:dataTable value="${formBean.days}" var="day">
+                <p>${day.name}</p>
+                <c:forEach items="${formBean.getLunchDay(day.id)}" var="food">
+                    <h:inputText value="${food.name}"></h:inputText>
+                </c:forEach>
+            </h:dataTable>
+            <h:commandButton id="submit" value="Submit" action="${formBean.action()}"/>
+        </h:form>
     </h:body>
 </html>
 
