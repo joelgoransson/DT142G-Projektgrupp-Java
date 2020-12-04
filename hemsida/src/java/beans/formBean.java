@@ -10,6 +10,7 @@ import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -17,9 +18,15 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -34,20 +41,57 @@ public class formBean implements Serializable {
     @Resource
     private javax.transaction.UserTransaction utx;
     
+    private HashMap<Integer,String> list = new HashMap();
     /**
      * Creates a new instance of formBean
      */
     public formBean() {
     }
+
+    public HashMap<Integer, String> getList() {
+        return list;
+    }
+
+    public void setList(HashMap<Integer, String> list) {
+        this.list=list;
+    }
     
-    public String action(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        return "lunchmeny.xhtml";
+    public void submit(){
+        list.forEach((key, value) -> {
+            System.out.println(key + value);
+            action(key, value);
+        });
+    }
+    
+    public void action(int id, String name){
+        try {
+            utx.begin();
+            em.joinTransaction();
+            em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
+            utx.commit();
+        } catch (RollbackException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
     public List<Lunch> getLunchDay(int day){
         List<Lunch> resultList = em.createNamedQuery("Lunch.findByDay", Lunch.class).setParameter("day", day).getResultList();
+        for (Lunch lunch : resultList) {
+            list.put(lunch.getId(), lunch.getName());
+        }
+        list.forEach((k,v)->{System.out.println(k+" "+v);});
         return resultList;
     }
     
