@@ -11,28 +11,41 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
 
 import com.example.orderapp1_2.R;
 
-public class KitchenFragment extends Fragment {
+public class KitchenFragment extends Fragment implements View.OnClickListener {
 
     private KitchenViewModel mViewModel;
-
     public static KitchenFragment newInstance() {
         return new KitchenFragment();
     }
 
+    private View root;
+    private Button button;
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.kitchen_fragment, container, false);
+        root = inflater.inflate(R.layout.kitchen_fragment, container, false);
+        return root;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(KitchenViewModel.class);
-        // TODO: Use the ViewModel
+        button = root.findViewById(R.id.button2);
+        button.setOnClickListener(this);
+
     }
 
+    @Override
+    public void onClick(View view) {
+        System.out.println("test11");
+    }
 }

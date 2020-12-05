@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.orderapp1_2.retorofit.classes.Feed;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
+import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,14 +26,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
-import retrofit2.http.GET;
+
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.0.37:8080/";
-    private static final String SUB_URL = "OrderWeb/webresources/menu.menu";
+    private static final String BASE_URL = "http://192.168.1.138:8080/WebApplication1/webresources/";
+    private static final String SUB_URL = "entities.menu";
+    private RestaurantClient restaurantClient;
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
@@ -56,13 +56,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private Button okBtn; //Skicka beställnings knapp
 
-    /**
-     * Interface som retrofit använder sig av Feed för att läsa API
-     */
-    public interface ApiInterface{
-        @GET(SUB_URL) //länk till till API på sidan
-        Call<Feed> getXml();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +68,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //retrofit functionen
         readXmlFeed();
+        createMenuItem();
 
         listenerACTV = new AutoCompleteListener();
 
@@ -105,6 +99,7 @@ public class ScrollingActivity extends AppCompatActivity {
         okBtn = findViewById(R.id.okBtn);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -123,7 +118,9 @@ public class ScrollingActivity extends AppCompatActivity {
                     System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                 }
             }
+
         });
+
     }
 
     private String getOrderItem(LinearLayout row){
@@ -173,43 +170,74 @@ public class ScrollingActivity extends AppCompatActivity {
      * Funktionen använder ApiInterface och MenuItem klassen för att köra retrofit.builder på api
      */
     private void readXmlFeed(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL) //Bas URL till API
-                .addConverterFactory(SimpleXmlConverterFactory.create()) //Vilken converter som ska användas SimpleXML i detta fall
-                .build();
 
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Feed> call = apiInterface.getXml(); //kallar getData() från ApiInterface
-        call.enqueue(new Callback<Feed>(){
-            //Vad som ska hända vid lyckat svar
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<Feed> call = restaurantClient.getMenu();
+        call.enqueue(new Callback<Feed>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 Log.d("Respons sucess", response.message());
-                
-                menuList = response.body().getMenuList(); //Spara response från databasen till menuList
 
-                //Sortera namnen(nyckeln) för alla MenuItems till olika listor
+                menuList = response.body().getMenuList(); //Spara response från databasen till menuList
                 for (MenuItem menuItem: menuList) {
                     String test = menuItem.getType();
-                    if(test.equalsIgnoreCase("starter")){
+                    if(test.equalsIgnoreCase("Starter")){
                         starter.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("main")){
+                    else if(test.equalsIgnoreCase("Main")){
                         main.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("efter")){
+                    else if(test.equalsIgnoreCase("Efter")){
                         efter.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("drink")){
+                    else if(test.equalsIgnoreCase("Drink")){
                         drink.add(menuItem.getName());
                     }
                 }
             }
 
-            //Vad som ska hända vid mislyckat svar
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
                 Log.d("Response fail", t.getMessage());
+            }
+        });
+
+    }
+
+    private void createMenuItem()
+    {
+        restaurantClient = RestaurantClient.getINSTANCE();
+        MenuItem item = new MenuItem("ost","80","main");
+        Call<MenuItem> call = restaurantClient.createMenu(item);
+        call.enqueue(new Callback<MenuItem>() {
+            @Override
+            public void onResponse(Call<MenuItem> call, Response<MenuItem> response) {
+                Log.d("Response successful", response.message());
+                System.out.println("Response successful3");
+                MenuItem temp = response.body();
+
+
+            }
+            @Override
+            public void onFailure(Call<MenuItem> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail3");
             }
         });
     }
