@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Antons Skafferi</title>
         <link rel="stylesheet" type="text/css" href="mycss.css"></link>
@@ -25,9 +26,10 @@
 			<div class="front">
 				<div class="front-menu">
 					<div class="front-menu-container">
-						<h2 class="front-item">Dagens Lunch:</h2>
-						<p class="front-item">Pommespizza</p>
+                                            <h2 class="front-item">Dagens Lunch:</h2>                                     
+						<p class="front-item"></p> 
 						<p class="front-item">Kycklinglasagnesoppa</p>
+                                                
 					</div>
 				</div>
 			</div>
@@ -56,35 +58,19 @@
 		<div  id="meny" class="menu">
 			<div class="menu-box">
 				<h1 class="menu-title">Lunch</h1>
-				<ol class="menu-list">
-					<li class="menu-item">
-                        <h3>Måndag</h3>
-                        <p>Lasagne med spenat</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Tisdag</h3>
-                        <p>Surströmmingsgryta</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Onsdag</h3>
-                        <p>Inbakad spenat</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Torsdag</h3>
-                        <p>Sjunkande Jakob med flygande ris</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Fredag</h3>
-                        <p>Översaltad spaghetti med smaklös köttfärssås</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Lördag</h3>
-                        <p>Grillade grillkryddade grillchips</p>
-                    </li>
-                    <li class="menu-item">
-                        <h3>Söndag</h3>
-                        <p>Mentos</p>
-                    </li> 
+                                <ol class="menu-list">
+					
+                                     
+                                    <c:forEach items="${formBean.days}" var="day">
+                                        <li class="menu-item">
+                                            <h3>${day.name}</h3>
+                                            
+                                            <c:forEach items="${formBean.getLunchDay(day.id)}" var="food">
+                                                <p>${food.name}</p>                   
+                                            </c:forEach>
+                                        </li>
+                                    </c:forEach>
+                                     
 				</ol>
 			</div>
 			<div class="menu-background1"></div> 
