@@ -47,6 +47,20 @@ public class formBean implements Serializable {
      */
     public formBean() {
     }
+    
+    public void createHashmap(){ 
+       try {
+            utx.begin();
+            em.joinTransaction();
+            List<Lunch> resultList = em.createNamedQuery("Lunch.findAll", Lunch.class).getResultList();
+            for (Lunch lunch : resultList) {
+                 list.put(lunch.getId(), lunch.getName());
+            }
+            utx.commit();
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public HashMap<Integer, String> getList() {
         return list;
@@ -58,7 +72,7 @@ public class formBean implements Serializable {
     
     public void submit(){
         list.forEach((key, value) -> {
-            System.out.println(key + value);
+            //System.out.println(key + value);
             action(key, value);
         });
     }
@@ -69,29 +83,17 @@ public class formBean implements Serializable {
             em.joinTransaction();
             em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
             utx.commit();
-        } catch (RollbackException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotSupportedException ex) {
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
             Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
    
     public List<Lunch> getLunchDay(int day){
         List<Lunch> resultList = em.createNamedQuery("Lunch.findByDay", Lunch.class).setParameter("day", day).getResultList();
-        for (Lunch lunch : resultList) {
+        /*for (Lunch lunch : resultList) {
             list.put(lunch.getId(), lunch.getName());
         }
-        list.forEach((k,v)->{System.out.println(k+" "+v);});
+        list.forEach((k,v)->{System.out.println(k+" "+v);});*/
         return resultList;
     }
     

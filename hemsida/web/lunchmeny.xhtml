@@ -9,6 +9,7 @@
     </h:head>
     <h:body>
         <h:form>        
+            ${formBean.createHashmap()}
             <c:forEach items="${formBean.days}" var="day">
                 <p>${day.name}</p>
                 <c:forEach items="${formBean.getLunchDay(day.id)}" var="food">
