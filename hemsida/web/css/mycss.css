@@ -61,7 +61,7 @@ body, html, main {
 
 /* FRONT*/
 .front{
-	background: url(images/front.png);
+	background: url(../images/front.png);
 	height: 100%;
 	background-position: center;
   	background-repeat: no-repeat;
@@ -136,19 +136,19 @@ body, html, main {
 	
 }
 .menu-background1{
-	background: url(images/top.png);
+	background: url(../images/top.png);
 	background-repeat: no-repeat;
     background-size: cover;
 	width:50%;
 }
 .menu-background2{
-	background: url(images/midleback.png);
+	background: url(../images/midleback.png);
 	background-repeat: no-repeat;
     background-size: cover;
 	width:50%;
 }
 .menu-background3{
-	background: url(images/drinks.jpg);
+	background: url(../images/drinks.jpg);
 	background-repeat: no-repeat;
     background-size: cover;
 	width:50%;

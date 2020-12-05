@@ -5,7 +5,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Antons Skafferi</title>
-        <link rel="stylesheet" type="text/css" href="mycss.css"></link>
+        <link rel="stylesheet" type="text/css" href="css/mycss.css"></link>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
         <meta charset="UTF-8"></meta>
     </h:head>
@@ -61,11 +61,11 @@
                                 <ol class="menu-list">
 					
                                      
-                                    <c:forEach items="${formBean.days}" var="day">
+                                    <c:forEach items="${lunchBean.days}" var="day">
                                         <li class="menu-item">
                                             <h3>${day.name}</h3>
                                             
-                                            <c:forEach items="${formBean.getLunchDay(day.id)}" var="food">
+                                            <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
                                                 <p>${food.name}</p>                   
                                             </c:forEach>
                                         </li>

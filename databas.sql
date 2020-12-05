@@ -64,8 +64,9 @@ CREATE TABLE Lunch(
 CREATE TABLE Event (
     ID INTEGER NOT NULL PRIMARY KEY,
     Name VARCHAR(20),
-    Time TIME,
-    Day DATE,
+    Clock VARCHAR(50),
+    Day VARCHAR(50),
+    Image VARCHAR(500), 
     OpeningAct VARCHAR(20),
     Description VARCHAR(50)
 );
