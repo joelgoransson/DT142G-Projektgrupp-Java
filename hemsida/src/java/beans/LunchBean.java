@@ -32,9 +32,9 @@ import javax.transaction.SystemException;
  *
  * @author Joel
  */
-@Named(value = "formBean")
+@Named(value = "lunchBean")
 @SessionScoped
-public class formBean implements Serializable {
+public class LunchBean implements Serializable {
     
     @PersistenceContext(unitName="HemsidaPU")
     private EntityManager em;
@@ -45,7 +45,7 @@ public class formBean implements Serializable {
     /**
      * Creates a new instance of formBean
      */
-    public formBean() {
+    public LunchBean() {
     }
     
     public void createHashmap(){ 
@@ -58,7 +58,7 @@ public class formBean implements Serializable {
             }
             utx.commit();
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +84,7 @@ public class formBean implements Serializable {
             em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
             utx.commit();
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(formBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
    

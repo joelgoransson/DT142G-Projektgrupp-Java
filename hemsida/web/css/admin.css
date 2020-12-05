@@ -1,0 +1,96 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05-Dec-2020, 15:21:21
+    Author     : Joel
+*/
+
+body, html, main {
+	font-family:verdana;
+  height: 100%;
+  margin: 0;
+  padding:0;
+  color: #574427
+}
+
+
+/* HEADER */
+.header{
+    background: #574427;
+    padding: 0.5em 8em;
+    margin:0;
+    
+}
+
+
+.header-content{
+    display: flex;
+}
+.header-title{
+    margin: 0;
+    flex-grow: 3;
+    font-size:2.4em;
+    letter-spacing: 0.08em;
+    color: white;
+}
+.nav-list{
+    flex-grow: 1;
+    list-style: none;
+    padding: 0;
+    display: inline;
+    text-align: right;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.nav-list li{
+    flex-grow: 1;
+    margin-left:0.5em;
+    font-size: 1.5em;
+}
+.nav-list li a{
+    text-decoration: none;
+    color: white;
+}
+.nav-list li a:hover{
+    color: black;
+}
+
+/* CONTENT */
+.content{
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.form-input{
+    width: 100%;
+    margin: 0;
+    margin-top: 0.3em; 
+    margin-bottom: 0.3em; 
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+.form-title{
+    margin: 0;
+    margin-top: 0.5em;
+}
+
+.form-buttom{
+    background-color: #574427;
+    border: none;
+    color: white;
+    padding: 1em 2em;
+    text-decoration: none;
+    margin: 0;
+    margin-top: 1em;
+    cursor: pointer;
+}
+.form-buttom:hover{
+    color: #574427;
+    background-color: white;
+}
