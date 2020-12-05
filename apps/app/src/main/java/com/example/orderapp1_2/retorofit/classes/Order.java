@@ -11,44 +11,67 @@ import java.util.List;
 
 @Root(name="ordermenuitem", strict = false)
 public class Order {
+
     @Element(name = "quantity")
     private int quantity;
+
     @Element(name = "comment")
     private String comment;
+
     @Element(name = "orderitemnr")
     private int orderitemnr;
+
     @Element(name = "menuitemname")
     private String menuitemname;
+
     @Element(name = "billnr")
     private int billnr;
 
-    public Order( @Element(name = "quantity") int quantity,  @Element(name = "comment") String comment,
-                  @Element(name = "orderitemnr") int orderItemId,@Element(name = "menuitemname") String menuItemName,
-                  @Element(name = "billnr") int billNr) {
+    public Order( @Element(name = "quantity") int quantity,@Element(name = "comment") String comment,@Element(name = "orderitemnr") int orderitemnr,@Element(name = "menuitemname") String menuitemname, @Element(name = "billnr") int billnr) {
         this.quantity = quantity;
         this.comment = comment;
-        this.orderitemnr = orderItemId;
-        this.menuitemname = menuItemName;
-        this.billnr = billNr;
+        this.orderitemnr = orderitemnr;
+        this.menuitemname = menuitemname;
+        this.billnr = billnr;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getComment() {
         return comment;
     }
 
-    public int getOrderItemId() {
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getOrderitemnr() {
         return orderitemnr;
     }
 
-    public String getMenuItemName() {
+    public void setOrderitemnr(int orderitemnr) {
+        this.orderitemnr = orderitemnr;
+    }
+
+    public String getMenuitemname() {
         return menuitemname;
     }
 
-    public int getBillNr() {
+    public void setMenuitemname(String menuitemname) {
+        this.menuitemname = menuitemname;
+    }
+
+    public int getBillnr() {
         return billnr;
+    }
+
+    public void setBillnr(int billnr) {
+        this.billnr = billnr;
     }
 }

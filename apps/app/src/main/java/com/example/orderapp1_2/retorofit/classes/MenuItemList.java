@@ -9,9 +9,9 @@ import java.util.List;
  * Skapar en elementlist av typen MenuItem
  */
 
-@Root(name="menus", strict=false)
-public class Feed {
-    @ElementList(name = "menu", inline=true)
+@Root(name="menuitems", strict=false)
+public class MenuItemList {
+    @ElementList(name = "menuitem", inline=true)
     private List<MenuItem> menuList;
 
     public List<MenuItem> getMenuList() {

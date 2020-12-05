@@ -3,7 +3,6 @@ package com.example.orderapp1_2.retorofit.classes;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
-import retrofit2.http.Field;
 
 public class RestaurantClient {
     private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
@@ -26,12 +25,13 @@ public class RestaurantClient {
         }
         return INSTANCE;
     }
-    public Call<Feed> getMenu()
+    public Call<MenuItemList> getMenu()
     {
         return resturantInterface.getMenu();
     }
-    public Call<MenuItem> createMenu(MenuItem item){ return resturantInterface.createMenu(item); }
     public Call<Order> createOrder(Order order){return resturantInterface.createOrder(order);}
+    public Call<MenuItem> createMenuItem(MenuItem menuItem){return resturantInterface.createMenuItem(menuItem);}
+
 
 
 }
