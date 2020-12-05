@@ -55,7 +55,8 @@ CREATE TABLE WeekDay(
 );
 
 CREATE TABLE Lunch(
-    Name VARCHAR(128) NOT NULL PRIMARY KEY,
+    ID INTEGER NOT NULL PRIMARY KEY,
+    Name VARCHAR(128),
     WeekDay SMALLINT,
     FOREIGN KEY (WeekDay) REFERENCES WeekDay(ID)
 );
@@ -102,18 +103,18 @@ INSERT INTO WeekDay VALUES (3, 'Torsdag');
 INSERT INTO WeekDay VALUES (4, 'Fredag');
 
 /* Day */ 
-INSERT INTO Lunch VALUES ('Kycklinglasagnesoppa', 0);
-INSERT INTO Lunch VALUES ('Gröt med mjölk på', 0);
-INSERT INTO Lunch VALUES ('Hamburgare med beasås', 0);
-INSERT INTO Lunch VALUES ('Kallops med pommes', 1);
-INSERT INTO Lunch VALUES ('Pizza med apelsin på', 1);
-INSERT INTO Lunch VALUES ('Friterad Lax', 1);
-INSERT INTO Lunch VALUES ('Grillad morot', 2);
-INSERT INTO Lunch VALUES ('Spaghetti med lök', 2);
-INSERT INTO Lunch VALUES ('Gustafskorvmacka', 2);
-INSERT INTO Lunch VALUES ('Råbiff', 3);
-INSERT INTO Lunch VALUES ('Grillad Sushi', 3);
-INSERT INTO Lunch VALUES ('Kalops med fish and chips', 3);
-INSERT INTO Lunch VALUES ('Pommeskryddad plankstek', 4);
-INSERT INTO Lunch VALUES ('Osaltad Fisksoppa', 4);
-INSERT INTO Lunch VALUES ('Kebarulle', 4);
+INSERT INTO Lunch VALUES (0, 'Kycklinglasagnesoppa', 0);
+INSERT INTO Lunch VALUES (1, 'Gröt med mjölk på', 0);
+INSERT INTO Lunch VALUES (2, 'Hamburgare med beasås', 0);
+INSERT INTO Lunch VALUES (3, 'Kallops med pommes', 1);
+INSERT INTO Lunch VALUES (4, 'Pizza med apelsin på', 1);
+INSERT INTO Lunch VALUES (5, 'Friterad Lax', 1);
+INSERT INTO Lunch VALUES (6, 'Grillad morot', 2);
+INSERT INTO Lunch VALUES (7, 'Spaghetti med lök', 2);
+INSERT INTO Lunch VALUES (8, 'Gustafskorvmacka', 2);
+INSERT INTO Lunch VALUES (9, 'Råbiff', 3);
+INSERT INTO Lunch VALUES (10, 'Grillad Sushi', 3);
+INSERT INTO Lunch VALUES (11, 'Kalops med fish and chips', 3);
+INSERT INTO Lunch VALUES (12, 'Pommeskryddad plankstek', 4);
+INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4);
+INSERT INTO Lunch VALUES (14, 'Kebarulle', 4);

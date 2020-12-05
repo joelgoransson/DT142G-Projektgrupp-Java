@@ -5,7 +5,7 @@
  */
 package beans;
 
-import entities.Day;
+import entities.Weekday;
 import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -97,12 +97,8 @@ public class formBean implements Serializable {
         return resultList;
     }
     
-    public List<Day> getDays(){
-        return em.createNamedQuery("Day.findAll", Day.class).getResultList();
-    }
-    
-    public void updateName(int id, String name){
-        em.createNamedQuery("Lunch.updateById", Day.class).setParameter("id", id).setParameter("name", name);
+    public List<Weekday> getDays(){
+        return em.createNamedQuery("Weekday.findAll", Weekday.class).getResultList();
     }
 
     public void persist(Object object) {

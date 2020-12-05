@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.Lunch;
+import entities.Tables;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joel
  */
 @Stateless
-@Path("entities.lunch")
-public class LunchFacadeREST extends AbstractFacade<Lunch> {
+@Path("entities.tables")
+public class TablesFacadeREST extends AbstractFacade<Tables> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
 
-    public LunchFacadeREST() {
-        super(Lunch.class);
+    public TablesFacadeREST() {
+        super(Tables.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Lunch entity) {
+    public void create(Tables entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Lunch entity) {
+    public void edit(@PathParam("id") Integer id, Tables entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class LunchFacadeREST extends AbstractFacade<Lunch> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Lunch find(@PathParam("id") Integer id) {
+    public Tables find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findAll() {
+    public List<Tables> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Tables> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

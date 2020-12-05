@@ -6,33 +6,33 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Joel
  */
 @Entity
-@Table(name = "LUNCH")
+@Table(name = "EMPLOYEE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Lunch.findAll", query = "SELECT l FROM Lunch l"),
-    @NamedQuery(name = "Lunch.findById", query = "SELECT l FROM Lunch l WHERE l.id = :id"),
-    @NamedQuery(name = "Lunch.findByDay", query = "SELECT l FROM Lunch l WHERE l.weekday.id = :day"),
-    @NamedQuery(name = "Lunch.updateById", query = "UPDATE Lunch l SET l.name = :name WHERE l.id = :id"),
-    @NamedQuery(name = "Lunch.findByName", query = "SELECT l FROM Lunch l WHERE l.name = :name")})
-public class Lunch implements Serializable {
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
+    @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
+    @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
+    @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,17 +40,21 @@ public class Lunch implements Serializable {
     @NotNull
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 128)
+    @Size(max = 55)
     @Column(name = "NAME")
     private String name;
-    @JoinColumn(name = "WEEKDAY", referencedColumnName = "ID")
-    @ManyToOne
-    private Weekday weekday;
+    @Size(max = 55)
+    @Column(name = "PASSWORD")
+    private String password;
+    @OneToMany(mappedBy = "employeeid")
+    private List<Pass> passList;
+    @OneToMany(mappedBy = "employeeid")
+    private List<Bill> billList;
 
-    public Lunch() {
+    public Employee() {
     }
 
-    public Lunch(Integer id) {
+    public Employee(Integer id) {
         this.id = id;
     }
 
@@ -70,12 +74,30 @@ public class Lunch implements Serializable {
         this.name = name;
     }
 
-    public Weekday getWeekday() {
-        return weekday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setWeekday(Weekday weekday) {
-        this.weekday = weekday;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @XmlTransient
+    public List<Pass> getPassList() {
+        return passList;
+    }
+
+    public void setPassList(List<Pass> passList) {
+        this.passList = passList;
+    }
+
+    @XmlTransient
+    public List<Bill> getBillList() {
+        return billList;
+    }
+
+    public void setBillList(List<Bill> billList) {
+        this.billList = billList;
     }
 
     @Override
@@ -88,10 +110,10 @@ public class Lunch implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Lunch)) {
+        if (!(object instanceof Employee)) {
             return false;
         }
-        Lunch other = (Lunch) object;
+        Employee other = (Employee) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,7 +122,7 @@ public class Lunch implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Lunch[ id=" + id + " ]";
+        return "entities.Employee[ id=" + id + " ]";
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.Lunch;
+import entities.Pass;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Joel
  */
 @Stateless
-@Path("entities.lunch")
-public class LunchFacadeREST extends AbstractFacade<Lunch> {
+@Path("entities.pass")
+public class PassFacadeREST extends AbstractFacade<Pass> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
 
-    public LunchFacadeREST() {
-        super(Lunch.class);
+    public PassFacadeREST() {
+        super(Pass.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Lunch entity) {
+    public void create(Pass entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Lunch entity) {
+    public void edit(@PathParam("id") Integer id, Pass entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class LunchFacadeREST extends AbstractFacade<Lunch> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Lunch find(@PathParam("id") Integer id) {
+    public Pass find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findAll() {
+    public List<Pass> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Pass> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

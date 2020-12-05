@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.Lunch;
+import entities.Information;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,54 +25,54 @@ import javax.ws.rs.core.MediaType;
  * @author Joel
  */
 @Stateless
-@Path("entities.lunch")
-public class LunchFacadeREST extends AbstractFacade<Lunch> {
+@Path("entities.information")
+public class InformationFacadeREST extends AbstractFacade<Information> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
 
-    public LunchFacadeREST() {
-        super(Lunch.class);
+    public InformationFacadeREST() {
+        super(Information.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Lunch entity) {
+    public void create(Information entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Lunch entity) {
+    public void edit(@PathParam("id") Short id, Information entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    public void remove(@PathParam("id") Short id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Lunch find(@PathParam("id") Integer id) {
+    public Information find(@PathParam("id") Short id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findAll() {
+    public List<Information> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Lunch> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Information> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
