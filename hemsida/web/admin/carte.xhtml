@@ -1,0 +1,19 @@
+<ui:composition template="admintemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Ändra Á la carte meny</ui:define>
+
+    <ui:define name="body">
+        <h:form>
+            ${carteBean.createHashmap()}
+            <ui:repeat varStatus="menu" value="${carteBean.list}" var="item">
+                <h:inputText class="form-input" value="#{carteBean.list[menu.index]}"/>
+            </ui:repeat>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action=":::Command"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
