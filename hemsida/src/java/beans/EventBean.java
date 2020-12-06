@@ -5,14 +5,24 @@
  */
 package beans;
 
+import entities.Event;
+import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -26,6 +36,66 @@ public class EventBean implements Serializable {
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
+    
+    Event newEvent;
+    
+    public void createEvent(){
+        newEvent = new Event();
+    }
+
+    public Event getNewEvent() {
+        return newEvent;
+    }
+
+    
+    private ArrayList<Event> list;
+    
+     public void createHashmap(){ 
+       try {
+            utx.begin();
+            em.joinTransaction();
+            list = new ArrayList<Event>(em.createNamedQuery("Event.findAll", Event.class).getResultList());
+            utx.commit();
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    public void submit(){
+        newEvent.setId(findMaxID()+1);
+        try {
+            utx.begin();
+            em.joinTransaction();
+            em.persist(newEvent);
+            utx.commit();   
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void delete(int id){
+        try {
+            utx.begin();
+            em.joinTransaction();
+            //em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
+            em.createNamedQuery("Event.deleteById", Event.class).setParameter("id", id).executeUpdate();
+            utx.commit();
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Integer findMaxID(){
+        List<Event> resultList = em.createNamedQuery("Event.sortByID", Event.class).getResultList();
+        if(resultList.size() <= 0){
+            return 0;
+        }
+        return resultList.get(0).getId();
+    }
+
+    public List<Event> getEvents(){
+        return em.createNamedQuery("Event.findAll", Event.class).getResultList();
+    }
     
     /**
      * Creates a new instance of EventBean
