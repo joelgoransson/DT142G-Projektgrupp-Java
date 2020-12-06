@@ -7,7 +7,7 @@ import java.util.List;
 
 @Root(name="ordermenuitems", strict=false)
 public class OrderList {
-    @ElementList(name = "ordermenuitem", inline=true)
+    @ElementList(name = "ordermenuitem", inline=true, required=false)
     private List<Order> orderList;
 
     public List<Order> getOrderList() {
