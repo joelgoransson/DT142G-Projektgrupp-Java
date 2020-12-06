@@ -12,26 +12,22 @@ import java.util.List;
 @Root(name="ordermenuitem", strict = false)
 public class Order {
 
-    @Element(name = "quantity", required = false)
+    @Element(name = "quantity")
     private int quantity;
 
-    @Element(name = "comment",required = false)
+    @Element(name = "comment")
     private String comment;
 
-    @Element(name = "orderitemnr",required = false)
+    @Element(name = "orderitemnr")
     private int orderitemnr;
 
-    @Element(name = "menuItemName",required = false)
+    @Element(name = "menuitemname")
     private String menuitemname;
 
-   @Element(name = "billnr",required = false)
-   private int billnr;
+    @Element(name = "billnr")
+    private int billnr;
 
-    public Order() {
-
-    }
-
-    public Order( @Element(name = "quantity") int quantity,@Element(name = "comment") String comment,@Element(name = "orderitemnr") int orderitemnr,@Element(name = "menuItemName") String menuitemname,@Element(name = "billnr")  int billnr ) {
+    public Order( @Element(name = "quantity") int quantity,@Element(name = "comment") String comment,@Element(name = "orderitemnr") int orderitemnr,@Element(name = "menuitemname") String menuitemname, @Element(name = "billnr") int billnr) {
         this.quantity = quantity;
         this.comment = comment;
         this.orderitemnr = orderitemnr;
