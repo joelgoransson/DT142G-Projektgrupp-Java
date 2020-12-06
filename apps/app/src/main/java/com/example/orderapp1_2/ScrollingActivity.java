@@ -5,7 +5,8 @@ import android.os.Bundle;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.example.orderapp1_2.retorofit.classes.Order;
-import com.example.orderapp1_2.retorofit.classes.OrderList;
+import com.example.orderapp1_2.retorofit.classes.Orders;
+import com.example.orderapp1_2.retorofit.classes.OrdersList;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,12 +33,12 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.138:8080/WebApplication1/webresources/";
-    private static final String SUB_URL = "entities.menu";
+    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
-    List<Order> orderList;
+    List<Orders> ordersList;
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
@@ -71,7 +72,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //retrofit functionen
         readXmlFeed();
-        createOrder();
+        readOrdersList();
 
 
         listenerACTV = new AutoCompleteListener();
@@ -105,22 +106,29 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
+
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
+                    //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
+                    createOrder(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
+
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
+                    //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
+                    createOrder(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
+                    //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
+                    createOrder(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
+                    //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
+                    createOrder(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                 }
+
             }
 
         });
@@ -224,18 +232,73 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void createOrder()
+    private void readOrdersList(){
+        System.out.println("hej");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<OrdersList> call = restaurantClient.getOrders();
+        call.enqueue(new Callback<OrdersList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
+            @Override
+            public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
+                Log.d("Respons sucess", response.message());
+
+                ordersList = response.body().getOrdersList(); //Spara response från databasen till menuList
+                for(Orders order: ordersList){
+                    System.out.println(order.getDish());
+                }
+
+
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<OrdersList> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+            }
+        });
+
+    }
+
+    private void createOrder(String dish)
     {
 
-
         restaurantClient = RestaurantClient.getINSTANCE();
-        Order order = new Order(5,"varm",3,"Taco",1);
+            Orders item = new Orders(dish);
+        Call<Orders> call = restaurantClient.createOrdersItem(item);
+        call.enqueue(new Callback<Orders>() {
+            @Override
+            public void onResponse(Call<Orders> call, Response<Orders> response) {
+                Log.d("Response successful", response.message());
+
+            }
+            @Override
+            public void onFailure(Call<Orders> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
+        /*
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Order order = new Order(5,"Bränt",3,"Taco",1);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 Log.d("Response successful", response.message());
-
 
             }
             @Override
@@ -245,7 +308,7 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         restaurantClient = RestaurantClient.getINSTANCE();
         MenuItem menuItem = new MenuItem("Kött",75,"Main",40);
         Call<MenuItem> call = restaurantClient.createMenuItem(menuItem);
