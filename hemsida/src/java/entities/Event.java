@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,10 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
+    @NamedQuery(name = "Event.updateById", query = "UPDATE Event e SET e.name = :name WHERE e.id = :id"),
     @NamedQuery(name = "Event.findById", query = "SELECT e FROM Event e WHERE e.id = :id"),
     @NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name = :name"),
-    @NamedQuery(name = "Event.findByTime", query = "SELECT e FROM Event e WHERE e.time = :time"),
+    @NamedQuery(name = "Event.sortByID", query = "SELECT e FROM Event e ORDER BY e.id desc"),
+    @NamedQuery(name = "Event.findByClock", query = "SELECT e FROM Event e WHERE e.clock = :clock"),
     @NamedQuery(name = "Event.findByDay", query = "SELECT e FROM Event e WHERE e.day = :day"),
+    @NamedQuery(name = "Event.findByImage", query = "SELECT e FROM Event e WHERE e.image = :image"),
     @NamedQuery(name = "Event.findByOpeningact", query = "SELECT e FROM Event e WHERE e.openingact = :openingact"),
     @NamedQuery(name = "Event.findByDescription", query = "SELECT e FROM Event e WHERE e.description = :description")})
 public class Event implements Serializable {
@@ -46,12 +46,15 @@ public class Event implements Serializable {
     @Size(max = 20)
     @Column(name = "NAME")
     private String name;
-    @Column(name = "TIME")
-    @Temporal(TemporalType.TIME)
-    private Date time;
+    @Size(max = 50)
+    @Column(name = "CLOCK")
+    private String clock;
+    @Size(max = 50)
     @Column(name = "DAY")
-    @Temporal(TemporalType.DATE)
-    private Date day;
+    private String day;
+    @Size(max = 500)
+    @Column(name = "IMAGE")
+    private String image;
     @Size(max = 20)
     @Column(name = "OPENINGACT")
     private String openingact;
@@ -82,20 +85,28 @@ public class Event implements Serializable {
         this.name = name;
     }
 
-    public Date getTime() {
-        return time;
+    public String getClock() {
+        return clock;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setClock(String clock) {
+        this.clock = clock;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getOpeningact() {
