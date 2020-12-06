@@ -48,7 +48,7 @@ public class LunchBean implements Serializable {
     public LunchBean() {
     }
     
-    public void createHashmap(){ 
+    public void createHashmap(){
        try {
             utx.begin();
             em.joinTransaction();
