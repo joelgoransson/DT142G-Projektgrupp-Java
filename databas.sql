@@ -119,3 +119,6 @@ INSERT INTO Lunch VALUES (11, 'Kalops med fish and chips', 3);
 INSERT INTO Lunch VALUES (12, 'Pommeskryddad plankstek', 4);
 INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4);
 INSERT INTO Lunch VALUES (14, 'Kebarulle', 4);
+
+/* EVENT */
+INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
