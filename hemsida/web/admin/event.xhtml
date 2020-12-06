@@ -8,15 +8,45 @@
     <ui:define name="title">Ändra event</ui:define>
 
     <ui:define name="body">
-        <h:form>        
-            ${lunchBean.createHashmap()}
-            <c:forEach items="${lunchBean.days}" var="day">
-                <h2 class="form-title">${day.name}</h2>
-                <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
-                    <h:inputText class="form-input" value="#{lunchBean.list[food.id]}"/>
-                </c:forEach>
-            </c:forEach>
-            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${lunchBean.submit}"/>
+        <h1>Add new event</h1>
+        ${eventBean.createEvent()}
+        <h:form> 
+            <h3>Name: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.name}"/>
+            <h3>Day: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.day}"/>
+            <h3>Description: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.description}"/>
+            <h3>Opening act: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.openingact}"/>
+            <h3>Image URL:</h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.image}"/>
+            <h3>Time: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.clock}"/>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${eventBean.submit()}"/>
         </h:form>
+        <h1>Delete Event</h1>
+        <c:forEach items="${eventBean.events}" var="event">
+            <div>
+                <p>#{event.name}, #{event.day}</p>
+            </div>
+        </c:forEach>
+        <!--<h:form>        
+            ${eventBean.createHashmap()}
+            <c:forEach items="${eventBean.events}" var="event">
+                <div>
+                    <h1>#{event.name}</h1>
+                    <h3>Name: </h3>
+                    <h:inputText class="form-input" value="#{event.name}"/>
+                    <h3>Day: </h3>
+                    <h:inputText class="form-input" value="#{event.day}"/>
+                    <h3>Description: </h3>
+                    <h:inputText class="form-input" value="#{event.description}"/>
+                    <h3>Opening act: </h3>
+                    <h:inputText class="form-input" value="#{event.openingact}"/>
+                </div>
+            </c:forEach>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action="}"/>
+        </h:form>-->
     </ui:define>
 </ui:composition>

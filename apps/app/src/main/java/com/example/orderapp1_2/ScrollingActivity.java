@@ -2,8 +2,9 @@ package com.example.orderapp1_2;
 
 import android.os.Bundle;
 
-import com.example.orderapp1_2.retorofit.classes.Feed;
+import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
+import com.example.orderapp1_2.retorofit.classes.Order;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -68,7 +69,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //retrofit functionen
         readXmlFeed();
-        createMenuItem();
+        createOrder();
+
 
         listenerACTV = new AutoCompleteListener();
 
@@ -172,8 +174,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private void readXmlFeed(){
 
         restaurantClient = RestaurantClient.getINSTANCE();
-        Call<Feed> call = restaurantClient.getMenu();
-        call.enqueue(new Callback<Feed>() {
+        Call<MenuItemList> call = restaurantClient.getMenu();
+        call.enqueue(new Callback<MenuItemList>() {
             /**
              * Invoked for a received HTTP response.
              * <p>
@@ -184,7 +186,7 @@ public class ScrollingActivity extends AppCompatActivity {
              * @param response
              */
             @Override
-            public void onResponse(Call<Feed> call, Response<Feed> response) {
+            public void onResponse(Call<MenuItemList> call, Response<MenuItemList> response) {
                 Log.d("Respons sucess", response.message());
 
                 menuList = response.body().getMenuList(); //Spara response från databasen till menuList
@@ -213,32 +215,52 @@ public class ScrollingActivity extends AppCompatActivity {
              * @param t
              */
             @Override
-            public void onFailure(Call<Feed> call, Throwable t) {
+            public void onFailure(Call<MenuItemList> call, Throwable t) {
                 Log.d("Response fail", t.getMessage());
             }
         });
 
     }
 
-    private void createMenuItem()
+    private void createOrder()
     {
+
+
         restaurantClient = RestaurantClient.getINSTANCE();
-        MenuItem item = new MenuItem("ost","80","main");
-        Call<MenuItem> call = restaurantClient.createMenu(item);
+        Order order = new Order(5,"Bränt",3,"Taco",1);
+        Call<Order> call = restaurantClient.createOrder(order);
+        call.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                Log.d("Response successful", response.message());
+
+            }
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
+
+        /*
+        restaurantClient = RestaurantClient.getINSTANCE();
+        MenuItem menuItem = new MenuItem("Kött",75,"Main",40);
+        Call<MenuItem> call = restaurantClient.createMenuItem(menuItem);
         call.enqueue(new Callback<MenuItem>() {
             @Override
             public void onResponse(Call<MenuItem> call, Response<MenuItem> response) {
                 Log.d("Response successful", response.message());
-                System.out.println("Response successful3");
-                MenuItem temp = response.body();
-
 
             }
             @Override
             public void onFailure(Call<MenuItem> call, Throwable t) {
                 Log.d("Response fail", t.getMessage());
-                System.out.println("Response fail3");
+                System.out.println("Response fail");
             }
         });
+         */
+
+
+
     }
 }

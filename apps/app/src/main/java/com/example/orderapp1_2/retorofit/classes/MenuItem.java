@@ -9,24 +9,28 @@ import org.simpleframework.xml.Root;
  * Dokumentation för notationer för SimpleXML converter: http://simple.sourceforge.net/download/stream/doc/tutorial/tutorial.php
  */
 
-@Root(name="menu", strict = false) //Namnet på objekten i API, strict=false betyder att den inte throwar om den hittar ett XML element som inte kan mappas till klassen
+@Root(name="menuitem", strict = false) //Namnet på objekten i API, strict=false betyder att den inte throwar om den hittar ett XML element som inte kan mappas till klassen
 public class MenuItem {
     @Element(name = "name") //Namnet på det elementet i API
     private String name;
 
     @Element(name = "price")
-    private String price;
+    private int price;
 
     @Element(name = "type")
     private String type;
 
+    @Element(name = "preptime")
+    private double prepTime;
+
     public MenuItem(){
     }
 
-    public MenuItem(@Element(name="name") String name, @Element(name="price") String price, @Element(name="type") String type) {
+    public MenuItem(@Element(name="name") String name, @Element(name="price") int price, @Element(name="type") String type,@Element(name="preptime") double prepTime) {
         this.name = name;
         this.price = price;
         this.type = type;
+        this.prepTime = prepTime;
     }
 
     public String getName() {
@@ -37,11 +41,11 @@ public class MenuItem {
         this.name = name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -51,5 +55,13 @@ public class MenuItem {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getPrepTime() {
+        return prepTime;
+    }
+
+    public void setPrepTime(double prepTime) {
+        this.prepTime = prepTime;
     }
 }

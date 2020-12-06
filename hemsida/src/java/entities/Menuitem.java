@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menuitem.findByName", query = "SELECT m FROM Menuitem m WHERE m.name = :name"),
     @NamedQuery(name = "Menuitem.findByPrice", query = "SELECT m FROM Menuitem m WHERE m.price = :price"),
     @NamedQuery(name = "Menuitem.findByType", query = "SELECT m FROM Menuitem m WHERE m.type = :type"),
+    @NamedQuery(name = "Menuitem.deleteByName", query = "DELETE FROM Menuitem m WHERE m.name = :name"),
     @NamedQuery(name = "Menuitem.findByPreptime", query = "SELECT m FROM Menuitem m WHERE m.preptime = :preptime")})
 public class Menuitem implements Serializable {
 
