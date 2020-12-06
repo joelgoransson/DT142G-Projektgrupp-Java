@@ -10,7 +10,7 @@ public class RestaurantClient {
     private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
     private ResturantInterface resturantInterface;
     private static RestaurantClient INSTANCE;
-
+//
     public RestaurantClient()
     {
         Retrofit retrofit = new Retrofit.Builder()
