@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.example.orderapp1_2.retorofit.classes.Order;
+import com.example.orderapp1_2.retorofit.classes.OrderList;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,6 +37,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private RestaurantClient restaurantClient;
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
+    List<Order> orderList;
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
@@ -227,12 +229,13 @@ public class ScrollingActivity extends AppCompatActivity {
 
 
         restaurantClient = RestaurantClient.getINSTANCE();
-        Order order = new Order(5,"Bränt",3,"Taco",1);
+        Order order = new Order(5,"varm",3,"Taco",1);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 Log.d("Response successful", response.message());
+
 
             }
             @Override

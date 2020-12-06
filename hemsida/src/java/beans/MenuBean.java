@@ -7,7 +7,6 @@ package beans;
 
 import entities.Menuitem;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,49 +36,26 @@ public class MenuBean implements Serializable {
     private javax.transaction.UserTransaction utx;
     
     private List<Menuitem> list;
-    private List<String> typeList;
+    private final List<String> typeList;
     private Menuitem newItem;
     /**
      * Creates a new instance of CarteBean
      */
     public MenuBean() {
-        list = new ArrayList<>();
         typeList = Arrays.asList("förrätt", "huvudrätt", "efterrätt", "dryck");
-        newItem = new Menuitem();
     }
 
     public void init(){
-        try {
-            utx.begin();
-            em.joinTransaction();
-            list = em.createNamedQuery("Menuitem.findAll", Menuitem.class).getResultList();
-            utx.commit();
-        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        list = em.createNamedQuery("Menuitem.findAll", Menuitem.class).getResultList();
+        newItem = new Menuitem();
     }
     
     public List<Menuitem> getOneType(String type){
-        List<Menuitem> ret = new ArrayList<>();
-        for(Menuitem item : list){
-            System.out.println(item.getType());
-            if(item.getType().equalsIgnoreCase(type)){
-                ret.add(item);
-            }
-        }
-        return ret;
+        return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", type).getResultList();
     }
     
     public void submit(){
-        System.out.println(newItem.getName());
-        try {
-            utx.begin();
-            em.joinTransaction();
-            em.persist(newItem);
-            utx.commit();   
-        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        persist(newItem);
     }
     
     public void delete(String name){
@@ -103,10 +79,6 @@ public class MenuBean implements Serializable {
 
     public List<String> getTypeList() {
         return typeList;
-    }
-
-    public void setTypeList(List<String> typeList) {
-        this.typeList = typeList;
     }
 
     public Menuitem getNewItem() {

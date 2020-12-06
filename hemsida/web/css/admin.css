@@ -94,3 +94,27 @@ body, html, main {
     color: #574427;
     background-color: white;
 }
+
+/* DELETE */
+.delete-button{ 
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    margin: 0;
+    margin-top: 1em;
+    cursor: pointer;
+    display: inline;
+}
+.event{
+    display:inline-block;
+    width: 100%;
+}
+.delete-form{
+    display: inline;
+}
+/* EVENT */
+.event-info{
+    display: inline;
+}

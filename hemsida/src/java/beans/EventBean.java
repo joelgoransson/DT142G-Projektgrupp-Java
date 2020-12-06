@@ -73,8 +73,24 @@ public class EventBean implements Serializable {
         }
     }
     
+    public void delete(int id){
+        try {
+            utx.begin();
+            em.joinTransaction();
+            //em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
+            em.createNamedQuery("Event.deleteById", Event.class).setParameter("id", id).executeUpdate();
+            utx.commit();
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public Integer findMaxID(){
-        return em.createNamedQuery("Event.sortByID", Event.class).getResultList().get(0).getId();
+        List<Event> resultList = em.createNamedQuery("Event.sortByID", Event.class).getResultList();
+        if(resultList.size() <= 0){
+            return 0;
+        }
+        return resultList.get(0).getId();
     }
 
     public List<Event> getEvents(){

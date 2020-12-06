@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
     @NamedQuery(name = "Event.updateById", query = "UPDATE Event e SET e.name = :name WHERE e.id = :id"),
     @NamedQuery(name = "Event.findById", query = "SELECT e FROM Event e WHERE e.id = :id"),
+    @NamedQuery(name = "Event.deleteById", query = "DELETE FROM Event e WHERE e.id = :id"),
     @NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name = :name"),
     @NamedQuery(name = "Event.sortByID", query = "SELECT e FROM Event e ORDER BY e.id desc"),
     @NamedQuery(name = "Event.findByClock", query = "SELECT e FROM Event e WHERE e.clock = :clock"),
