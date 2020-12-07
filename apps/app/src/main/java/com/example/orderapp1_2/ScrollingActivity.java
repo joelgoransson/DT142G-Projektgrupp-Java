@@ -108,13 +108,14 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-
+                //createbill();
+                //int billid = getbill();
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(1,test);
+                        createOrder(1,"Taco", "Kall", 1);
                     }
 
 
@@ -124,7 +125,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(2,test);
+                        createOrder(1,"Taco", "Kall", 1);
                     }
                 }
                 count = efterLayout.getChildCount();
@@ -132,7 +133,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(3,test);
+                        createOrder(1,"Taco", "Kall", 1);
                     }
                 }
                 count = drinkLayout.getChildCount();
@@ -140,7 +141,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(4,test);
+                        createOrder(1,"Taco", "Kall", 1);
                     }
                 }
                 readOrdermenuList();
@@ -329,7 +330,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void createOrder(int tid, String dish)
+    private void createOrder(int tableid, String dish, String comment, int billid)
     {
         /*
         restaurantClient = RestaurantClient.getINSTANCE();
