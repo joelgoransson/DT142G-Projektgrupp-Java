@@ -10,9 +10,9 @@ import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -94,6 +94,15 @@ public class LunchBean implements Serializable {
             list.put(lunch.getId(), lunch.getName());
         }
         list.forEach((k,v)->{System.out.println(k+" "+v);});*/
+        return resultList;
+    }
+    
+    public List<Lunch> getLunchToday(){
+        // Used to display todays lunch offer
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_WEEK);
+        day = day-2;
+        List<Lunch> resultList = em.createNamedQuery("Lunch.findByDay", Lunch.class).setParameter("day", day).getResultList();
         return resultList;
     }
     
