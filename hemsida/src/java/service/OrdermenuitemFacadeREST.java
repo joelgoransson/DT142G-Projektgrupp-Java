@@ -6,7 +6,6 @@
 package service;
 
 import entities.Ordermenuitem;
-import entities.OrdermenuitemPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,11 +19,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.PathSegment;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Stateless
 @Path("entities.ordermenuitem")
@@ -32,27 +30,6 @@ public class OrdermenuitemFacadeREST extends AbstractFacade<Ordermenuitem> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
-
-    private OrdermenuitemPK getPrimaryKey(PathSegment pathSegment) {
-        /*
-         * pathSemgent represents a URI path segment and any associated matrix parameters.
-         * URI path part is supposed to be in form of 'somePath;orderitemnr=orderitemnrValue;billnr=billnrValue'.
-         * Here 'somePath' is a result of getPath() method invocation and
-         * it is ignored in the following code.
-         * Matrix parameters are used as field names to build a primary key instance.
-         */
-        entities.OrdermenuitemPK key = new entities.OrdermenuitemPK();
-        javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
-        java.util.List<String> orderitemnr = map.get("orderitemnr");
-        if (orderitemnr != null && !orderitemnr.isEmpty()) {
-            key.setOrderitemnr(new java.lang.Integer(orderitemnr.get(0)));
-        }
-        java.util.List<String> billnr = map.get("billnr");
-        if (billnr != null && !billnr.isEmpty()) {
-            key.setBillnr(new java.lang.Integer(billnr.get(0)));
-        }
-        return key;
-    }
 
     public OrdermenuitemFacadeREST() {
         super(Ordermenuitem.class);
@@ -68,23 +45,21 @@ public class OrdermenuitemFacadeREST extends AbstractFacade<Ordermenuitem> {
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") PathSegment id, Ordermenuitem entity) {
+    public void edit(@PathParam("id") Integer id, Ordermenuitem entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        entities.OrdermenuitemPK key = getPrimaryKey(id);
-        super.remove(super.find(key));
+    public void remove(@PathParam("id") Integer id) {
+        super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Ordermenuitem find(@PathParam("id") PathSegment id) {
-        entities.OrdermenuitemPK key = getPrimaryKey(id);
-        return super.find(key);
+    public Ordermenuitem find(@PathParam("id") Integer id) {
+        return super.find(id);
     }
 
     @GET

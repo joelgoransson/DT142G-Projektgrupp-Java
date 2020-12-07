@@ -112,23 +112,36 @@ public class ScrollingActivity extends AppCompatActivity {
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
-                    createOrder(1,getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(1,test);
+                    }
+
 
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
-                    createOrder(2,getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(2,test);
+                    }
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
-                    createOrder(3,getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(3,test);
+                    }
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
-                    createOrder(4,getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(4,test);
+                    }
                 }
                 readOrdermenuList();
             }
@@ -318,7 +331,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void createOrder(int tid, String dish)
     {
-
+        /*
         restaurantClient = RestaurantClient.getINSTANCE();
             Orders item = new Orders(tid, dish );
         Call<Orders> call = restaurantClient.createOrdersItem(item);
@@ -335,20 +348,23 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
         //(5,"Bränt",1,"Taco",1)
+        */
 
-        /*
         restaurantClient = RestaurantClient.getINSTANCE();
         Order order = new Order();
         order.setBillnr(1);
         order.setComment("hej");
         order.setMenuitemname("Taco");
-        order.setOrderitemnr(2);
+        order.setOrderitemnr(5);
         order.setQuantity(5);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+
 
             }
             @Override
@@ -358,7 +374,7 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         restaurantClient = RestaurantClient.getINSTANCE();
         MenuItem menuItem = new MenuItem("Kött",75,"Main",40);
         Call<MenuItem> call = restaurantClient.createMenuItem(menuItem);

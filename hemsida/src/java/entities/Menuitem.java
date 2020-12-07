@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "MENUITEM")
@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menuitem.findByName", query = "SELECT m FROM Menuitem m WHERE m.name = :name"),
     @NamedQuery(name = "Menuitem.findByPrice", query = "SELECT m FROM Menuitem m WHERE m.price = :price"),
     @NamedQuery(name = "Menuitem.findByType", query = "SELECT m FROM Menuitem m WHERE m.type = :type"),
-    @NamedQuery(name = "Menuitem.deleteByName", query = "DELETE FROM Menuitem m WHERE m.name = :name"),
     @NamedQuery(name = "Menuitem.findByPreptime", query = "SELECT m FROM Menuitem m WHERE m.preptime = :preptime")})
 public class Menuitem implements Serializable {
 
@@ -54,8 +53,6 @@ public class Menuitem implements Serializable {
     private Double preptime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuitem")
     private List<Menuitemhasingredient> menuitemhasingredientList;
-    @OneToMany(mappedBy = "menuitemname")
-    private List<Ordermenuitem> ordermenuitemList;
 
     public Menuitem() {
     }
@@ -103,15 +100,6 @@ public class Menuitem implements Serializable {
 
     public void setMenuitemhasingredientList(List<Menuitemhasingredient> menuitemhasingredientList) {
         this.menuitemhasingredientList = menuitemhasingredientList;
-    }
-
-    @XmlTransient
-    public List<Ordermenuitem> getOrdermenuitemList() {
-        return ordermenuitemList;
-    }
-
-    public void setOrdermenuitemList(List<Ordermenuitem> ordermenuitemList) {
-        this.ordermenuitemList = ordermenuitemList;
     }
 
     @Override

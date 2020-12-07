@@ -7,9 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,18 +15,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "BILL")
@@ -62,8 +58,6 @@ public class Bill implements Serializable {
     @JoinColumn(name = "TABLENR", referencedColumnName = "TABLENR")
     @ManyToOne
     private Tables tablenr;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bill")
-    private List<Ordermenuitem> ordermenuitemList;
 
     public Bill() {
     }
@@ -118,15 +112,6 @@ public class Bill implements Serializable {
 
     public void setTablenr(Tables tablenr) {
         this.tablenr = tablenr;
-    }
-
-    @XmlTransient
-    public List<Ordermenuitem> getOrdermenuitemList() {
-        return ordermenuitemList;
-    }
-
-    public void setOrdermenuitemList(List<Ordermenuitem> ordermenuitemList) {
-        this.ordermenuitemList = ordermenuitemList;
     }
 
     @Override

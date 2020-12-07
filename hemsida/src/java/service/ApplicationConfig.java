@@ -32,7 +32,6 @@ public class ApplicationConfig extends Application {
         resources.add(service.BillFacadeREST.class);
         resources.add(service.EmployeeFacadeREST.class);
         resources.add(service.EventFacadeREST.class);
-        resources.add(service.InformationFacadeREST.class);
         resources.add(service.IngredientFacadeREST.class);
         resources.add(service.LunchFacadeREST.class);
         resources.add(service.MenuitemFacadeREST.class);
