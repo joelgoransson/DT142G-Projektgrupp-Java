@@ -27,9 +27,14 @@
 				<div class="front-menu">
 					<div class="front-menu-container">
                                             <h2 class="front-item">Dagens Lunch:</h2>                                     
-						<p class="front-item"></p> 
-						<p class="front-item">Kycklinglasagnesoppa</p>
-                                                
+                                            <h3>${indexBean.dayOfWeekString}</h3>
+						<p class="front-item">                                                    
+                                                    <c:forEach items="${lunchBean.getLunchToday()}" var="food">
+                                                        <li class="menu-item">
+                                                            <p>${food.name}</p>    
+                                                        </li>
+                                                    </c:forEach>                                          
+                                                </p>
 					</div>
 				</div>
 			</div>
