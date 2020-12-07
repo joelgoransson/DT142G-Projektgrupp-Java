@@ -44,7 +44,7 @@ CREATE TABLE OrderMenuItem(
     OrderItemNr INTEGER NOT NULL,
     MenuItemName VARCHAR(128),
     BillNr INTEGER,
-    FOREIGN KEY (MenuItemName) REFERENCES MenuItem(Name),
+    FOREIGN KEY (MenuItemName) REFERENCES MenuItem(Name) ON DELETE CASCADE,
     FOREIGN KEY (BillNr) REFERENCES Bill(ID),
     PRIMARY KEY (OrderItemNr, BillNr)
 );
