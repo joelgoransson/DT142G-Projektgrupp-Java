@@ -2,6 +2,7 @@ package com.example.orderapp1_2;
 
 import android.os.Bundle;
 
+import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.example.orderapp1_2.retorofit.classes.Order;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //retrofit functionen
         readXmlFeed();
-        readOrdersList();
+        //readOrdersList();
 
 
         listenerACTV = new AutoCompleteListener();
@@ -108,7 +110,8 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-                //createbill();
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                generateBill("OK",1,1, time);
                 //int billid = getbill();
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -290,7 +293,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void readOrdermenuList(){
-        System.out.println("hej");
+        System.out.println("readOrdermenyList out println");
         restaurantClient = RestaurantClient.getINSTANCE();
         Call<OrderList> call = restaurantClient.getOrder();
         call.enqueue(new Callback<OrderList>() {
@@ -356,7 +359,6 @@ public class ScrollingActivity extends AppCompatActivity {
         order.setBillnr(1);
         order.setComment("hej");
         order.setMenuitemname("Taco");
-        order.setOrderitemnr(5);
         order.setQuantity(5);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
@@ -394,6 +396,31 @@ public class ScrollingActivity extends AppCompatActivity {
          */
 
 
+
+    }
+    private void generateBill(String status, int tableid, int empid, Timestamp time)
+    {
+
+        System.out.println("generatingBill");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Bill bill = new Bill(status,tableid,empid,time);
+
+        Call<Bill> call = restaurantClient.createBill(bill);
+        call.enqueue(new Callback<Bill>() {
+            @Override
+            public void onResponse(Call<Bill> call, Response<Bill> response) {
+                Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+
+
+            }
+            @Override
+            public void onFailure(Call<Bill> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
 
     }
 }

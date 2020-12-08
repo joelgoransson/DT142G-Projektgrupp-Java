@@ -12,14 +12,12 @@ import java.util.List;
 @Root(name="ordermenuitem", strict = false)
 public class Order {
 
+
     @Element(name = "quantity", required = false)
     private int quantity;
 
     @Element(name = "comment",required = false)
     private String comment;
-
-    @Element(name = "orderitemnr",required = false)
-    private int orderitemnr;
 
     @Element(name = "menuitemname",required = false)
     private String menuitemname;
@@ -49,14 +47,6 @@ public class Order {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public int getOrderitemnr() {
-        return orderitemnr;
-    }
-
-    public void setOrderitemnr(int orderitemnr) {
-        this.orderitemnr = orderitemnr;
     }
 
     public String getMenuitemname() {

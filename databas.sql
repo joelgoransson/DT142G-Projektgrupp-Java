@@ -21,14 +21,13 @@ CREATE TABLE Employee(
 );
 
 CREATE TABLE Bill (
-    ID INTEGER NOT NULL PRIMARY KEY,
-    Date DATE,
+    ID INTEGER NOT NULL PRIMARY KEY
+        GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
     Status VARCHAR(40),
     TableNr INTEGER,
     EmployeeID INTEGER,
-    Time TIME,
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(ID),
-    FOREIGN KEY (TableNr) REFERENCES Tables(TableNr)
+    Time TIMESTAMP,
 );
 
 CREATE TABLE MenuItem (
@@ -39,14 +38,14 @@ CREATE TABLE MenuItem (
 );
 
 CREATE TABLE OrderMenuItem(
+    OrderItemNr INTEGER NOT NULL
+        GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
     Quantity INTEGER NOT NULL,
     Comment VARCHAR(55),
-    OrderItemNr INTEGER NOT NULL,
     MenuItemName VARCHAR(128),
     BillNr INTEGER,
-    FOREIGN KEY (MenuItemName) REFERENCES MenuItem(Name) ON DELETE CASCADE,
-    FOREIGN KEY (BillNr) REFERENCES Bill(ID),
-    PRIMARY KEY (OrderItemNr, BillNr)
+    PRIMARY KEY (OrderItemNr)
 );
 
 CREATE TABLE WeekDay(
