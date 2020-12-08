@@ -67,17 +67,17 @@ public class LunchBean implements Serializable {
     }
     
     public void submit(){
-        //list.forEach((key, value) -> {
-        //    //System.out.println(key + value);
-        //    action(key, value);
-        //});
+        list.forEach((key, value) -> {
+            //System.out.println(key + value);
+            action(key, value);
+        });
     }
     
-    public void action(int id, String name){
+    public void action(int id, Lunch item){
         try {
             utx.begin();
             em.joinTransaction();
-            em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
+            em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", item.getName()).setParameter("description", item.getDescription()).executeUpdate();
             utx.commit();
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
             Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
