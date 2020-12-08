@@ -105,21 +105,33 @@ INSERT INTO WeekDay VALUES (3, 'Torsdag');
 INSERT INTO WeekDay VALUES (4, 'Fredag');
 
 /* Day */ 
-INSERT INTO Lunch VALUES (0, 'Kycklinglasagnesoppa', 0);
-INSERT INTO Lunch VALUES (1, 'Gröt med mjölk på', 0);
-INSERT INTO Lunch VALUES (2, 'Hamburgare med beasås', 0);
-INSERT INTO Lunch VALUES (3, 'Kallops med pommes', 1);
-INSERT INTO Lunch VALUES (4, 'Pizza med apelsin på', 1);
-INSERT INTO Lunch VALUES (5, 'Friterad Lax', 1);
-INSERT INTO Lunch VALUES (6, 'Grillad morot', 2);
-INSERT INTO Lunch VALUES (7, 'Spaghetti med lök', 2);
-INSERT INTO Lunch VALUES (8, 'Gustafskorvmacka', 2);
-INSERT INTO Lunch VALUES (9, 'Råbiff', 3);
-INSERT INTO Lunch VALUES (10, 'Grillad Sushi', 3);
-INSERT INTO Lunch VALUES (11, 'Kalops med fish and chips', 3);
-INSERT INTO Lunch VALUES (12, 'Pommeskryddad plankstek', 4);
-INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4);
-INSERT INTO Lunch VALUES (14, 'Kebarulle', 4);
+INSERT INTO Lunch VALUES (0, 'Kycklinglasagnesoppa', 0, 'Perfektion');
+INSERT INTO Lunch VALUES (1, 'Gröt med mjölk på', 0, 'God julmat');
+INSERT INTO Lunch VALUES (2, 'Hamburgare med beasås', 0, 'Bra Combo');
+INSERT INTO Lunch VALUES (3, 'Kallops med pommes', 1, 'Pommes är gott iaf');
+INSERT INTO Lunch VALUES (4, 'Pizza med apelsin på', 1, 'Svensk klassiker');
+INSERT INTO Lunch VALUES (5, 'Friterad Lax', 1, 'Friterat är gott!');
+INSERT INTO Lunch VALUES (6, 'Grillad morot', 2, 'Grillat är gott!');
+INSERT INTO Lunch VALUES (7, 'Spaghetti med lök', 2, 'Bättre än fisk iaf');
+INSERT INTO Lunch VALUES (8, 'Gustafskorvmacka', 2, 'Som en äkta dalmas');
+INSERT INTO Lunch VALUES (9, 'Råbiff', 3, 'Fransk klassiker');
+INSERT INTO Lunch VALUES (10, 'Grillad Sushi', 3, 'Japanskt');
+INSERT INTO Lunch VALUES (11, 'Kalops med fish and chips', 3, 'Svengelska');
+INSERT INTO Lunch VALUES (12, 'Pommeskryddad plankstek', 4, 'Eh');
+INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4, 'Mums');
+INSERT INTO Lunch VALUES (14, 'Kebarulle', 4, 'Riktigt gott');
+
+/* Menuitem */
+INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'förrätt', 10);
+INSERT INTO Menuitem VALUES ('Anklever', 185, 'förrätt', 10);
+INSERT INTO Menuitem VALUES ('Grillad antrecôte', 230, 'huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Grönt', 195, 'huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Mousse', 195, 'efterrätt', 10);
+INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'efterrätt', 10);
+INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'dryck', 10);
+INSERT INTO Menuitem VALUES ('Coca cola', 25, 'dryck', 10);
+INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'dryck', 10);
 
 /* EVENT */
 INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
