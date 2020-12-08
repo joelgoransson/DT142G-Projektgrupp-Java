@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "MENUITEM")
@@ -54,8 +54,6 @@ public class Menuitem implements Serializable {
     private Double preptime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuitem")
     private List<Menuitemhasingredient> menuitemhasingredientList;
-    @OneToMany(mappedBy = "menuitemname")
-    private List<Ordermenuitem> ordermenuitemList;
 
     public Menuitem() {
     }
@@ -103,15 +101,6 @@ public class Menuitem implements Serializable {
 
     public void setMenuitemhasingredientList(List<Menuitemhasingredient> menuitemhasingredientList) {
         this.menuitemhasingredientList = menuitemhasingredientList;
-    }
-
-    @XmlTransient
-    public List<Ordermenuitem> getOrdermenuitemList() {
-        return ordermenuitemList;
-    }
-
-    public void setOrdermenuitemList(List<Ordermenuitem> ordermenuitemList) {
-        this.ordermenuitemList = ordermenuitemList;
     }
 
     @Override

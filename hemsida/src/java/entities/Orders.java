@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
     @NamedQuery(name = "Orders.findByOrderid", query = "SELECT o FROM Orders o WHERE o.orderid = :orderid"),
-    @NamedQuery(name = "Orders.findByDish", query = "SELECT o FROM Orders o WHERE o.dish = :dish")})
+    @NamedQuery(name = "Orders.findByDish", query = "SELECT o FROM Orders o WHERE o.dish = :dish"),
+    @NamedQuery(name = "Orders.findByTableid", query = "SELECT o FROM Orders o WHERE o.tableid = :tableid")})
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +41,8 @@ public class Orders implements Serializable {
     @Size(max = 100)
     @Column(name = "DISH")
     private String dish;
+    @Column(name = "TABLEID")
+    private Integer tableid;
 
     public Orders() {
     }
@@ -62,6 +65,14 @@ public class Orders implements Serializable {
 
     public void setDish(String dish) {
         this.dish = dish;
+    }
+
+    public Integer getTableid() {
+        return tableid;
+    }
+
+    public void setTableid(Integer tableid) {
+        this.tableid = tableid;
     }
 
     @Override

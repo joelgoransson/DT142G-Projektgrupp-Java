@@ -6,10 +6,10 @@ import org.simpleframework.xml.Root;
 
 @Root(name="orders", strict = false)
 public class Orders {
-    /*
-    @Element(name = "orderid")
-    private int orderid;
-    */
+
+    @Element(name = "tableid",required = false)
+    private int tableid;
+
 
     @Element(name = "dish",required = false)
     private String dish;
@@ -18,22 +18,22 @@ public class Orders {
 
     }
 
-    public Orders(//@Element(name = "orderid") int orderid,
+    public Orders(@Element(name = "tableid") int tableid,
                   @Element(name = "dish")  String dish) {
-        /*this.orderid = orderid;*/
+        this.tableid = tableid;
         this.dish = dish;
 
     }
 
-    /*
+
     public int getOrderid() {
-        return orderid;
+        return tableid;
     }
 
     public void setOrderid(int orderid) {
-        this.orderid = orderid;
+        this.tableid = tableid;
     }
-    */
+
     public String getDish() {
         return dish;
     }

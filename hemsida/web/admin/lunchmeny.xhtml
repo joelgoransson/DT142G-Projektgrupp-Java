@@ -13,7 +13,9 @@
             <c:forEach items="${lunchBean.days}" var="day">
                 <h2 class="form-title">${day.name}</h2>
                 <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
-                    <h:inputText class="form-input" value="#{lunchBean.list[food.id]}"/>
+                    <h:inputText class="form-input" value="#{lunchBean.list[food.id].getName()}"/>
+                    <h:inputText class="form-input" value="#{lunchBean.list[food.id].getDescription()}"/>
+                    <hr/>
                 </c:forEach>
             </c:forEach>
             <h:commandButton class="form-buttom" id="submit" value="Submit" action="${lunchBean.submit}"/>

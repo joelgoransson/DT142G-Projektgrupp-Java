@@ -24,7 +24,7 @@ import javax.ws.rs.core.PathSegment;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Stateless
 @Path("entities.menuitemhasingredient")

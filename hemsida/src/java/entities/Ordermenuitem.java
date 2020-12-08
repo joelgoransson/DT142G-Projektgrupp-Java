@@ -8,10 +8,10 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,22 +21,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "ORDERMENUITEM")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ordermenuitem.findAll", query = "SELECT o FROM Ordermenuitem o"),
+    @NamedQuery(name = "Ordermenuitem.findByOrderitemnr", query = "SELECT o FROM Ordermenuitem o WHERE o.orderitemnr = :orderitemnr"),
     @NamedQuery(name = "Ordermenuitem.findByQuantity", query = "SELECT o FROM Ordermenuitem o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "Ordermenuitem.findByComment", query = "SELECT o FROM Ordermenuitem o WHERE o.comment = :comment"),
-    @NamedQuery(name = "Ordermenuitem.findByOrderitemnr", query = "SELECT o FROM Ordermenuitem o WHERE o.ordermenuitemPK.orderitemnr = :orderitemnr"),
-    @NamedQuery(name = "Ordermenuitem.findByBillnr", query = "SELECT o FROM Ordermenuitem o WHERE o.ordermenuitemPK.billnr = :billnr")})
+    @NamedQuery(name = "Ordermenuitem.findByMenuitemname", query = "SELECT o FROM Ordermenuitem o WHERE o.menuitemname = :menuitemname"),
+    @NamedQuery(name = "Ordermenuitem.findByBillnr", query = "SELECT o FROM Ordermenuitem o WHERE o.billnr = :billnr")})
 public class Ordermenuitem implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OrdermenuitemPK ordermenuitemPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ORDERITEMNR")
+    private Integer orderitemnr;
     @Basic(optional = false)
     @NotNull
     @Column(name = "QUANTITY")
@@ -44,35 +48,30 @@ public class Ordermenuitem implements Serializable {
     @Size(max = 55)
     @Column(name = "COMMENT")
     private String comment;
-    @JoinColumn(name = "BILLNR", referencedColumnName = "ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Bill bill;
-    @JoinColumn(name = "MENUITEMNAME", referencedColumnName = "NAME")
-    @ManyToOne
-    private Menuitem menuitemname;
+    @Size(max = 128)
+    @Column(name = "MENUITEMNAME")
+    private String menuitemname;
+    @Column(name = "BILLNR")
+    private Integer billnr;
 
     public Ordermenuitem() {
     }
 
-    public Ordermenuitem(OrdermenuitemPK ordermenuitemPK) {
-        this.ordermenuitemPK = ordermenuitemPK;
+    public Ordermenuitem(Integer orderitemnr) {
+        this.orderitemnr = orderitemnr;
     }
 
-    public Ordermenuitem(OrdermenuitemPK ordermenuitemPK, int quantity) {
-        this.ordermenuitemPK = ordermenuitemPK;
+    public Ordermenuitem(Integer orderitemnr, int quantity) {
+        this.orderitemnr = orderitemnr;
         this.quantity = quantity;
     }
 
-    public Ordermenuitem(int orderitemnr, int billnr) {
-        this.ordermenuitemPK = new OrdermenuitemPK(orderitemnr, billnr);
+    public Integer getOrderitemnr() {
+        return orderitemnr;
     }
 
-    public OrdermenuitemPK getOrdermenuitemPK() {
-        return ordermenuitemPK;
-    }
-
-    public void setOrdermenuitemPK(OrdermenuitemPK ordermenuitemPK) {
-        this.ordermenuitemPK = ordermenuitemPK;
+    public void setOrderitemnr(Integer orderitemnr) {
+        this.orderitemnr = orderitemnr;
     }
 
     public int getQuantity() {
@@ -91,26 +90,26 @@ public class Ordermenuitem implements Serializable {
         this.comment = comment;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
-    public Menuitem getMenuitemname() {
+    public String getMenuitemname() {
         return menuitemname;
     }
 
-    public void setMenuitemname(Menuitem menuitemname) {
+    public void setMenuitemname(String menuitemname) {
         this.menuitemname = menuitemname;
+    }
+
+    public Integer getBillnr() {
+        return billnr;
+    }
+
+    public void setBillnr(Integer billnr) {
+        this.billnr = billnr;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ordermenuitemPK != null ? ordermenuitemPK.hashCode() : 0);
+        hash += (orderitemnr != null ? orderitemnr.hashCode() : 0);
         return hash;
     }
 
@@ -121,7 +120,7 @@ public class Ordermenuitem implements Serializable {
             return false;
         }
         Ordermenuitem other = (Ordermenuitem) object;
-        if ((this.ordermenuitemPK == null && other.ordermenuitemPK != null) || (this.ordermenuitemPK != null && !this.ordermenuitemPK.equals(other.ordermenuitemPK))) {
+        if ((this.orderitemnr == null && other.orderitemnr != null) || (this.orderitemnr != null && !this.orderitemnr.equals(other.orderitemnr))) {
             return false;
         }
         return true;
@@ -129,7 +128,7 @@ public class Ordermenuitem implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Ordermenuitem[ ordermenuitemPK=" + ordermenuitemPK + " ]";
+        return "entities.Ordermenuitem[ orderitemnr=" + orderitemnr + " ]";
     }
     
 }

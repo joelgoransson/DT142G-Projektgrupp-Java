@@ -2,11 +2,13 @@ package com.example.orderapp1_2;
 
 import android.os.Bundle;
 
+import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.example.orderapp1_2.retorofit.classes.Order;
 import com.example.orderapp1_2.retorofit.classes.Orders;
 import com.example.orderapp1_2.retorofit.classes.OrdersList;
+import com.example.orderapp1_2.retorofit.classes.OrderList;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
     List<Orders> ordersList;
+    List<Order> orderList;
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
@@ -72,7 +76,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //retrofit functionen
         readXmlFeed();
-        readOrdersList();
+        //readOrdersList();
 
 
         listenerACTV = new AutoCompleteListener();
@@ -106,29 +110,44 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v) {
-
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                generateBill("OK",1,1, time);
+                //int billid = getbill();
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
-                    createOrder(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(1,"Taco", "Kall", 1);
+                    }
+
 
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
-                    createOrder(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(1,"Taco", "Kall", 1);
+                    }
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
-                    createOrder(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(1,"Taco", "Kall", 1);
+                    }
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
-                    createOrder(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
+                    String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
+                    if(test != null && !test.trim().isEmpty()){
+                        createOrder(1,"Taco", "Kall", 1);
+                    }
                 }
-
+                readOrdermenuList();
             }
 
         });
@@ -273,11 +292,52 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void createOrder(String dish)
-    {
-
+    private void readOrdermenuList(){
+        System.out.println("readOrdermenyList out println");
         restaurantClient = RestaurantClient.getINSTANCE();
-            Orders item = new Orders(dish);
+        Call<OrderList> call = restaurantClient.getOrder();
+        call.enqueue(new Callback<OrderList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
+            @Override
+            public void onResponse(Call<OrderList> call, Response<OrderList> response) {
+                Log.d("Respons sucess", response.message());
+
+                orderList = response.body().getOrderList(); //Spara response från databasen till menuList
+                for(Order order: orderList){
+                    System.out.println(order.getMenuitemname());
+                }
+
+
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<OrderList> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+            }
+        });
+
+    }
+
+    private void createOrder(int tableid, String dish, String comment, int billid)
+    {
+        /*
+        restaurantClient = RestaurantClient.getINSTANCE();
+            Orders item = new Orders(tid, dish );
         Call<Orders> call = restaurantClient.createOrdersItem(item);
         call.enqueue(new Callback<Orders>() {
             @Override
@@ -291,14 +351,23 @@ public class ScrollingActivity extends AppCompatActivity {
                 System.out.println("Response fail");
             }
         });
-        /*
+        //(5,"Bränt",1,"Taco",1)
+        */
+
         restaurantClient = RestaurantClient.getINSTANCE();
-        Order order = new Order(5,"Bränt",3,"Taco",1);
+        Order order = new Order();
+        order.setBillnr(1);
+        order.setComment("hej");
+        order.setMenuitemname("Taco");
+        order.setQuantity(5);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+
 
             }
             @Override
@@ -308,7 +377,7 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
         restaurantClient = RestaurantClient.getINSTANCE();
         MenuItem menuItem = new MenuItem("Kött",75,"Main",40);
         Call<MenuItem> call = restaurantClient.createMenuItem(menuItem);
@@ -327,6 +396,31 @@ public class ScrollingActivity extends AppCompatActivity {
          */
 
 
+
+    }
+    private void generateBill(String status, int tableid, int empid, Timestamp time)
+    {
+
+        System.out.println("generatingBill");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Bill bill = new Bill(status,tableid,empid,time);
+
+        Call<Bill> call = restaurantClient.createBill(bill);
+        call.enqueue(new Callback<Bill>() {
+            @Override
+            public void onResponse(Call<Bill> call, Response<Bill> response) {
+                Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+
+
+            }
+            @Override
+            public void onFailure(Call<Bill> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
 
     }
 }

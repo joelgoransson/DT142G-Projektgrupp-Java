@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Embeddable
 public class MenuitemhasingredientPK implements Serializable {

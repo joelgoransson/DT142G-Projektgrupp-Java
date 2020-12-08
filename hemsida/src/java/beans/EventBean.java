@@ -7,17 +7,25 @@ package beans;
 
 import entities.Event;
 import entities.Lunch;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.Part;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -38,6 +46,17 @@ public class EventBean implements Serializable {
     private javax.transaction.UserTransaction utx;
     
     Event newEvent;
+    private Part file;
+    private String savepath = System.getProperty("user.home") + "\\Documents\\Antons Skafferi\\";
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
+    
     
     public void createEvent(){
         newEvent = new Event();
@@ -60,9 +79,42 @@ public class EventBean implements Serializable {
             Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private String processFile(){
+        String fileName = Paths.get(getFile().getSubmittedFileName()).getFileName().toString();
+        
+        if(!Files.exists(Paths.get(savepath))){
+            try {    
+                Files.createDirectories(Paths.get(savepath));
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+        
+        if(Files.exists(Paths.get(savepath + fileName))){
+            int i = 0;
+            while(Files.exists(Paths.get(savepath + i + fileName))){
+                i++;
+            }
+            fileName = i + fileName;
+        }
+        
+        try (InputStream input = file.getInputStream()) {
+            Files.copy(input, Paths.get(savepath + fileName));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            // Show faces message?
+        }
+        return Paths.get(savepath + fileName).toString();
+    }
      
     public void submit(){
         newEvent.setId(findMaxID()+1);
+        String filepath = processFile();
+        System.out.println(filepath);
+        newEvent.setImage(filepath);
+        
         try {
             utx.begin();
             em.joinTransaction();

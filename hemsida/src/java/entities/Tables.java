@@ -6,22 +6,19 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "TABLES")
@@ -37,8 +34,6 @@ public class Tables implements Serializable {
     @NotNull
     @Column(name = "TABLENR")
     private Integer tablenr;
-    @OneToMany(mappedBy = "tablenr")
-    private List<Bill> billList;
 
     public Tables() {
     }
@@ -53,15 +48,6 @@ public class Tables implements Serializable {
 
     public void setTablenr(Integer tablenr) {
         this.tablenr = tablenr;
-    }
-
-    @XmlTransient
-    public List<Bill> getBillList() {
-        return billList;
-    }
-
-    public void setBillList(List<Bill> billList) {
-        this.billList = billList;
     }
 
     @Override

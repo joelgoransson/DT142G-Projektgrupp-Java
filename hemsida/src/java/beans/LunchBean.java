@@ -10,18 +10,14 @@ import entities.Lunch;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -41,7 +37,7 @@ public class LunchBean implements Serializable {
     @Resource
     private javax.transaction.UserTransaction utx;
     
-    private HashMap<Integer,String> list = new HashMap();
+    private HashMap<Integer,Lunch> list = new HashMap();
     /**
      * Creates a new instance of formBean
      */
@@ -54,7 +50,7 @@ public class LunchBean implements Serializable {
             em.joinTransaction();
             List<Lunch> resultList = em.createNamedQuery("Lunch.findAll", Lunch.class).getResultList();
             for (Lunch lunch : resultList) {
-                 list.put(lunch.getId(), lunch.getName());
+                 list.put(lunch.getId(), lunch);
             }
             utx.commit();
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
@@ -62,19 +58,19 @@ public class LunchBean implements Serializable {
         }
     }
 
-    public HashMap<Integer, String> getList() {
+    public HashMap<Integer, Lunch> getList() {
         return list;
     }
 
-    public void setList(HashMap<Integer, String> list) {
+    public void setList(HashMap<Integer, Lunch> list) {
         this.list=list;
     }
     
     public void submit(){
-        list.forEach((key, value) -> {
-            //System.out.println(key + value);
-            action(key, value);
-        });
+        //list.forEach((key, value) -> {
+        //    //System.out.println(key + value);
+        //    action(key, value);
+        //});
     }
     
     public void action(int id, String name){
@@ -94,6 +90,15 @@ public class LunchBean implements Serializable {
             list.put(lunch.getId(), lunch.getName());
         }
         list.forEach((k,v)->{System.out.println(k+" "+v);});*/
+        return resultList;
+    }
+    
+    public List<Lunch> getLunchToday(){
+        // Used to display todays lunch offer
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_WEEK);
+        day = day-2;
+        List<Lunch> resultList = em.createNamedQuery("Lunch.findByDay", Lunch.class).setParameter("day", day).getResultList();
         return resultList;
     }
     

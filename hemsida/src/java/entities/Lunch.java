@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Joel
+ * @author kahre
  */
 @Entity
 @Table(name = "LUNCH")
@@ -46,6 +46,9 @@ public class Lunch implements Serializable {
     @JoinColumn(name = "WEEKDAY", referencedColumnName = "ID")
     @ManyToOne
     private Weekday weekday;
+    @Size(max = 200)
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     public Lunch() {
     }
@@ -76,6 +79,14 @@ public class Lunch implements Serializable {
 
     public void setWeekday(Weekday weekday) {
         this.weekday = weekday;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

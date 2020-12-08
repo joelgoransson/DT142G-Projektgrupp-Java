@@ -25,6 +25,15 @@ public interface ResturantInterface {
     @POST("entities.ordermenuitem") //länk till till API på sidan
     Call<Order> createOrder(@Body Order order);
 
+    @GET("entities.ordermenuitem") //länk till till API på sidan
+    Call<OrderList> getOrderItem();
+
+
+    @POST("entities.bill") //länk till till API på sidan
+    Call<Bill> createBill(@Body Bill bill);
+
+    @GET("entities.bill") //länk till till API på sidan
+    Call<Bill> getBill();
 
 
 }
