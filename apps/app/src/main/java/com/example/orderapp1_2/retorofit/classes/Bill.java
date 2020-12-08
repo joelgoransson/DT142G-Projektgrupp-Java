@@ -22,7 +22,8 @@ public class Bill {
     @Element(name = "time", required = false) //Namnet på det elementet i API
     private String time;
 
-    public Bill( @Element(name = "status") String status,
+    public Bill(
+                @Element(name = "status") String status,
                  @Element(name = "tablenr") int tablenr,
                  @Element(name = "employeeid") int employeeid,
                  @Element(name = "time") String time
@@ -33,19 +34,22 @@ public class Bill {
         this.employeeid = employeeid;
         this.time = time;
     }
-
-    public Bill( @Element(name = "id") int id,
-                 @Element(name = "status") String status,
-                 @Element(name = "tablenr") int tablenr,
-                 @Element(name = "employeeid") int employeeid,
-                 @Element(name = "time") String time
+    public Bill(@Element(name = "id")  int id,
+                @Element(name = "status") String status,
+                @Element(name = "tablenr") int tablenr,
+                @Element(name = "employeeid") int employeeid,
+                @Element(name = "time") String time
     ) {
-        this.id = id;
+
         this.status = status;
         this.tablenr = tablenr;
         this.employeeid = employeeid;
         this.time = time;
+        this.id = id;
     }
+
+
+
 
     public String getStatus() {
         return status;
