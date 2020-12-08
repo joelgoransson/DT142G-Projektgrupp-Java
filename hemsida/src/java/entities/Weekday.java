@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Entity
 @Table(name = "WEEKDAY")

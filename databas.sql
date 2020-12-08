@@ -41,7 +41,6 @@ CREATE TABLE OrderMenuItem(
     OrderItemNr INTEGER NOT NULL
         GENERATED ALWAYS AS IDENTITY
         (START WITH 1, INCREMENT BY 1),
-    Quantity INTEGER NOT NULL,
     Comment VARCHAR(55),
     MenuItemName VARCHAR(128),
     BillNr INTEGER,
@@ -75,8 +74,7 @@ CREATE TABLE Pass (
     ID INTEGER NOT NULL 
         GENERATED ALWAYS AS IDENTITY
         (START WITH 1, INCREMENT BY 1),
-    StartTime VARCHAR(40),
-    StopTime VARCHAR(40),
+    Pass INTEGER,
     Date DATE,
     EmployeeID INTEGER,
     PRIMARY KEY(Id)
@@ -135,3 +133,26 @@ INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'dryck', 10);
 
 /* EVENT */
 INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
+
+/* PASS */
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-08', 0);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-08', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-08', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-08', 2);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-09', 0);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-09', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-09', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-09', 2);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-10', 0);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-10', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-10', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-10', 2);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-11', 0);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-11', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-11', 1);
+INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-11', 2);
+
+/* EMPLOYEE */
+INSERT INTO Employee VALUES (0, 'Joel', 'Hej123');
+INSERT INTO Employee VALUES (1, 'Kahre', 'Wow1337');
+INSERT INTO Employee VALUES (2, 'Jocke', 'Wowjocke');

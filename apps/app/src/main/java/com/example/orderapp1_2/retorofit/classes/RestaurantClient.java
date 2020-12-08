@@ -5,7 +5,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class RestaurantClient {
-    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.6:8080/Hemsida/webresources/";
     private ResturantInterface resturantInterface;
     private static RestaurantClient INSTANCE;
 
@@ -37,7 +37,7 @@ public class RestaurantClient {
     {
         return resturantInterface.getOrderItem();
     }
-    public Call<Bill> getBill()
+    public Call<BillList> getBill()
     {
         return resturantInterface.getBill();
     }
