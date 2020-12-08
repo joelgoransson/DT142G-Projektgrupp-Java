@@ -10,15 +10,14 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,32 +31,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b"),
     @NamedQuery(name = "Bill.findById", query = "SELECT b FROM Bill b WHERE b.id = :id"),
-    @NamedQuery(name = "Bill.findByDate", query = "SELECT b FROM Bill b WHERE b.date = :date"),
     @NamedQuery(name = "Bill.findByStatus", query = "SELECT b FROM Bill b WHERE b.status = :status"),
+    @NamedQuery(name = "Bill.findByTablenr", query = "SELECT b FROM Bill b WHERE b.tablenr = :tablenr"),
+    @NamedQuery(name = "Bill.findByEmployeeid", query = "SELECT b FROM Bill b WHERE b.employeeid = :employeeid"),
     @NamedQuery(name = "Bill.findByTime", query = "SELECT b FROM Bill b WHERE b.time = :time")})
 public class Bill implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Date date;
     @Size(max = 40)
     @Column(name = "STATUS")
     private String status;
+    @Column(name = "TABLENR")
+    private Integer tablenr;
+    @Column(name = "EMPLOYEEID")
+    private Integer employeeid;
     @Column(name = "TIME")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @JoinColumn(name = "EMPLOYEEID", referencedColumnName = "ID")
-    @ManyToOne
-    private Employee employeeid;
-    @JoinColumn(name = "TABLENR", referencedColumnName = "TABLENR")
-    @ManyToOne
-    private Tables tablenr;
 
     public Bill() {
     }
@@ -74,14 +69,6 @@ public class Bill implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -90,28 +77,28 @@ public class Bill implements Serializable {
         this.status = status;
     }
 
+    public Integer getTablenr() {
+        return tablenr;
+    }
+
+    public void setTablenr(Integer tablenr) {
+        this.tablenr = tablenr;
+    }
+
+    public Integer getEmployeeid() {
+        return employeeid;
+    }
+
+    public void setEmployeeid(Integer employeeid) {
+        this.employeeid = employeeid;
+    }
+
     public Date getTime() {
         return time;
     }
 
     public void setTime(Date time) {
         this.time = time;
-    }
-
-    public Employee getEmployeeid() {
-        return employeeid;
-    }
-
-    public void setEmployeeid(Employee employeeid) {
-        this.employeeid = employeeid;
-    }
-
-    public Tables getTablenr() {
-        return tablenr;
-    }
-
-    public void setTablenr(Tables tablenr) {
-        this.tablenr = tablenr;
     }
 
     @Override
