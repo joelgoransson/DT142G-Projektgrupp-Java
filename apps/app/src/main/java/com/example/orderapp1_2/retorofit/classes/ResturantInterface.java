@@ -29,5 +29,11 @@ public interface ResturantInterface {
     Call<OrderList> getOrderItem();
 
 
+    @POST("entities.bill") //länk till till API på sidan
+    Call<Bill> createBill(@Body Bill bill);
+
+    @GET("entities.bill") //länk till till API på sidan
+    Call<Bill> getBill();
+
 
 }

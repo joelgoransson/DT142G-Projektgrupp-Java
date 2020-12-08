@@ -48,8 +48,6 @@ public class Employee implements Serializable {
     private String password;
     @OneToMany(mappedBy = "employeeid")
     private List<Pass> passList;
-    @OneToMany(mappedBy = "employeeid")
-    private List<Bill> billList;
 
     public Employee() {
     }
@@ -89,15 +87,6 @@ public class Employee implements Serializable {
 
     public void setPassList(List<Pass> passList) {
         this.passList = passList;
-    }
-
-    @XmlTransient
-    public List<Bill> getBillList() {
-        return billList;
-    }
-
-    public void setBillList(List<Bill> billList) {
-        this.billList = billList;
     }
 
     @Override

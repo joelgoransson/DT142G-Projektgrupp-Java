@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,14 +28,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ordermenuitem.findAll", query = "SELECT o FROM Ordermenuitem o"),
+    @NamedQuery(name = "Ordermenuitem.findByOrderitemnr", query = "SELECT o FROM Ordermenuitem o WHERE o.orderitemnr = :orderitemnr"),
     @NamedQuery(name = "Ordermenuitem.findByQuantity", query = "SELECT o FROM Ordermenuitem o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "Ordermenuitem.findByComment", query = "SELECT o FROM Ordermenuitem o WHERE o.comment = :comment"),
-    @NamedQuery(name = "Ordermenuitem.findByOrderitemnr", query = "SELECT o FROM Ordermenuitem o WHERE o.orderitemnr = :orderitemnr"),
     @NamedQuery(name = "Ordermenuitem.findByMenuitemname", query = "SELECT o FROM Ordermenuitem o WHERE o.menuitemname = :menuitemname"),
     @NamedQuery(name = "Ordermenuitem.findByBillnr", query = "SELECT o FROM Ordermenuitem o WHERE o.billnr = :billnr")})
 public class Ordermenuitem implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ORDERITEMNR")
+    private Integer orderitemnr;
     @Basic(optional = false)
     @NotNull
     @Column(name = "QUANTITY")
@@ -41,11 +48,6 @@ public class Ordermenuitem implements Serializable {
     @Size(max = 55)
     @Column(name = "COMMENT")
     private String comment;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ORDERITEMNR")
-    private Integer orderitemnr;
     @Size(max = 128)
     @Column(name = "MENUITEMNAME")
     private String menuitemname;
@@ -64,6 +66,14 @@ public class Ordermenuitem implements Serializable {
         this.quantity = quantity;
     }
 
+    public Integer getOrderitemnr() {
+        return orderitemnr;
+    }
+
+    public void setOrderitemnr(Integer orderitemnr) {
+        this.orderitemnr = orderitemnr;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -78,14 +88,6 @@ public class Ordermenuitem implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Integer getOrderitemnr() {
-        return orderitemnr;
-    }
-
-    public void setOrderitemnr(Integer orderitemnr) {
-        this.orderitemnr = orderitemnr;
     }
 
     public String getMenuitemname() {
