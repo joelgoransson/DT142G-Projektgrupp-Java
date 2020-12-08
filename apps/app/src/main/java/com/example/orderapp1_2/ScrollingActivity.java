@@ -3,6 +3,7 @@ package com.example.orderapp1_2;
 import android.os.Bundle;
 
 import com.example.orderapp1_2.retorofit.classes.Bill;
+import com.example.orderapp1_2.retorofit.classes.BillList;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.MenuItem;
 import com.example.orderapp1_2.retorofit.classes.Order;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.6:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
 
@@ -47,6 +48,8 @@ public class ScrollingActivity extends AppCompatActivity {
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
     List<String> drink = new ArrayList<>(); //en lista för namnen över alla olika drinkar
+    List<Bill> billList;
+    int maxBillID = 0;
 
     //De olika lägg till knapparna
     private ImageButton addStarterBtn;
@@ -113,7 +116,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 String time2 = time.toString();
                 generateBill("OK",1,1, time2);
-                //int billid = getbill();
+                readBillList();
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
@@ -424,4 +427,57 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
     }
+
+    private void readBillList(){
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<BillList> call = restaurantClient.getBill();
+        call.enqueue(new Callback<BillList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
+            @Override
+            public void onResponse(Call<BillList> call, Response<BillList> response) {
+                Log.d("Respons sucess", response.message());
+
+                billList = response.body().getBillList(); //Spara response från databasen till menuList
+                int maxID = 0;
+                int currentMaxID;
+                for(Bill bill: billList){
+                    System.out.println(bill.getId());
+                    currentMaxID = bill.getId();
+                    if (maxID<currentMaxID)
+                    {
+                        maxID = currentMaxID;
+                    }
+                }
+                setMaxID(maxID);
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<BillList> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+            }
+        });
+    }
+
+    private void setMaxID (int maxid)
+    {
+        maxBillID = maxid;
+        System.out.print("kolla här, det ändrades! ");
+        System.out.print(maxBillID);
+    }
+
 }

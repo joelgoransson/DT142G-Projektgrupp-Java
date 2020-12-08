@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 
 @Root(name="bill", strict = false)
 public class Bill {
+    @Element(name = "id", required = false) //Namnet på det elementet i API
+    private int id;
+
     @Element(name = "status", required = false) //Namnet på det elementet i API
     private String status;
 
@@ -25,6 +28,19 @@ public class Bill {
                  @Element(name = "time") String time
                  ) {
 
+        this.status = status;
+        this.tablenr = tablenr;
+        this.employeeid = employeeid;
+        this.time = time;
+    }
+
+    public Bill( @Element(name = "id") int id,
+                 @Element(name = "status") String status,
+                 @Element(name = "tablenr") int tablenr,
+                 @Element(name = "employeeid") int employeeid,
+                 @Element(name = "time") String time
+    ) {
+        this.id = id;
         this.status = status;
         this.tablenr = tablenr;
         this.employeeid = employeeid;
@@ -63,5 +79,11 @@ public class Bill {
         this.time = time;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
