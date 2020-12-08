@@ -27,7 +27,7 @@ CREATE TABLE Bill (
     Status VARCHAR(40),
     TableNr INTEGER,
     EmployeeID INTEGER,
-    Time TIMESTAMP,
+    Time VARCHAR(40)
 );
 
 CREATE TABLE MenuItem (
@@ -57,6 +57,7 @@ CREATE TABLE Lunch(
     ID INTEGER NOT NULL PRIMARY KEY,
     Name VARCHAR(128),
     WeekDay SMALLINT,
+    Description  VARCHAR(200),
     FOREIGN KEY (WeekDay) REFERENCES WeekDay(ID)
 );
 
@@ -71,12 +72,14 @@ CREATE TABLE Event (
 );
 
 CREATE TABLE Pass (
-    ID INTEGER NOT NULL PRIMARY KEY,
-    StartTime TIME,
-    StopTime TIME,
+    ID INTEGER NOT NULL 
+        GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+    StartTime VARCHAR(40),
+    StopTime VARCHAR(40),
     Date DATE,
     EmployeeID INTEGER,
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(ID)
+    PRIMARY KEY(Id)
 );
 
 CREATE TABLE Ingredient (
@@ -85,12 +88,11 @@ CREATE TABLE Ingredient (
 );
 
 CREATE TABLE MenuItemHasIngredient (
+    ID INTEGER not null,
     IngredientName VARCHAR(55),
     MenuItemName VARCHAR(128),
-    Quantity DOUBLE,
-    FOREIGN KEY (MenuItemName) REFERENCES MenuItem(Name),
-    FOREIGN KEY (IngredientName) REFERENCES Ingredient(Name),
-    PRIMARY KEY (MenuItemName, IngredientName)
+    Quantity INT,
+    PRIMARY KEY (Id)
 );
 
 /* INSERTS */

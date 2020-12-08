@@ -10,15 +10,15 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,27 +33,27 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Pass.findById", query = "SELECT p FROM Pass p WHERE p.id = :id"),
     @NamedQuery(name = "Pass.findByStarttime", query = "SELECT p FROM Pass p WHERE p.starttime = :starttime"),
     @NamedQuery(name = "Pass.findByStoptime", query = "SELECT p FROM Pass p WHERE p.stoptime = :stoptime"),
-    @NamedQuery(name = "Pass.findByDate", query = "SELECT p FROM Pass p WHERE p.date = :date")})
+    @NamedQuery(name = "Pass.findByDate", query = "SELECT p FROM Pass p WHERE p.date = :date"),
+    @NamedQuery(name = "Pass.findByEmployeeid", query = "SELECT p FROM Pass p WHERE p.employeeid = :employeeid")})
 public class Pass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID")
     private Integer id;
+    @Size(max = 40)
     @Column(name = "STARTTIME")
-    @Temporal(TemporalType.TIME)
-    private Date starttime;
+    private String starttime;
+    @Size(max = 40)
     @Column(name = "STOPTIME")
-    @Temporal(TemporalType.TIME)
-    private Date stoptime;
+    private String stoptime;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @JoinColumn(name = "EMPLOYEEID", referencedColumnName = "ID")
-    @ManyToOne
-    private Employee employeeid;
+    @Column(name = "EMPLOYEEID")
+    private Integer employeeid;
 
     public Pass() {
     }
@@ -70,19 +70,19 @@ public class Pass implements Serializable {
         this.id = id;
     }
 
-    public Date getStarttime() {
+    public String getStarttime() {
         return starttime;
     }
 
-    public void setStarttime(Date starttime) {
+    public void setStarttime(String starttime) {
         this.starttime = starttime;
     }
 
-    public Date getStoptime() {
+    public String getStoptime() {
         return stoptime;
     }
 
-    public void setStoptime(Date stoptime) {
+    public void setStoptime(String stoptime) {
         this.stoptime = stoptime;
     }
 
@@ -94,11 +94,11 @@ public class Pass implements Serializable {
         this.date = date;
     }
 
-    public Employee getEmployeeid() {
+    public Integer getEmployeeid() {
         return employeeid;
     }
 
-    public void setEmployeeid(Employee employeeid) {
+    public void setEmployeeid(Integer employeeid) {
         this.employeeid = employeeid;
     }
 

@@ -6,20 +6,16 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,8 +39,6 @@ public class Ingredient implements Serializable {
     private String name;
     @Column(name = "AMOUNT")
     private Integer amount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingredient")
-    private List<Menuitemhasingredient> menuitemhasingredientList;
 
     public Ingredient() {
     }
@@ -67,15 +61,6 @@ public class Ingredient implements Serializable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
-    }
-
-    @XmlTransient
-    public List<Menuitemhasingredient> getMenuitemhasingredientList() {
-        return menuitemhasingredientList;
-    }
-
-    public void setMenuitemhasingredientList(List<Menuitemhasingredient> menuitemhasingredientList) {
-        this.menuitemhasingredientList = menuitemhasingredientList;
     }
 
     @Override

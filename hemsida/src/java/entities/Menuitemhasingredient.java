@@ -6,14 +6,15 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,71 +26,70 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Menuitemhasingredient.findAll", query = "SELECT m FROM Menuitemhasingredient m"),
-    @NamedQuery(name = "Menuitemhasingredient.findByIngredientname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.menuitemhasingredientPK.ingredientname = :ingredientname"),
-    @NamedQuery(name = "Menuitemhasingredient.findByMenuitemname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.menuitemhasingredientPK.menuitemname = :menuitemname"),
+    @NamedQuery(name = "Menuitemhasingredient.findById", query = "SELECT m FROM Menuitemhasingredient m WHERE m.id = :id"),
+    @NamedQuery(name = "Menuitemhasingredient.findByIngredientname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.ingredientname = :ingredientname"),
+    @NamedQuery(name = "Menuitemhasingredient.findByMenuitemname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.menuitemname = :menuitemname"),
     @NamedQuery(name = "Menuitemhasingredient.findByQuantity", query = "SELECT m FROM Menuitemhasingredient m WHERE m.quantity = :quantity")})
 public class Menuitemhasingredient implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected MenuitemhasingredientPK menuitemhasingredientPK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ID")
+    private Integer id;
+    @Size(max = 55)
+    @Column(name = "INGREDIENTNAME")
+    private String ingredientname;
+    @Size(max = 128)
+    @Column(name = "MENUITEMNAME")
+    private String menuitemname;
     @Column(name = "QUANTITY")
-    private Double quantity;
-    @JoinColumn(name = "INGREDIENTNAME", referencedColumnName = "NAME", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Ingredient ingredient;
-    @JoinColumn(name = "MENUITEMNAME", referencedColumnName = "NAME", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Menuitem menuitem;
+    private Integer quantity;
 
     public Menuitemhasingredient() {
     }
 
-    public Menuitemhasingredient(MenuitemhasingredientPK menuitemhasingredientPK) {
-        this.menuitemhasingredientPK = menuitemhasingredientPK;
+    public Menuitemhasingredient(Integer id) {
+        this.id = id;
     }
 
-    public Menuitemhasingredient(String ingredientname, String menuitemname) {
-        this.menuitemhasingredientPK = new MenuitemhasingredientPK(ingredientname, menuitemname);
+    public Integer getId() {
+        return id;
     }
 
-    public MenuitemhasingredientPK getMenuitemhasingredientPK() {
-        return menuitemhasingredientPK;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setMenuitemhasingredientPK(MenuitemhasingredientPK menuitemhasingredientPK) {
-        this.menuitemhasingredientPK = menuitemhasingredientPK;
+    public String getIngredientname() {
+        return ingredientname;
     }
 
-    public Double getQuantity() {
+    public void setIngredientname(String ingredientname) {
+        this.ingredientname = ingredientname;
+    }
+
+    public String getMenuitemname() {
+        return menuitemname;
+    }
+
+    public void setMenuitemname(String menuitemname) {
+        this.menuitemname = menuitemname;
+    }
+
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public Menuitem getMenuitem() {
-        return menuitem;
-    }
-
-    public void setMenuitem(Menuitem menuitem) {
-        this.menuitem = menuitem;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (menuitemhasingredientPK != null ? menuitemhasingredientPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +100,7 @@ public class Menuitemhasingredient implements Serializable {
             return false;
         }
         Menuitemhasingredient other = (Menuitemhasingredient) object;
-        if ((this.menuitemhasingredientPK == null && other.menuitemhasingredientPK != null) || (this.menuitemhasingredientPK != null && !this.menuitemhasingredientPK.equals(other.menuitemhasingredientPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class Menuitemhasingredient implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Menuitemhasingredient[ menuitemhasingredientPK=" + menuitemhasingredientPK + " ]";
+        return "entities.Menuitemhasingredient[ id=" + id + " ]";
     }
     
 }

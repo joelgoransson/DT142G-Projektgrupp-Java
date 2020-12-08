@@ -43,6 +43,9 @@ public class Lunch implements Serializable {
     @Size(max = 128)
     @Column(name = "NAME")
     private String name;
+    @Size(max = 200)
+    @Column(name = "DESCRIPTION")
+    private String description;
     @JoinColumn(name = "WEEKDAY", referencedColumnName = "ID")
     @ManyToOne
     private Weekday weekday;
@@ -68,6 +71,14 @@ public class Lunch implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Weekday getWeekday() {

@@ -111,7 +111,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
-                generateBill("OK",1,1, time);
+                String time2 = time.toString();
+                generateBill("OK",1,1, time2);
                 //int billid = getbill();
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -398,7 +399,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
 
     }
-    private void generateBill(String status, int tableid, int empid, Timestamp time)
+    private void generateBill(String status, int tableid, int empid, String time)
     {
 
         System.out.println("generatingBill");
