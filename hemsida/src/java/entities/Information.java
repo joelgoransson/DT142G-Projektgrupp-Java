@@ -6,57 +6,57 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Joel
  */
 @Entity
-@Table(name = "WEEKDAY")
+@Table(name = "INFORMATION")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Weekday.findAll", query = "SELECT w FROM Weekday w"),
-    @NamedQuery(name = "Weekday.findById", query = "SELECT w FROM Weekday w WHERE w.id = :id"),
-    @NamedQuery(name = "Weekday.findByName", query = "SELECT w FROM Weekday w WHERE w.name = :name")})
-public class Weekday implements Serializable {
+    @NamedQuery(name = "Information.findAll", query = "SELECT i FROM Information i"),
+    @NamedQuery(name = "Information.findByPlace", query = "SELECT i FROM Information i WHERE i.place = :place"),
+    @NamedQuery(name = "Information.findById", query = "SELECT i FROM Information i WHERE i.id = :id"),
+    @NamedQuery(name = "Information.findByContact", query = "SELECT i FROM Information i WHERE i.contact = :contact")})
+public class Information implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Size(max = 50)
+    @Column(name = "PLACE")
+    private String place;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID")
     private Short id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "NAME")
-    private String name;
-    @OneToMany(mappedBy = "weekday")
-    private List<Lunch> lunchList;
+    @Size(max = 100)
+    @Column(name = "CONTACT")
+    private String contact;
 
-    public Weekday() {
+    public Information() {
     }
 
-    public Weekday(Short id) {
+    public Information(Short id) {
         this.id = id;
     }
 
-    public Weekday(Short id, String name) {
-        this.id = id;
-        this.name = name;
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public Short getId() {
@@ -67,21 +67,12 @@ public class Weekday implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getContact() {
+        return contact;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlTransient
-    public List<Lunch> getLunchList() {
-        return lunchList;
-    }
-
-    public void setLunchList(List<Lunch> lunchList) {
-        this.lunchList = lunchList;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     @Override
@@ -94,10 +85,10 @@ public class Weekday implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Weekday)) {
+        if (!(object instanceof Information)) {
             return false;
         }
-        Weekday other = (Weekday) object;
+        Information other = (Information) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -106,7 +97,7 @@ public class Weekday implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Weekday[ id=" + id + " ]";
+        return "entities.Information[ id=" + id + " ]";
     }
     
 }

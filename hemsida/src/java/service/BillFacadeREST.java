@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Stateless
 @Path("entities.bill")
