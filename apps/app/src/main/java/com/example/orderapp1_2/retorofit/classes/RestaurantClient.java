@@ -37,6 +37,10 @@ public class RestaurantClient {
     {
         return resturantInterface.getOrderItem();
     }
+    public Call<Bill> getBill()
+    {
+        return resturantInterface.getBill();
+    }
     public Call<Order> createOrder(Order order){return resturantInterface.createOrder(order);}
     public Call<Bill> createBill(Bill bill){return resturantInterface.createBill(bill);}
     public Call<MenuItem> createMenuItem(MenuItem menuItem){return resturantInterface.createMenuItem(menuItem);}

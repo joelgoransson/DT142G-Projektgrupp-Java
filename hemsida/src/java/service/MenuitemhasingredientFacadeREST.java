@@ -6,7 +6,6 @@
 package service;
 
 import entities.Menuitemhasingredient;
-import entities.MenuitemhasingredientPK;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +19,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.PathSegment;
 
 /**
  *
@@ -32,27 +30,6 @@ public class MenuitemhasingredientFacadeREST extends AbstractFacade<Menuitemhasi
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
-
-    private MenuitemhasingredientPK getPrimaryKey(PathSegment pathSegment) {
-        /*
-         * pathSemgent represents a URI path segment and any associated matrix parameters.
-         * URI path part is supposed to be in form of 'somePath;ingredientname=ingredientnameValue;menuitemname=menuitemnameValue'.
-         * Here 'somePath' is a result of getPath() method invocation and
-         * it is ignored in the following code.
-         * Matrix parameters are used as field names to build a primary key instance.
-         */
-        entities.MenuitemhasingredientPK key = new entities.MenuitemhasingredientPK();
-        javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
-        java.util.List<String> ingredientname = map.get("ingredientname");
-        if (ingredientname != null && !ingredientname.isEmpty()) {
-            key.setIngredientname(ingredientname.get(0));
-        }
-        java.util.List<String> menuitemname = map.get("menuitemname");
-        if (menuitemname != null && !menuitemname.isEmpty()) {
-            key.setMenuitemname(menuitemname.get(0));
-        }
-        return key;
-    }
 
     public MenuitemhasingredientFacadeREST() {
         super(Menuitemhasingredient.class);
@@ -68,23 +45,21 @@ public class MenuitemhasingredientFacadeREST extends AbstractFacade<Menuitemhasi
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") PathSegment id, Menuitemhasingredient entity) {
+    public void edit(@PathParam("id") Integer id, Menuitemhasingredient entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") PathSegment id) {
-        entities.MenuitemhasingredientPK key = getPrimaryKey(id);
-        super.remove(super.find(key));
+    public void remove(@PathParam("id") Integer id) {
+        super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Menuitemhasingredient find(@PathParam("id") PathSegment id) {
-        entities.MenuitemhasingredientPK key = getPrimaryKey(id);
-        return super.find(key);
+    public Menuitemhasingredient find(@PathParam("id") Integer id) {
+        return super.find(id);
     }
 
     @GET

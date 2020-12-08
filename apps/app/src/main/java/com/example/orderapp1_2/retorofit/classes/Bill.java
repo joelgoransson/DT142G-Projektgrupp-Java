@@ -17,12 +17,12 @@ public class Bill {
     private int employeeid;
 
     @Element(name = "time", required = false) //Namnet på det elementet i API
-    private Timestamp time;
+    private String time;
 
     public Bill( @Element(name = "status") String status,
                  @Element(name = "tablenr") int tablenr,
                  @Element(name = "employeeid") int employeeid,
-                 @Element(name = "time") Timestamp time
+                 @Element(name = "time") String time
                  ) {
 
         this.status = status;
@@ -55,11 +55,11 @@ public class Bill {
         this.employeeid = employeeid;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
