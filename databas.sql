@@ -131,6 +131,33 @@ INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'dryck', 10);
 INSERT INTO Menuitem VALUES ('Coca cola', 25, 'dryck', 10);
 INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'dryck', 10);
 
+/* INGREDIENTS */
+INSERT INTO Ingredient VALUES ('Bröd', 5);
+INSERT INTO Ingredient VALUES ('Anka', 10);
+INSERT INTO Ingredient VALUES ('Lever', 10);
+INSERT INTO Ingredient VALUES ('Grillkål', 5);
+INSERT INTO Ingredient VALUES ('Antrecôte', 5);
+INSERT INTO Ingredient VALUES ('Hjort', 12);
+INSERT INTO Ingredient VALUES ('Löv', 10);
+INSERT INTO Ingredient VALUES ('Något', 5);
+INSERT INTO Ingredient VALUES ('Socker', 5);
+INSERT INTO Ingredient VALUES ('Coca Cola', 10);
+INSERT INTO Ingredient VALUES ('Vatten', 10);
+
+/* MENUITEMHASINGREDIENT */
+INSERT INTO MenuItemHasIngredient VALUES (1, 'Bröd', 'Toast skagen', 5);
+INSERT INTO MenuItemHasIngredient VALUES (2, 'Anka', 'Anklever', 5);
+INSERT INTO MenuItemHasIngredient VALUES (3, 'Lever', 'Anklever', 15);
+INSERT INTO MenuItemHasIngredient VALUES (4, 'Grillkål', 'Grillad antrecôte', 15);
+INSERT INTO MenuItemHasIngredient VALUES (5, 'Antrecôte', 'Grillad antrecôte', 5);
+INSERT INTO MenuItemHasIngredient VALUES (6, 'Hjort', 'Kryddstekt hjortinnanlår', 15);
+INSERT INTO MenuItemHasIngredient VALUES (7, 'Löv', 'Grönt', 5);
+INSERT INTO MenuItemHasIngredient VALUES (8, 'Något', 'Mousse', 15);
+INSERT INTO MenuItemHasIngredient VALUES (9, 'Socker', 'Pannacotta', 5);
+INSERT INTO MenuItemHasIngredient VALUES (10, 'Vatten', 'Vatten deluxe', 15);
+INSERT INTO MenuItemHasIngredient VALUES (11, 'Coca Cola', 'Coca cola', 5);
+INSERT INTO MenuItemHasIngredient VALUES (12, 'Vatten', 'Ryskt vatten', 15);
+
 /* EVENT */
 INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
 
