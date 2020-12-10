@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SetArray">
+        <item>@string/Emp_1</item>
+        <item>@string/Emp_2</item>
+        <item>@string/Emp_3</item>
+        <item>@string/Emp_4</item>
+        <item>@string/Emp_5</item>
+    </string-array>
+</resources>
