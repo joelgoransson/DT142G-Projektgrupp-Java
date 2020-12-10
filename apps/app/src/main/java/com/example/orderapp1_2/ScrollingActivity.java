@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 import retrofit2.Call;
@@ -41,8 +42,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
-    private static final ReentrantLock lock = new ReentrantLock();
-    private static final ReentrantLock lock2 = new ReentrantLock();
+
+
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
     List<Orders> ordersList;
@@ -124,7 +125,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
                 generateBill("OK",1,1, time2);
 
-                readBillList();
+                //readBillList();
 
 
 
@@ -132,7 +133,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 new Thread(new Runnable(){
                     public void run(){
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(3000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -383,18 +384,22 @@ public class ScrollingActivity extends AppCompatActivity {
              */
             @Override
             public void onResponse(Call<BillList> call, Response<BillList> response) {
-                lock.lock();
-                try{
-                    Log.d("Respons sucess raedbill", response.message());
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                Log.d("Respons sucess raedbill", response.message());
 
                     billList = response.body().getBillList(); //Spara response från databasen till menuList
                     //haha :/
                     Bill temp =billList.get(billList.size()-1);
                     int test2 =temp.getId();
                     setMaxID(test2);
-                }finally{
-                    lock.unlock();
-                }
+
 
 
 
@@ -409,17 +414,26 @@ public class ScrollingActivity extends AppCompatActivity {
              */
             @Override
             public void onFailure(Call<BillList> call, Throwable t) {
-                lock.lock();
+
                 Log.d("Response fail", t.getMessage());
-                lock.unlock();
+
             }
         });
 
     }
     private  void setMaxID(int maxid){
         maxBillID = maxid;
-        System.out.println("maxid-setter:");
-        System.out.println(maxBillID);
+
+    }
+    private void lock() {
+
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        readBillList();
 
     }
 
@@ -502,25 +516,26 @@ public class ScrollingActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Bill> call, Response<Bill> response) {
-                lock.lock();
-                try{
+
+
                     Log.d("Response successful", response.message());
                     Log.d(Order.class.toString(),call.request().toString());
                     Log.d(Order.class.toString(),call.request().body().toString());
-                }finally{
-                    lock.unlock();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-
-
+                readBillList();
 
 
             }
             @Override
             public void onFailure(Call<Bill> call, Throwable t) {
-                lock.lock();
+
                 Log.d("Response fail", t.getMessage());
                 System.out.println("Response fail");
-                lock.unlock();
+
             }
         });
 
