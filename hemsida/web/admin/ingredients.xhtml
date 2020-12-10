@@ -1,0 +1,26 @@
+<ui:composition template="admintemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Ändra Lunchmeny</ui:define>
+
+    <ui:define name="body">
+        <h1>Add ingredients</h1>
+        ${ingredientBean.initList()}
+        <h:form>
+            <c:forEach items="${ingredientBean.menuItems}" var="item">
+                <h1>${item.name}</h1>
+                <c:forEach items="${ingredientBean.getMihiFromIngredients(item.name)}" var ="ingredient">
+                    <div class="form-input-half-container">
+                        <h:inputText class="form-input-half" value="${ingredient.ingredientname}"></h:inputText>
+                        <h:inputText class="form-input-half" value="${ingredient.quantity}"></h:inputText>
+                    </div>
+                </c:forEach>
+            </c:forEach>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${ingredientBean.submit()}" />
+        </h:form>
+    </ui:define>
+</ui:composition>
