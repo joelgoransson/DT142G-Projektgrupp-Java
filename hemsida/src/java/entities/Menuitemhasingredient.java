@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Entity
 @Table(name = "MENUITEMHASINGREDIENT")
@@ -27,6 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Menuitemhasingredient.findAll", query = "SELECT m FROM Menuitemhasingredient m"),
     @NamedQuery(name = "Menuitemhasingredient.findById", query = "SELECT m FROM Menuitemhasingredient m WHERE m.id = :id"),
+    @NamedQuery(name = "Menuitemhasingredient.deleteByIngredientname", query = "DELETE FROM Menuitemhasingredient m WHERE m.ingredientname = :ingredientname"),
+    @NamedQuery(name = "Menuitemhasingredient.deleteAll", query = "DELETE FROM Menuitemhasingredient m"),
+    @NamedQuery(name = "Menuitemhasingredient.sortByID", query = "SELECT e FROM Menuitemhasingredient e ORDER BY e.id desc"),
     @NamedQuery(name = "Menuitemhasingredient.findByIngredientname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.ingredientname = :ingredientname"),
     @NamedQuery(name = "Menuitemhasingredient.findByMenuitemname", query = "SELECT m FROM Menuitemhasingredient m WHERE m.menuitemname = :menuitemname"),
     @NamedQuery(name = "Menuitemhasingredient.findByQuantity", query = "SELECT m FROM Menuitemhasingredient m WHERE m.quantity = :quantity")})

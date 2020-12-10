@@ -94,6 +94,17 @@ body, html, main {
     color: #574427;
     background-color: white;
 }
+.form-input-half-container{
+    display: flex;
+}
+.form-input-half{
+    flex-grow: 1;
+    margin: 0;
+    margin-top: 0.3em; 
+    margin-bottom: 0.3em; 
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
 
 /* DELETE */
 .delete-button{ 

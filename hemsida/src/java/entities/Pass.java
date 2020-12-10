@@ -18,12 +18,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Entity
 @Table(name = "PASS")
@@ -31,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Pass.findAll", query = "SELECT p FROM Pass p"),
     @NamedQuery(name = "Pass.findById", query = "SELECT p FROM Pass p WHERE p.id = :id"),
-    @NamedQuery(name = "Pass.findByStarttime", query = "SELECT p FROM Pass p WHERE p.starttime = :starttime"),
-    @NamedQuery(name = "Pass.findByStoptime", query = "SELECT p FROM Pass p WHERE p.stoptime = :stoptime"),
+    @NamedQuery(name = "Pass.findByPass", query = "SELECT p FROM Pass p WHERE p.pass = :pass"),
     @NamedQuery(name = "Pass.findByDate", query = "SELECT p FROM Pass p WHERE p.date = :date"),
     @NamedQuery(name = "Pass.findByEmployeeid", query = "SELECT p FROM Pass p WHERE p.employeeid = :employeeid")})
 public class Pass implements Serializable {
@@ -43,12 +41,8 @@ public class Pass implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 40)
-    @Column(name = "STARTTIME")
-    private String starttime;
-    @Size(max = 40)
-    @Column(name = "STOPTIME")
-    private String stoptime;
+    @Column(name = "PASS")
+    private Integer pass;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -70,20 +64,12 @@ public class Pass implements Serializable {
         this.id = id;
     }
 
-    public String getStarttime() {
-        return starttime;
+    public Integer getPass() {
+        return pass;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
-    }
-
-    public String getStoptime() {
-        return stoptime;
-    }
-
-    public void setStoptime(String stoptime) {
-        this.stoptime = stoptime;
+    public void setPass(Integer pass) {
+        this.pass = pass;
     }
 
     public Date getDate() {

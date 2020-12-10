@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Entity
 @Table(name = "LUNCH")
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Lunch.findAll", query = "SELECT l FROM Lunch l"),
     @NamedQuery(name = "Lunch.findById", query = "SELECT l FROM Lunch l WHERE l.id = :id"),
     @NamedQuery(name = "Lunch.findByDay", query = "SELECT l FROM Lunch l WHERE l.weekday.id = :day"),
-    @NamedQuery(name = "Lunch.updateById", query = "UPDATE Lunch l SET l.name = :name WHERE l.id = :id"),
+    @NamedQuery(name = "Lunch.updateById", query = "UPDATE Lunch l SET l.name = :name , l.description = :description WHERE l.id = :id"),
     @NamedQuery(name = "Lunch.findByName", query = "SELECT l FROM Lunch l WHERE l.name = :name")})
 public class Lunch implements Serializable {
 

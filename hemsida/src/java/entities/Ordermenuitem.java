@@ -15,13 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author kahre
+ * @author Joel
  */
 @Entity
 @Table(name = "ORDERMENUITEM")
@@ -29,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Ordermenuitem.findAll", query = "SELECT o FROM Ordermenuitem o"),
     @NamedQuery(name = "Ordermenuitem.findByOrderitemnr", query = "SELECT o FROM Ordermenuitem o WHERE o.orderitemnr = :orderitemnr"),
-    @NamedQuery(name = "Ordermenuitem.findByQuantity", query = "SELECT o FROM Ordermenuitem o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "Ordermenuitem.findByComment", query = "SELECT o FROM Ordermenuitem o WHERE o.comment = :comment"),
     @NamedQuery(name = "Ordermenuitem.findByMenuitemname", query = "SELECT o FROM Ordermenuitem o WHERE o.menuitemname = :menuitemname"),
     @NamedQuery(name = "Ordermenuitem.findByBillnr", query = "SELECT o FROM Ordermenuitem o WHERE o.billnr = :billnr")})
@@ -41,10 +39,6 @@ public class Ordermenuitem implements Serializable {
     @Basic(optional = false)
     @Column(name = "ORDERITEMNR")
     private Integer orderitemnr;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "QUANTITY")
-    private int quantity;
     @Size(max = 55)
     @Column(name = "COMMENT")
     private String comment;
@@ -61,25 +55,12 @@ public class Ordermenuitem implements Serializable {
         this.orderitemnr = orderitemnr;
     }
 
-    public Ordermenuitem(Integer orderitemnr, int quantity) {
-        this.orderitemnr = orderitemnr;
-        this.quantity = quantity;
-    }
-
     public Integer getOrderitemnr() {
         return orderitemnr;
     }
 
     public void setOrderitemnr(Integer orderitemnr) {
         this.orderitemnr = orderitemnr;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getComment() {
