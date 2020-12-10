@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.Pass;
+import entities.Employeepasses;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author joaki
  */
 @Stateless
-@Path("entities.pass")
-public class PassFacadeREST extends AbstractFacade<Pass> {
+@Path("entities.employeepasses")
+public class EmployeepassesFacadeREST extends AbstractFacade<Employeepasses> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
 
-    public PassFacadeREST() {
-        super(Pass.class);
+    public EmployeepassesFacadeREST() {
+        super(Employeepasses.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Pass entity) {
+    public void create(Employeepasses entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Pass entity) {
+    public void edit(@PathParam("id") Integer id, Employeepasses entity) {
         super.edit(entity);
     }
 
@@ -58,22 +58,21 @@ public class PassFacadeREST extends AbstractFacade<Pass> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Pass find(@PathParam("id") Integer id) {
+    public Employeepasses find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Pass> findAll() {
+    public List<Employeepasses> findAll() {
         return super.findAll();
     }
-    
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Pass> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Employeepasses> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

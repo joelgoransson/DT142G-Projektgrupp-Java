@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Joel
+ * @author joaki
  */
 @Entity
 @Table(name = "PASS")
@@ -30,8 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Pass.findAll", query = "SELECT p FROM Pass p"),
     @NamedQuery(name = "Pass.findById", query = "SELECT p FROM Pass p WHERE p.id = :id"),
-    @NamedQuery(name = "Pass.findByPass", query = "SELECT p FROM Pass p WHERE p.pass = :pass"),
+    @NamedQuery(name = "Pass.findByPassnr", query = "SELECT p FROM Pass p WHERE p.passnr = :passnr"),
     @NamedQuery(name = "Pass.findByDate", query = "SELECT p FROM Pass p WHERE p.date = :date"),
+    @NamedQuery(name = "Pass.findByWeekday", query = "SELECT p FROM Pass p WHERE p.weekday = :weekday"),
     @NamedQuery(name = "Pass.findByEmployeeid", query = "SELECT p FROM Pass p WHERE p.employeeid = :employeeid")})
 public class Pass implements Serializable {
 
@@ -41,11 +42,13 @@ public class Pass implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "PASS")
-    private Integer pass;
+    @Column(name = "PASSNR")
+    private Short passnr;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(name = "WEEKDAY")
+    private Integer weekday;
     @Column(name = "EMPLOYEEID")
     private Integer employeeid;
 
@@ -64,12 +67,12 @@ public class Pass implements Serializable {
         this.id = id;
     }
 
-    public Integer getPass() {
-        return pass;
+    public Short getPassnr() {
+        return passnr;
     }
 
-    public void setPass(Integer pass) {
-        this.pass = pass;
+    public void setPassnr(Short passnr) {
+        this.passnr = passnr;
     }
 
     public Date getDate() {
@@ -78,6 +81,14 @@ public class Pass implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Integer getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(Integer weekday) {
+        this.weekday = weekday;
     }
 
     public Integer getEmployeeid() {
