@@ -425,17 +425,7 @@ public class ScrollingActivity extends AppCompatActivity {
         maxBillID = maxid;
 
     }
-    private void lock() {
 
-
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        readBillList();
-
-    }
 
 
 
