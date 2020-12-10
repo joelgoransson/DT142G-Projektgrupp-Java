@@ -1,13 +1,33 @@
 package com.example.orderapp1_2;
 
-public class CardItem {
-    private String bordTV;
-    private String infoTV;
+import com.example.orderapp1_2.retorofit.classes.Order;
 
-    public CardItem(String bordTV, String infoTV)
+import java.util.ArrayList;
+
+public class CardItem {
+    private int billid;
+    private String bordTV;
+    ArrayList<Order> orders = new ArrayList<>();
+
+    public CardItem(int billid, String bordTV, ArrayList<Order> orders)
     {
+        this.billid = billid;
         this.bordTV = bordTV;
-        this.infoTV = infoTV;
+        this.orders = orders;
+    }
+    public CardItem(int billid, String bordTV)
+    {
+        this.billid = billid;
+        this.bordTV = bordTV;
+
+    }
+
+    public int getBillid() {
+        return billid;
+    }
+
+    public void setBillid(int billid) {
+        this.billid = billid;
     }
 
     public String getBordTV() {
@@ -18,11 +38,11 @@ public class CardItem {
         this.bordTV = bordTV;
     }
 
-    public String getInfoTV() {
-        return infoTV;
+    public ArrayList<Order> getOrdersTV() {
+        return orders;
     }
 
-    public void setInfoTV(String infoTV) {
-        this.infoTV = infoTV;
+    public void setOrdersTV(ArrayList<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.orderapp1_2.retorofit.classes.Order;
+
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
 private ArrayList<CardItem> cardlist;
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
@@ -79,8 +81,12 @@ private ArrayList<CardItem> cardlist;
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         CardItem item = cardlist.get(position);
-        holder.bordTV.setText(item.getBordTV());
-        holder.infoTV.setText(item.getInfoTV());
+        holder.bordTV.setText("Bord " + item.getBordTV());
+        String Dishes = "";
+        for(Order order: item.getOrdersTV()){
+            Dishes += order.getMenuitemname()+" - " + order.getComment() + "\n";
+        }
+        holder.infoTV.setText(Dishes);
 
     }
 

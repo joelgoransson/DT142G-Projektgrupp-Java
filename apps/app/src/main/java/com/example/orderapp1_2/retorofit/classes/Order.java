@@ -13,8 +13,6 @@ import java.util.List;
 public class Order {
 
 
-    @Element(name = "quantity", required = false)
-    private int quantity;
 
     @Element(name = "comment",required = false)
     private String comment;
@@ -24,22 +22,14 @@ public class Order {
 
     @Element(name = "billnr",required = false)
     private int billnr;
-    /*
-    public Order( @Element(name = "quantity") int quantity,@Element(name = "comment") String comment,@Element(name = "orderitemnr") int orderitemnr,@Element(name = "menuitemname") String menuitemname, @Element(name = "billnr") int billnr) {
-        this.quantity = quantity;
+
+    public Order(@Element(name = "comment") String comment,@Element(name = "menuitemname") String menuitemname, @Element(name = "billnr") int billnr) {
+
         this.comment = comment;
-        this.orderitemnr = orderitemnr;
         this.menuitemname = menuitemname;
         this.billnr = billnr;
     }
-    */
-    public int getQuantity() {
-        return quantity;
-    }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public String getComment() {
         return comment;
