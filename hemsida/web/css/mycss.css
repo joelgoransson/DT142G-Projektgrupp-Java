@@ -154,6 +154,10 @@ body, html, main {
 	width:50%;
 }
 
+li {
+  list-style-type: none;
+}
+
 /* MENU CONTENT */
 .menu-title{
 	text-align:center;
