@@ -47,6 +47,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
+    private int tableNr;
 
 
 
@@ -75,7 +76,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private AutoCompleteListener listenerACTV; //Event lyssnare för AutoComplete listorna
 
-    private Button okBtn; //Skicka beställnings knapp
 
 
 
