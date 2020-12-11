@@ -9,15 +9,14 @@ DROP TABLE MenuItem;
 DROP TABLE Bill;
 DROP TABLE Employee;
 DROP TABLE Tables;
+DROP TABLE EmployeePass;
 
 CREATE TABLE Tables(
     TableNr INTEGER NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE Employee(
-    ID INTEGER NOT NULL PRIMARY KEY,
-    Name VARCHAR(55),
-    Password VARCHAR(55)
+    Name VARCHAR(55) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE Bill (
@@ -80,8 +79,9 @@ CREATE TABLE Pass (
 
 CREATE TABLE EmployeePass (
     ID INTEGER NOT NULL PRIMARY KEY,
-    EmployeeID INTEGER,
-    PassID INTEGER
+    EmployeeName VARCHAR(55),
+    PassID INTEGER,
+    EmployeeNr INTEGER
 );
 
 CREATE TABLE Ingredient (
@@ -193,44 +193,45 @@ INSERT INTO Pass VALUES (22, 1, 6, 2);
 INSERT INTO Pass VALUES (23, 2, 6, 2);
 
 /* EMPLOYEE */
-INSERT INTO Employee VALUES (0, 'Joel', 'Hej123');
-INSERT INTO Employee VALUES (1, 'Kahre', 'Wow1337');
-INSERT INTO Employee VALUES (2, 'Jocke', 'Wowjocke');
+INSERT INTO Employee VALUES ('Joel');
+INSERT INTO Employee VALUES ('Kahre');
+INSERT INTO Employee VALUES ('Jocke');
+INSERT INTO Employee VALUES ('-');
 
 /* EMPLOYEEPASS */
-INSERT INTO EmployeePass VALUES (1, 0, 0);
-INSERT INTO EmployeePass VALUES (2, 1, 0);
-INSERT INTO EmployeePass VALUES (3, 2, 0);
-INSERT INTO EmployeePass VALUES (4, 0, 1);
-INSERT INTO EmployeePass VALUES (5, 1, 1);
-INSERT INTO EmployeePass VALUES (6, 2, 1);
-INSERT INTO EmployeePass VALUES (7, 0, 2);
-INSERT INTO EmployeePass VALUES (8, 1, 2);
-INSERT INTO EmployeePass VALUES (9, 2, 2);
-INSERT INTO EmployeePass VALUES (10, 0, 3);
-INSERT INTO EmployeePass VALUES (11, 1, 3);
-INSERT INTO EmployeePass VALUES (12, 2, 3);
-INSERT INTO EmployeePass VALUES (13, 0, 4);
-INSERT INTO EmployeePass VALUES (14, 1, 4);
-INSERT INTO EmployeePass VALUES (15, 2, 4);
-INSERT INTO EmployeePass VALUES (16, 0, 5);
-INSERT INTO EmployeePass VALUES (17, 1, 5);
-INSERT INTO EmployeePass VALUES (18, 2, 5);
-INSERT INTO EmployeePass VALUES (19, 0, 6);
-INSERT INTO EmployeePass VALUES (20, 1, 6);
-INSERT INTO EmployeePass VALUES (21, 2, 6);
-INSERT INTO EmployeePass VALUES (22, 0, 7);
-INSERT INTO EmployeePass VALUES (23, 1, 7);
-INSERT INTO EmployeePass VALUES (24, 2, 7);
-INSERT INTO EmployeePass VALUES (25, 0, 8);
-INSERT INTO EmployeePass VALUES (26, 1, 8);
-INSERT INTO EmployeePass VALUES (27, 2, 8);
-INSERT INTO EmployeePass VALUES (28, 0, 9);
-INSERT INTO EmployeePass VALUES (29, 1, 9);
-INSERT INTO EmployeePass VALUES (30, 2, 9);
-INSERT INTO EmployeePass VALUES (31, 0, 10);
-INSERT INTO EmployeePass VALUES (32, 1, 10);
-INSERT INTO EmployeePass VALUES (33, 2, 10);
-INSERT INTO EmployeePass VALUES (34, 0, 11);
-INSERT INTO EmployeePass VALUES (35, 1, 11);
-INSERT INTO EmployeePass VALUES (36, 2, 11);
+INSERT INTO EmployeePass VALUES (1, 'Joel', 0, 0);
+INSERT INTO EmployeePass VALUES (2, 'Joel', 0, 1);
+INSERT INTO EmployeePass VALUES (3, 'Joel', 0, 2);
+INSERT INTO EmployeePass VALUES (4, 'Joel', 1, 0);
+INSERT INTO EmployeePass VALUES (5, 'Joel', 1, 1);
+INSERT INTO EmployeePass VALUES (6, 'Joel', 1, 2);
+INSERT INTO EmployeePass VALUES (7, 'Joel', 2, 0);
+INSERT INTO EmployeePass VALUES (8, 'Joel', 2, 1);
+INSERT INTO EmployeePass VALUES (9, 'Joel', 2, 2);
+INSERT INTO EmployeePass VALUES (10, 'Joel', 3, 0);
+INSERT INTO EmployeePass VALUES (11, 'Joel', 3, 1);
+INSERT INTO EmployeePass VALUES (12, 'Joel', 3, 2);
+INSERT INTO EmployeePass VALUES (13, 'Joel', 4, 0);
+INSERT INTO EmployeePass VALUES (14, 'Joel', 4, 1);
+INSERT INTO EmployeePass VALUES (15, 'Joel', 4, 2);
+INSERT INTO EmployeePass VALUES (16, 'Joel', 5, 0);
+INSERT INTO EmployeePass VALUES (17, 'Joel', 5, 1);
+INSERT INTO EmployeePass VALUES (18, 'Joel', 5, 2);
+INSERT INTO EmployeePass VALUES (19, 'Joel', 6, 0);
+INSERT INTO EmployeePass VALUES (20, 'Joel', 6, 1);
+INSERT INTO EmployeePass VALUES (21, 'Joel', 6, 2);
+INSERT INTO EmployeePass VALUES (22, 'Joel', 7, 0);
+INSERT INTO EmployeePass VALUES (23, 'Joel', 7, 1);
+INSERT INTO EmployeePass VALUES (24, 'Joel', 7, 2);
+INSERT INTO EmployeePass VALUES (25, 'Joel', 8, 0);
+INSERT INTO EmployeePass VALUES (26, 'Joel', 8, 1);
+INSERT INTO EmployeePass VALUES (27, 'Joel', 8, 2);
+INSERT INTO EmployeePass VALUES (28, 'Joel', 9, 0);
+INSERT INTO EmployeePass VALUES (29, 'Joel', 9, 1);
+INSERT INTO EmployeePass VALUES (30, 'Joel', 9, 2);
+INSERT INTO EmployeePass VALUES (31, 'Joel', 10, 0);
+INSERT INTO EmployeePass VALUES (32, 'Joel', 10, 1);
+INSERT INTO EmployeePass VALUES (33, 'Joel', 10, 2);
+INSERT INTO EmployeePass VALUES (34, 'Joel', 11, 0);
+INSERT INTO EmployeePass VALUES (35, 'Joel', 11, 1);
+INSERT INTO EmployeePass VALUES (36, 'Joel', 11, 2);
