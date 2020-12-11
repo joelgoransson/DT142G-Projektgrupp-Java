@@ -39,7 +39,7 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.6:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
 
