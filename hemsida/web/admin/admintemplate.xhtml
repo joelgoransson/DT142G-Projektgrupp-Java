@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title><ui:insert name="title">Default title</ui:insert></title>
+        <link rel="stylesheet" type="text/css" href="../css/admin.css"></link>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta charset="UTF-8"></meta>
+    </h:head>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="header-title">Admin</h1>
+            <ul class="nav-list">
+                <li><a href="lunchmeny.xhtml">Lunchmeny</a></li>
+                <li><a href="carte.xhtml">A la Carte</a></li>
+                <li><a href="event.xhtml">Event</a></li>
+                <li><a href="ingredients.xhtml">Ingredients</a></li>
+                <li><a href="inventarie.xhtml">Inventarie</a></li>
+            </ul>
+        </div>
+    </header>
+    <h:body>
+        <main>
+            <div class="content">
+                <ui:insert name="body"></ui:insert>
+            </div>
+        </main>
+    </h:body>
+    <footer>
+        
+    </footer>
+</html>
+

@@ -1,0 +1,38 @@
+<ui:composition template="admintemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Ändra event</ui:define>
+
+    <ui:define name="body">
+        <h1>Add new event</h1>
+        ${eventBean.createEvent()}
+        <h:form enctype="multipart/form-data"> 
+            <h3>Name: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.name}"/>
+            <h3>Day: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.day}"/>
+            <h3>Description: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.description}"/>
+            <h3>Opening act: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.openingact}"/>
+            <h3>Image:</h3>
+            <h:inputFile value="#{eventBean.file}"></h:inputFile>
+            <h3>Time: </h3>
+            <h:inputText class="form-input" value="#{eventBean.newEvent.clock}"/>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${eventBean.submit()}"/>
+        </h:form>
+        <h1>Delete Event</h1>
+        <c:forEach items="${eventBean.events}" var="event">
+            <div class="event">
+                <p class="event-info">#{event.name}, #{event.day}</p>
+                <h:form class="delete-form">        
+                <h:commandButton class="delete-button" id="delete-${event.id}" value="Delete" action="${eventBean.delete(event.id)}"/>
+                </h:form>
+            </div>
+        </c:forEach>
+    </ui:define>
+</ui:composition>

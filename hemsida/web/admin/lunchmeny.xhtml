@@ -1,0 +1,24 @@
+<ui:composition template="admintemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Ändra Lunchmeny</ui:define>
+
+    <ui:define name="body">
+        <h:form>        
+            ${lunchBean.createHashmap()}
+            <c:forEach items="${lunchBean.days}" var="day">
+                <h2 class="form-title">${day.name}</h2>
+                <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
+                    <h:inputText class="form-input" value="#{lunchBean.list[food.id].name}"/>
+                    <h:inputText class="form-input" value="#{lunchBean.list[food.id].description}"/>
+                    <hr/>
+                </c:forEach>
+            </c:forEach>
+            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${lunchBean.submit}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
