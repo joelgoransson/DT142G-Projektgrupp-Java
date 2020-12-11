@@ -1,27 +1,34 @@
 package com.example.orderapp1_2;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.Order;
+import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
-private ArrayList<CardItem> cardlist;
+
+    private ArrayList<CardItem> cardlist;
+    private RestaurantClient restaurantClient;
+
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
         public TextView infoTV;
@@ -104,7 +111,7 @@ private ArrayList<CardItem> cardlist;
         holder.infoTV.setText(Dishes);
 
 
-        TimedEvent timedEvent = new TimedEvent(item.getBillid());
+        TimedEvent timedEvent = new TimedEvent(item);
         Timer timer = new Timer();
         timer.schedule(timedEvent, riktigTid*100);
 
@@ -121,17 +128,42 @@ private ArrayList<CardItem> cardlist;
 
     class TimedEvent extends TimerTask
     {
-        private int BillID;
-        TimedEvent(int BillID)
+        private CardItem item;
+        TimedEvent(CardItem item)
         {
-            this.BillID = BillID;
+            this.item = item;
         }
 
         public void run ()
         {
             System.out.println("Skiten körs!!!!");
-            System.out.println(BillID);
-
+            System.out.println(item.getBillid());
+            Billupdater(item);
         }
+    }
+    private void Billupdater(CardItem item)
+    {
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Bill billupdater = new Bill(item.getBillid(),"Tillagad" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
+
+        int id = item.getBillid();
+        String idString = Integer.toString(id);
+
+        Call<Bill> call = restaurantClient.updateBill(idString, billupdater);
+        call.enqueue(new Callback<Bill>() {
+            @Override
+            public void onResponse(Call<Bill> call, Response<Bill> response) {
+                Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+
+
+            }
+            @Override
+            public void onFailure(Call<Bill> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
     }
 }

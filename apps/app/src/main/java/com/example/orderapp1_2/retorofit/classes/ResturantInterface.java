@@ -6,6 +6,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ResturantInterface {
 
@@ -35,5 +37,6 @@ public interface ResturantInterface {
     @GET("entities.bill") //länk till till API på sidan
     Call<BillList> getBill();
 
-
+    @PUT("entities.bill/{id}")
+    Call<Bill> updateBIll(@Path("id") String id, @Body Bill billupdater);
 }

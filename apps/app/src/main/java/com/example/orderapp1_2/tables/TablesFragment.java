@@ -169,12 +169,13 @@ public class TablesFragment extends Fragment {
 
                 billList = response.body().getBillList(); //Spara response från databasen till menuList
                 for(int i=0;i<billList.size();i++){
-                    Bill test =billList.get(i);
+                    Bill tempbill =billList.get(i);
 
-                    int tablenr = test.getTablenr();
-                    int billid= test.getId();
-                    cardList.add(new CardItem(billid,Integer.toString(tablenr)));
-
+                    int tablenr = tempbill.getTablenr();
+                    int billid= tempbill.getId();
+                    String status = tempbill.getStatus();
+                    String time = tempbill.getTime();
+                    cardList.add(new CardItem(billid,Integer.toString(tablenr),status,time));
 
                 }
                 readOrdermenuList();

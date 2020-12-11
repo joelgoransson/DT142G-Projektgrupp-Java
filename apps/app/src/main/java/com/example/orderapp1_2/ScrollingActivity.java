@@ -44,7 +44,7 @@ import static com.example.orderapp1_2.order.OrderFragment.EXTRA_VALUE;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.6:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
     private int tableNr;
