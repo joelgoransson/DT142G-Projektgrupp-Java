@@ -113,7 +113,7 @@ public class IngredientBean implements Serializable {
             }
             if(resultList.isEmpty()){
                 Ingredient ingredient = new Ingredient();
-                ingredient.setAmount(5);
+                ingredient.setAmount(0);
                 ingredient.setName(mihi.getIngredientname());
                 if(!"".equals(ingredient.getName())){
                     persist(ingredient);
