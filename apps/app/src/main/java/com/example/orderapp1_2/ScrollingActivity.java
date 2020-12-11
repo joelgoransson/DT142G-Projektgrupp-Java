@@ -1,7 +1,10 @@
 package com.example.orderapp1_2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.orderapp1_2.order.OrderFragment;
 import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.BillList;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
@@ -36,10 +39,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.orderapp1_2.order.OrderFragment.EXTRA_VALUE;
+
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
 
@@ -60,6 +65,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private ImageButton addMainBtn;
     private ImageButton addEfterBtn;
     private ImageButton addDrinkBtn;
+    private Button okBtn; //Skicka beställnings knapp
 
     //Layouts där nya inmatningsfält läggs till
     private LinearLayout starterLayout;
@@ -69,7 +75,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private AutoCompleteListener listenerACTV; //Event lyssnare för AutoComplete listorna
 
-    private Button okBtn; //Skicka beställnings knapp
+    private int tableNr;
+
 
 
 
@@ -83,6 +90,10 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
+        Intent intent = getIntent();
+
+        tableNr = intent.getIntExtra(EXTRA_VALUE,0);
+
 
         //retrofit functionen
         readXmlFeed();
@@ -123,7 +134,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 String time2 = time.toString();
 
-                generateBill("OK",1,1, time2);
+                generateBill("OK",tableNr,1, time2);
 
                 //readBillList();
 
@@ -142,6 +153,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 }).start();
 
                 //readOrdermenuList();
+                finish();
             }
 
             public void createOrdersEtc(){
@@ -153,7 +165,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(tableNr,test, "Kall", maxBillID);
                     }
 
 
@@ -163,7 +175,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(tableNr,test, "Kall", maxBillID);
                     }
                 }
                 count = efterLayout.getChildCount();
@@ -171,7 +183,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(tableNr,test, "Kall", maxBillID);
                     }
                 }
                 count = drinkLayout.getChildCount();
@@ -179,7 +191,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(tableNr,test, "Kall", maxBillID);
                     }
                 }
 
