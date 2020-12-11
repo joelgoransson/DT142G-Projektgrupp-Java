@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -92,11 +94,19 @@ private ArrayList<CardItem> cardlist;
         Collections.sort(orderlist,(o1, o2) ->o2.getPreptime().compareTo(o1.getPreptime()));
 
 
+        Order tidOrder = orderlist.get(0);
+        double tid = tidOrder.getPreptime();
+        int riktigTid = (int) tid;
 
         for(Order order: orderlist){
             Dishes += order.getMenuitemname()+" - " + order.getComment() + "  " +order.getPreptime()+ "\n";
         }
         holder.infoTV.setText(Dishes);
+
+
+        TimedEvent timedEvent = new TimedEvent(item.getBillid());
+        Timer timer = new Timer();
+        timer.schedule(timedEvent, riktigTid*100);
 
     }
     /**
@@ -107,5 +117,21 @@ private ArrayList<CardItem> cardlist;
     @Override
     public int getItemCount() {
         return cardlist.size();
+    }
+
+    class TimedEvent extends TimerTask
+    {
+        private int BillID;
+        TimedEvent(int BillID)
+        {
+            this.BillID = BillID;
+        }
+
+        public void run ()
+        {
+            System.out.println("Skiten körs!!!!");
+            System.out.println(BillID);
+
+        }
     }
 }

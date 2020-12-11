@@ -75,8 +75,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private AutoCompleteListener listenerACTV; //Event lyssnare för AutoComplete listorna
 
-    private int tableNr;
-
+    private Button okBtn; //Skicka beställnings knapp
 
 
 
@@ -134,7 +133,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 String time2 = time.toString();
 
-                generateBill("OK",tableNr,1, time2);
+                generateBill("OK",1,1, time2);
 
                 //readBillList();
 
@@ -165,7 +164,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(tableNr,test, "Kall", maxBillID);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
 
 
@@ -175,7 +174,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(tableNr,test, "Kall", maxBillID);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
                 count = efterLayout.getChildCount();
@@ -183,7 +182,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(tableNr,test, "Kall", maxBillID);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
                 count = drinkLayout.getChildCount();
@@ -191,7 +190,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(tableNr,test, "Kall", maxBillID);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
 
