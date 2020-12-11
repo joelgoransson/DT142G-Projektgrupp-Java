@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Antons Skafferi</string>
     <string name="Vecka">Vecka 44</string>
+    <string name="My_title">Mitt schema</string>
 
     <string name="Måndag">MÅNDAG</string>
     <string name="Tisdag">TISDAG</string>
@@ -10,20 +11,28 @@
     <string name="Lördag">LÖRDAG</string>
 
 
+    <string name="pass_1"><b>11-14</b></string>
+    <string name="pass_2"><b>16-20</b></string>
+    <string name="pass_3"><b>16-23</b></string>
 
-    <string name="pass_1"><u>Pass 1: 11-14</u></string>
-    <string name="pass_2"><u>Pass 2: 16-20</u></string>
-    <string name="pass_3"><u>Pass 3: 16-23</u></string>
-
-    <string name="Emp_1">emp 1</string>
-    <string name="Emp_2">emp 2</string>
-    <string name="Emp_3">emp 3</string>
-    <string name="Emp_4">emp 4</string>
-    <string name="Emp_5">emp 5</string>
+    <string name="Emp_1">Robert</string>
+    <string name="Emp_2">Linnéa</string>
+    <string name="Emp_3">Alice</string>
+    <string name="Emp_4">Elsa</string>
+    <string name="Emp_5">Leia</string>
+    <string name="empty">-</string>
 
     <string name="dialog_message">Dialog message</string>
     <string name="dialog_title">Välj anställd</string>
-
+    <string name="title_activity_login">Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 
 
 </resources>
