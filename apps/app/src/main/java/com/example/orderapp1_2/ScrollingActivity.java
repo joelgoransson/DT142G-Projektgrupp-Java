@@ -16,6 +16,7 @@ import com.example.orderapp1_2.retorofit.classes.OrderList;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,8 +27,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -93,7 +96,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         tableNr = intent.getIntExtra(EXTRA_VALUE,0);
 
-
+////
         //retrofit functionen
         readXmlFeed();
         //readOrdersList();
@@ -171,6 +174,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
+                    System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     if(test != null && !test.trim().isEmpty()){
                         generateOrder(1,test, "Kall", maxBillID);
                     }
@@ -229,11 +233,17 @@ public class ScrollingActivity extends AppCompatActivity {
             ACTV.setOnItemClickListener(listenerACTV);
             ACTV.setHint(hint);
 
+            //order comment
             imgBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "This does nothing yet...;)", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+
+                    LinearLayout layout = findViewById(getResources().getIdentifier(id, "id", getPackageName()));
+                    LayoutInflater inflater = LayoutInflater.from(ScrollingActivity.this);
+                    View row = inflater.inflate(R.layout.comment_row, null);
+
+                    EditText commentTV = row.findViewById(R.id.commentET);
+                    layout.addView(row);
                 }
             });
 
