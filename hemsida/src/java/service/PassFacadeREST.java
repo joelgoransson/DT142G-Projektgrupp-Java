@@ -68,7 +68,6 @@ public class PassFacadeREST extends AbstractFacade<Pass> {
     public List<Pass> findAll() {
         return super.findAll();
     }
-    
 
     @GET
     @Path("{from}/{to}")

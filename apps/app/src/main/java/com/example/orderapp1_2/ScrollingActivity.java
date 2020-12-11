@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,19 +39,21 @@ import retrofit2.Response;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.6:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
+
+
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
     List<Orders> ordersList;
     List<Order> orderList;
+    List<Bill> billList;
+    int maxBillID;
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
     List<String> efter = new ArrayList<>(); //en lista för namnen över alla olika efterrätter
     List<String> drink = new ArrayList<>(); //en lista för namnen över alla olika drinkar
-    List<Bill> billList;
-    int maxBillID = 0;
 
     //De olika lägg till knapparna
     private ImageButton addStarterBtn;
@@ -68,8 +72,11 @@ public class ScrollingActivity extends AppCompatActivity {
     private Button okBtn; //Skicka beställnings knapp
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -115,14 +122,38 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 String time2 = time.toString();
+
                 generateBill("OK",1,1, time2);
-                readBillList();
+
+                //readBillList();
+
+
+
+
+                new Thread(new Runnable(){
+                    public void run(){
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        createOrdersEtc();
+                    }
+                }).start();
+
+                //readOrdermenuList();
+            }
+
+            public void createOrdersEtc(){
+
+                System.out.println("neeeeeeeeeeeej!");
+                System.out.println(maxBillID);
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(1,"Taco", "Kall", 1);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
 
 
@@ -132,7 +163,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(1,"Taco", "Kall", 1);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
                 count = efterLayout.getChildCount();
@@ -140,7 +171,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(1,"Taco", "Kall", 1);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
                 count = drinkLayout.getChildCount();
@@ -148,12 +179,12 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        createOrder(1,"Taco", "Kall", 1);
+                        generateOrder(1,test, "Kall", maxBillID);
                     }
                 }
-                readOrdermenuList();
-            }
 
+
+            }
         });
 
     }
@@ -336,8 +367,70 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
     }
+    private  void readBillList(){
 
-    private void createOrder(int tableid, String dish, String comment, int billid)
+        System.out.println("readbilllist out println");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<BillList> call = restaurantClient.getBill();
+        call.enqueue(new Callback<BillList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
+            @Override
+            public void onResponse(Call<BillList> call, Response<BillList> response) {
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                Log.d("Respons sucess raedbill", response.message());
+
+                    billList = response.body().getBillList(); //Spara response från databasen till menuList
+                    //haha :/
+                    Bill temp =billList.get(billList.size()-1);
+                    int test2 =temp.getId();
+                    setMaxID(test2);
+
+
+
+
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<BillList> call, Throwable t) {
+
+                Log.d("Response fail", t.getMessage());
+
+            }
+        });
+
+    }
+    private  void setMaxID(int maxid){
+        maxBillID = maxid;
+
+    }
+
+
+
+
+
+    private void generateOrder(int tableid, String dish, String comment, int billid)
     {
         /*
         restaurantClient = RestaurantClient.getINSTANCE();
@@ -360,10 +453,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
         restaurantClient = RestaurantClient.getINSTANCE();
         Order order = new Order();
-        order.setBillnr(1);
-        order.setComment("hej");
-        order.setMenuitemname("Taco");
-        order.setQuantity(5);
+        order.setBillnr(billid);
+        order.setComment(comment);
+        order.setMenuitemname(dish);
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
@@ -411,73 +503,32 @@ public class ScrollingActivity extends AppCompatActivity {
 
         Call<Bill> call = restaurantClient.createBill(bill);
         call.enqueue(new Callback<Bill>() {
+
             @Override
             public void onResponse(Call<Bill> call, Response<Bill> response) {
-                Log.d("Response successful", response.message());
-                Log.d(Order.class.toString(),call.request().toString());
-                Log.d(Order.class.toString(),call.request().body().toString());
+
+
+                    Log.d("Response successful", response.message());
+                    Log.d(Order.class.toString(),call.request().toString());
+                    Log.d(Order.class.toString(),call.request().body().toString());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                readBillList();
 
 
             }
             @Override
             public void onFailure(Call<Bill> call, Throwable t) {
+
                 Log.d("Response fail", t.getMessage());
                 System.out.println("Response fail");
+
             }
         });
 
-    }
-
-    private void readBillList(){
-        restaurantClient = RestaurantClient.getINSTANCE();
-        Call<BillList> call = restaurantClient.getBill();
-        call.enqueue(new Callback<BillList>() {
-            /**
-             * Invoked for a received HTTP response.
-             * <p>
-             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
-             *
-             * @param call
-             * @param response
-             */
-            @Override
-            public void onResponse(Call<BillList> call, Response<BillList> response) {
-                Log.d("Respons sucess", response.message());
-
-                billList = response.body().getBillList(); //Spara response från databasen till menuList
-                int maxID = 0;
-                int currentMaxID;
-                for(Bill bill: billList){
-                    System.out.println(bill.getId());
-                    currentMaxID = bill.getId();
-                    if (maxID<currentMaxID)
-                    {
-                        maxID = currentMaxID;
-                    }
-                }
-                setMaxID(maxID);
-            }
-
-            /**
-             * Invoked when a network exception occurred talking to the server or when an unexpected
-             * exception occurred creating the request or processing the response.
-             *
-             * @param call
-             * @param t
-             */
-            @Override
-            public void onFailure(Call<BillList> call, Throwable t) {
-                Log.d("Response fail", t.getMessage());
-            }
-        });
-    }
-
-    private void setMaxID (int maxid)
-    {
-        maxBillID = maxid;
-        System.out.print("kolla här, det ändrades! ");
-        System.out.print(maxBillID);
     }
 
 }

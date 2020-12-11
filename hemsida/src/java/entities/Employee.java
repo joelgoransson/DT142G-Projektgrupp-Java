@@ -19,44 +19,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Joel
+ * @author joaki
  */
 @Entity
 @Table(name = "EMPLOYEE")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
-    @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
-    @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
-    @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
+    @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID")
-    private Integer id;
-    @Size(max = 55)
+    @Size(min = 1, max = 55)
     @Column(name = "NAME")
     private String name;
-    @Size(max = 55)
-    @Column(name = "PASSWORD")
-    private String password;
 
     public Employee() {
     }
 
-    public Employee(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Employee(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -67,18 +52,10 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (name != null ? name.hashCode() : 0);
         return hash;
     }
 
@@ -89,7 +66,7 @@ public class Employee implements Serializable {
             return false;
         }
         Employee other = (Employee) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.name == null && other.name != null) || (this.name != null && !this.name.equals(other.name))) {
             return false;
         }
         return true;
@@ -97,7 +74,7 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Employee[ id=" + id + " ]";
+        return "entities.Employee[ name=" + name + " ]";
     }
     
 }

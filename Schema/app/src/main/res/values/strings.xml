@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">Schema</string>
+    <string name="app_name">Antons Skafferi</string>
+    <string name="Vecka">Vecka 44</string>
+
+    <string name="Måndag">MÅNDAG</string>
+    <string name="Tisdag">TISDAG</string>
+    <string name="Onsdag">ONSDAG</string>
+    <string name="Torsdag">TORSDAG</string>
+    <string name="Fredag">FREDAG</string>
+    <string name="Lördag">LÖRDAG</string>
+
+
+
+    <string name="pass_1"><u>Pass 1: 11-14</u></string>
+    <string name="pass_2"><u>Pass 2: 16-20</u></string>
+    <string name="pass_3"><u>Pass 3: 16-23</u></string>
+
+    <string name="Emp_1">emp 1</string>
+    <string name="Emp_2">emp 2</string>
+    <string name="Emp_3">emp 3</string>
+    <string name="Emp_4">emp 4</string>
+    <string name="Emp_5">emp 5</string>
+
+    <string name="dialog_message">Dialog message</string>
+    <string name="dialog_title">Välj anställd</string>
+
+
+
 </resources>

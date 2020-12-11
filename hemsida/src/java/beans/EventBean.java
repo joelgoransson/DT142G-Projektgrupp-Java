@@ -6,8 +6,6 @@
 package beans;
 
 import entities.Event;
-import entities.Lunch;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
@@ -16,13 +14,10 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.Part;
@@ -69,13 +64,13 @@ public class EventBean implements Serializable {
     
     private ArrayList<Event> list;
     
-     public void createHashmap(){ 
-       try {
+    public void createHashmap(){
+        try {
             utx.begin();
             em.joinTransaction();
             list = new ArrayList<Event>(em.createNamedQuery("Event.findAll", Event.class).getResultList());
             utx.commit();
-        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+        }catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
             Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

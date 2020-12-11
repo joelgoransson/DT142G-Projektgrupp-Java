@@ -6,18 +6,14 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,27 +26,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Pass.findAll", query = "SELECT p FROM Pass p"),
     @NamedQuery(name = "Pass.findById", query = "SELECT p FROM Pass p WHERE p.id = :id"),
-    @NamedQuery(name = "Pass.findByPassnr", query = "SELECT p FROM Pass p WHERE p.passnr = :passnr"),
-    @NamedQuery(name = "Pass.findByDate", query = "SELECT p FROM Pass p WHERE p.date = :date"),
+    @NamedQuery(name = "Pass.findByPass", query = "SELECT p FROM Pass p WHERE p.pass = :pass"),
     @NamedQuery(name = "Pass.findByWeekday", query = "SELECT p FROM Pass p WHERE p.weekday = :weekday"),
-    @NamedQuery(name = "Pass.findByEmployeeid", query = "SELECT p FROM Pass p WHERE p.employeeid = :employeeid")})
+    @NamedQuery(name = "Pass.findByWeeknr", query = "SELECT p FROM Pass p WHERE p.weeknr = :weeknr")})
 public class Pass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "PASSNR")
-    private Short passnr;
-    @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    @Column(name = "PASS")
+    private Integer pass;
     @Column(name = "WEEKDAY")
     private Integer weekday;
-    @Column(name = "EMPLOYEEID")
-    private Integer employeeid;
+    @Column(name = "WEEKNR")
+    private Integer weeknr;
 
     public Pass() {
     }
@@ -67,20 +59,12 @@ public class Pass implements Serializable {
         this.id = id;
     }
 
-    public Short getPassnr() {
-        return passnr;
+    public Integer getPass() {
+        return pass;
     }
 
-    public void setPassnr(Short passnr) {
-        this.passnr = passnr;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPass(Integer pass) {
+        this.pass = pass;
     }
 
     public Integer getWeekday() {
@@ -91,12 +75,12 @@ public class Pass implements Serializable {
         this.weekday = weekday;
     }
 
-    public Integer getEmployeeid() {
-        return employeeid;
+    public Integer getWeeknr() {
+        return weeknr;
     }
 
-    public void setEmployeeid(Integer employeeid) {
-        this.employeeid = employeeid;
+    public void setWeeknr(Integer weeknr) {
+        this.weeknr = weeknr;
     }
 
     @Override
