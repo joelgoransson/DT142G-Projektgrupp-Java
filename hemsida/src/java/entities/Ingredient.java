@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Ingredient.findAll", query = "SELECT i FROM Ingredient i"),
     @NamedQuery(name = "Ingredient.findByName", query = "SELECT i FROM Ingredient i WHERE i.name = :name"),
+    @NamedQuery(name = "Ingredient.deleteAll", query = "DELETE FROM Ingredient m"),
     @NamedQuery(name = "Ingredient.findByAmount", query = "SELECT i FROM Ingredient i WHERE i.amount = :amount")})
 public class Ingredient implements Serializable {
 

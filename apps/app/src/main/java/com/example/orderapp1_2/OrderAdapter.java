@@ -1,5 +1,6 @@
 package com.example.orderapp1_2;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.orderapp1_2.retorofit.classes.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
 private ArrayList<CardItem> cardlist;
@@ -76,14 +84,31 @@ private ArrayList<CardItem> cardlist;
      *                 item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         CardItem item = cardlist.get(position);
-        holder.bordTV.setText(item.getBordTV());
-        holder.infoTV.setText(item.getInfoTV());
+        holder.bordTV.setText("Bord " + item.getBordTV());
+        String Dishes = "";
+        ArrayList<Order> orderlist = item.getOrdersTV();
+        Collections.sort(orderlist,(o1, o2) ->o2.getPreptime().compareTo(o1.getPreptime()));
+
+
+        Order tidOrder = orderlist.get(0);
+        double tid = tidOrder.getPreptime();
+        int riktigTid = (int) tid;
+
+        for(Order order: orderlist){
+            Dishes += order.getMenuitemname()+" - " + order.getComment() + "  " +order.getPreptime()+ "\n";
+        }
+        holder.infoTV.setText(Dishes);
+
+
+        TimedEvent timedEvent = new TimedEvent(item.getBillid());
+        Timer timer = new Timer();
+        timer.schedule(timedEvent, riktigTid*100);
 
     }
-
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
@@ -92,5 +117,21 @@ private ArrayList<CardItem> cardlist;
     @Override
     public int getItemCount() {
         return cardlist.size();
+    }
+
+    class TimedEvent extends TimerTask
+    {
+        private int BillID;
+        TimedEvent(int BillID)
+        {
+            this.BillID = BillID;
+        }
+
+        public void run ()
+        {
+            System.out.println("Skiten körs!!!!");
+            System.out.println(BillID);
+
+        }
     }
 }

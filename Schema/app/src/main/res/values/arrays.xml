@@ -6,5 +6,6 @@
         <item>@string/Emp_3</item>
         <item>@string/Emp_4</item>
         <item>@string/Emp_5</item>
+        <item>@string/empty</item>
     </string-array>
 </resources>

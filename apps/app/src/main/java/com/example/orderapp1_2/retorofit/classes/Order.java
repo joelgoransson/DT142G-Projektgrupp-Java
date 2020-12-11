@@ -13,8 +13,6 @@ import java.util.List;
 public class Order {
 
 
-    @Element(name = "quantity", required = false)
-    private int quantity;
 
     @Element(name = "comment",required = false)
     private String comment;
@@ -23,23 +21,32 @@ public class Order {
     private String menuitemname;
 
     @Element(name = "billnr",required = false)
-    private int billnr;
-    /*
-    public Order( @Element(name = "quantity") int quantity,@Element(name = "comment") String comment,@Element(name = "orderitemnr") int orderitemnr,@Element(name = "menuitemname") String menuitemname, @Element(name = "billnr") int billnr) {
-        this.quantity = quantity;
+    private Integer billnr;
+
+    @Element(name = "preptime",required = false)
+    private Double preptime;
+
+    public Order(@Element(name = "comment") String comment,
+                 @Element(name = "menuitemname") String menuitemname,
+                 @Element(name = "billnr") Integer billnr,
+                 @Element(name = "preptime") Double preptime) {
+
         this.comment = comment;
-        this.orderitemnr = orderitemnr;
         this.menuitemname = menuitemname;
         this.billnr = billnr;
+        this.preptime = preptime;
     }
-    */
-    public int getQuantity() {
-        return quantity;
+    public Order(@Element(name = "comment") String comment,
+                 @Element(name = "menuitemname") String menuitemname,
+                 @Element(name = "billnr") Integer billnr
+                 ) {
+
+        this.comment = comment;
+        this.menuitemname = menuitemname;
+        this.billnr = billnr;
+
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public String getComment() {
         return comment;
@@ -57,11 +64,19 @@ public class Order {
         this.menuitemname = menuitemname;
     }
 
-    public int getBillnr() {
+    public Integer getBillnr() {
         return billnr;
     }
 
-    public void setBillnr(int billnr) {
+    public void setBillnr(Integer billnr) {
         this.billnr = billnr;
+    }
+
+    public Double getPreptime() {
+        return preptime;
+    }
+
+    public void setPreptime(Double preptime) {
+        this.preptime = preptime;
     }
 }

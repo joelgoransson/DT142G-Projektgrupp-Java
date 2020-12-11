@@ -1,7 +1,10 @@
 package com.example.orderapp1_2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.orderapp1_2.order.OrderFragment;
 import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.BillList;
 import com.example.orderapp1_2.retorofit.classes.MenuItemList;
@@ -36,19 +39,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.orderapp1_2.order.OrderFragment.EXTRA_VALUE;
+
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.138:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
+    private int tableNr;
 
 
 
     List<MenuItem> menuList; //För att lagra alla datatyper från menyn
     List<Orders> ordersList;
-    List<Order> orderList;
     List<Bill> billList;
+    List<Order> orderList;
     int maxBillID;
     List<String> starter = new ArrayList<>(); //en lista för namnen över alla olika starters
     List<String> main = new ArrayList<>(); //en lista för namnen över alla olika varmrätter
@@ -60,6 +66,7 @@ public class ScrollingActivity extends AppCompatActivity {
     private ImageButton addMainBtn;
     private ImageButton addEfterBtn;
     private ImageButton addDrinkBtn;
+    private Button okBtn; //Skicka beställnings knapp
 
     //Layouts där nya inmatningsfält läggs till
     private LinearLayout starterLayout;
@@ -69,7 +76,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private AutoCompleteListener listenerACTV; //Event lyssnare för AutoComplete listorna
 
-    private Button okBtn; //Skicka beställnings knapp
 
 
 
@@ -83,6 +89,10 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
+        Intent intent = getIntent();
+
+        tableNr = intent.getIntExtra(EXTRA_VALUE,0);
+
 
         //retrofit functionen
         readXmlFeed();
@@ -142,6 +152,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 }).start();
 
                 //readOrdermenuList();
+                finish();
             }
 
             public void createOrdersEtc(){
@@ -286,46 +297,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void readOrdersList(){
-        System.out.println("hej");
-        restaurantClient = RestaurantClient.getINSTANCE();
-        Call<OrdersList> call = restaurantClient.getOrders();
-        call.enqueue(new Callback<OrdersList>() {
-            /**
-             * Invoked for a received HTTP response.
-             * <p>
-             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
-             *
-             * @param call
-             * @param response
-             */
-            @Override
-            public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
-                Log.d("Respons sucess", response.message());
 
-                ordersList = response.body().getOrdersList(); //Spara response från databasen till menuList
-                for(Orders order: ordersList){
-                    System.out.println(order.getDish());
-                }
-
-
-            }
-
-            /**
-             * Invoked when a network exception occurred talking to the server or when an unexpected
-             * exception occurred creating the request or processing the response.
-             *
-             * @param call
-             * @param t
-             */
-            @Override
-            public void onFailure(Call<OrdersList> call, Throwable t) {
-                Log.d("Response fail", t.getMessage());
-            }
-        });
-
-    }
 
     private void readOrdermenuList(){
         System.out.println("readOrdermenyList out println");
@@ -385,11 +357,6 @@ public class ScrollingActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BillList> call, Response<BillList> response) {
 
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
                 Log.d("Respons sucess raedbill", response.message());
@@ -432,30 +399,11 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private void generateOrder(int tableid, String dish, String comment, int billid)
     {
-        /*
-        restaurantClient = RestaurantClient.getINSTANCE();
-            Orders item = new Orders(tid, dish );
-        Call<Orders> call = restaurantClient.createOrdersItem(item);
-        call.enqueue(new Callback<Orders>() {
-            @Override
-            public void onResponse(Call<Orders> call, Response<Orders> response) {
-                Log.d("Response successful", response.message());
 
-            }
-            @Override
-            public void onFailure(Call<Orders> call, Throwable t) {
-                Log.d("Response fail", t.getMessage());
-                System.out.println("Response fail");
-            }
-        });
-        //(5,"Bränt",1,"Taco",1)
-        */
 
         restaurantClient = RestaurantClient.getINSTANCE();
-        Order order = new Order();
-        order.setBillnr(billid);
-        order.setComment(comment);
-        order.setMenuitemname(dish);
+        Order order = new Order(comment,dish,billid);
+
         Call<Order> call = restaurantClient.createOrder(order);
         call.enqueue(new Callback<Order>() {
             @Override
@@ -473,23 +421,6 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        restaurantClient = RestaurantClient.getINSTANCE();
-        MenuItem menuItem = new MenuItem("Kött",75,"Main",40);
-        Call<MenuItem> call = restaurantClient.createMenuItem(menuItem);
-        call.enqueue(new Callback<MenuItem>() {
-            @Override
-            public void onResponse(Call<MenuItem> call, Response<MenuItem> response) {
-                Log.d("Response successful", response.message());
-
-            }
-            @Override
-            public void onFailure(Call<MenuItem> call, Throwable t) {
-                Log.d("Response fail", t.getMessage());
-                System.out.println("Response fail");
-            }
-        });
-         */
 
 
 

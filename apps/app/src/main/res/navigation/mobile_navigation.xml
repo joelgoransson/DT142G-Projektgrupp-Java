@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.example.orderapp1_2.order.OrderFragment"
-        android:label="Beställning"
+        android:label="Välj bord för ny beställning"
         tools:layout="@layout/order_fragment" />
     <fragment
         android:id="@+id/navigation_tables"
