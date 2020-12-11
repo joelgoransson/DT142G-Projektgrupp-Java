@@ -89,15 +89,14 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < empPassList.size(); i++){
                 EmPassObject item = empPassList.get(i);
                 int passID = item.getPassid();
-                PassCard temp=new PassCard();
-                temp.setId(item.getId());
-                temp.setEmpNr(item.getEmployeenr());
-                temp.setPassId(passID);
-                temp.setEmpName(item.getEmployeename());
-                temp.setPassNr(passList.get(passID).getPassnr());
-                temp.setWeekday(weekday(passList.get(passID).getWeekday()-1));
-                passCards.add(temp);
-                //System.out.println(temp.getWeekday() + " " + temp.getPassNr() + " " + temp.getEmpNr());
+                PassCard pass=new PassCard();
+                pass.setId(item.getId());
+                pass.setEmpNr(item.getEmployeenr());
+                pass.setPassId(passID);
+                pass.setEmpName(item.getEmployeename());
+                pass.setPassNr(passList.get(passID).getPassnr());
+                pass.setWeekday(weekday(passList.get(passID).getWeekday()-1));
+                passCards.add(pass);
             }
         }
     }
@@ -121,41 +120,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Set_Emp(View view) {
-        openDialog(view.getId());
-        Log.d("MyApp","I am here");
+        int viewID = view.getId();
+        String id = view.getResources().getResourceName(viewID);
+        String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
+        int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
+        int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
+        PassCard passCard = findPassCard(day, passNr, empNr);
+        SetEmpDialog SetEmpDialog = new SetEmpDialog(viewID, employeeNames, passCard);
+        SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
+        //openDialog(view.getId());
+        //Log.d("MyApp","I am here");
     }
 
     private void openDialog(int i) {
-        SetEmpDialog SetEmpDialog = new SetEmpDialog(i, employeeNames);
-        SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
+        //View view = findViewById(i);
+        //String id = view.getResources().getResourceName(view.getId());
+        //String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
+        //int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
+        //int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
+        //System.out.println("Dag "+day+" pass "+passNr+" emp "+empNr);
+
+        //PassCard passCard = findPassCard(day, passNr, empNr);
+        //SetEmpDialog SetEmpDialog = new SetEmpDialog(i, employeeNames, passCard);
+        //SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
     }
 
     private void schema(){
         int maxPass = 2;
         for(int day = 0; day != 6; day++){
-            if(day==5){
-                maxPass = 1;
-            }
+            if(day==5){ maxPass = 1; }
             for(int pass = 0; pass < maxPass; pass++){
                 for(int emp = 0; emp != 3; emp++){
                     Resources res = getResources();
                     System.out.println(day+" "+pass + " "+emp);
                     int id = res.getIdentifier("P"+day+pass+emp, "id", this.getPackageName());
                     TextView textView = findViewById(id);
-                    textView.setText(findPassCard(weekday(day), pass+1, emp).getEmpName());
+                    textView.setText(findPassCard(weekday(day), pass, emp).getEmpName());
                 }
             }
         }
     }
 
-    private PassCard findPassCard(String day, int passNr, int empNr){
+    public PassCard findPassCard(String day, int passNr, int empNr){
         for(PassCard i : passCards){
-            if(i.getWeekday().equalsIgnoreCase(day) && i.getPassNr()==passNr && i.getEmpNr()==empNr){
+            if(i.getWeekday().equalsIgnoreCase(day) && i.getPassNr()==passNr+1 && i.getEmpNr()==empNr){
                 System.out.println(i.getEmpName());
                  return i;
             }
         }
         return null;
     }
-
 }

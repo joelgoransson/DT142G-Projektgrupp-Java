@@ -1,5 +1,7 @@
 package com.example.schema.Retrofit;
 
+import com.example.schema.PassCard;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -13,6 +15,15 @@ public class EmPassObject {
     private int passid;
     @Element(name="employeenr")
     private int employeenr;
+
+    public EmPassObject(){}
+
+    public EmPassObject(PassCard passCard){
+        id = passCard.getId();
+        employeename = passCard.getEmpName();
+        passid = passCard.getPassId();
+        employeenr = passCard.getEmpNr();
+    }
 
     public int getId() {
         return id;

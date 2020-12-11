@@ -10,16 +10,31 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.schema.Retrofit.ApiInterface;
+import com.example.schema.Retrofit.EmPassList;
+import com.example.schema.Retrofit.EmPassObject;
+import com.example.schema.Retrofit.EmployeeList;
+import com.example.schema.Retrofit.PassList;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 
 public class SetEmpDialog extends DialogFragment {
-   private String[] arr;
-   private String str ;
-   private int id;
+    private static final String BASE_URL="http://192.168.0.37:8080/Hemsida/webresources/";
+    private String[] arr;
+    private String str ;
+    private int id;
+    private PassCard passCard;
 
-    public SetEmpDialog(int id, String[] arr) {
+    public SetEmpDialog(int id, String[] arr, PassCard passCard) {
         this.arr = arr;
         this.id = id;
+        this.passCard = passCard;
     }
 
     @Override
@@ -32,6 +47,14 @@ public class SetEmpDialog extends DialogFragment {
                 TextView view1= getActivity().findViewById(id);
                 str = arr[which];
                 view1.setText(str);
+                passCard.setEmpName(str);
+                Thread t = new updateThread();
+                t.start();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -43,7 +66,23 @@ public class SetEmpDialog extends DialogFragment {
         return alertDialog;
     }
 
-
+    private class updateThread extends Thread{
+        @Override
+        public void run(){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(SimpleXmlConverterFactory.create())
+                    .build();
+            ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+            EmPassObject emPass = new EmPassObject(passCard);
+            Call<ResponseBody> updateCall = apiInterface.updateEmployeePass(Integer.toString(passCard.getId()), emPass);
+            try {
+                updateCall.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 
