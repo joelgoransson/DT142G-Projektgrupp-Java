@@ -1,5 +1,6 @@
 package com.example.orderapp1_2;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderapp1_2.retorofit.classes.Order;
@@ -78,18 +82,23 @@ private ArrayList<CardItem> cardlist;
      *                 item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         CardItem item = cardlist.get(position);
         holder.bordTV.setText("Bord " + item.getBordTV());
         String Dishes = "";
-        for(Order order: item.getOrdersTV()){
-            Dishes += order.getMenuitemname()+" - " + order.getComment() + "\n";
+        ArrayList<Order> orderlist = item.getOrdersTV();
+        Collections.sort(orderlist,(o1, o2) ->o2.getPreptime().compareTo(o1.getPreptime()));
+
+
+
+        for(Order order: orderlist){
+            Dishes += order.getMenuitemname()+" - " + order.getComment() + "  " +order.getPreptime()+ "\n";
         }
         holder.infoTV.setText(Dishes);
 
     }
-
     /**
      * Returns the total number of items in the data set held by the adapter.
      *

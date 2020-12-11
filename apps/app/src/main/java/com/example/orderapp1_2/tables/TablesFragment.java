@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.example.orderapp1_2.OrderAdapter;
 import com.example.orderapp1_2.R;
 import com.example.orderapp1_2.retorofit.classes.Bill;
 import com.example.orderapp1_2.retorofit.classes.BillList;
+import com.example.orderapp1_2.retorofit.classes.MenuItem;
+import com.example.orderapp1_2.retorofit.classes.MenuItemList;
 import com.example.orderapp1_2.retorofit.classes.Order;
 import com.example.orderapp1_2.retorofit.classes.OrderList;
 import com.example.orderapp1_2.retorofit.classes.Orders;
@@ -44,6 +47,7 @@ public class TablesFragment extends Fragment {
     private ArrayList<CardItem> cardList = new ArrayList<>();
     List<Bill> billList;
     List<Order> orderList;
+    List<MenuItem> menuList;
     private View root;
     private final ArrayList<CardItem> orders = new ArrayList<>();
 
@@ -121,7 +125,8 @@ public class TablesFragment extends Fragment {
                     }
                     carditem.setOrdersTV(tempList);
                 }
-                createRecyclerView();
+                readPreptime();
+
             }
 
             /**
@@ -163,7 +168,6 @@ public class TablesFragment extends Fragment {
                 Log.d("Respons sucess raedbill", response.message());
 
                 billList = response.body().getBillList(); //Spara response från databasen till menuList
-                ArrayList<CardItem> templist = new ArrayList<>(billList.size());
                 for(int i=0;i<billList.size();i++){
                     Bill test =billList.get(i);
 
@@ -189,6 +193,72 @@ public class TablesFragment extends Fragment {
              */
             @Override
             public void onFailure(Call<BillList> call, Throwable t) {
+
+                Log.d("Response fail", t.getMessage());
+
+            }
+        });
+
+    }
+    private  void readPreptime(){
+
+        System.out.println("pretime out println");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<MenuItemList> call = restaurantClient.getMenu();
+        call.enqueue(new Callback<MenuItemList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+             */
+            @Override
+            public void onResponse(Call<MenuItemList> call, Response<MenuItemList> response) {
+
+
+
+
+                Log.d("Respons sucess raedbill", response.message());
+
+                menuList = response.body().getMenuList(); //Spara response från databasen till menuList
+                //ArrayList<CardItem> templist = new ArrayList<>(billList.size());
+                for(MenuItem menuitem: menuList){
+                    String menuname =menuitem.getName();
+                    for(CardItem carditem : cardList){
+                        for(Order order : carditem.getOrdersTV()){
+                            if(menuname.equals(order.getMenuitemname())){
+
+                                order.setPreptime(menuitem.getPrepTime());
+
+                            }
+                            else if(order.getPreptime()!=null){
+
+                            }
+                            else{
+                                order.setPreptime(0.0);
+                            }
+                        }
+                    }
+                }
+                createRecyclerView();
+                //CardListSetter(cardList);
+
+
+
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<MenuItemList> call, Throwable t) {
 
                 Log.d("Response fail", t.getMessage());
 
