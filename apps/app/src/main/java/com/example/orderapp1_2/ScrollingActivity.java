@@ -166,8 +166,6 @@ public class ScrollingActivity extends AppCompatActivity {
                     if(test != null && !test.trim().isEmpty()){
                         generateOrder(1,test, "Kall", maxBillID);
                     }
-
-
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -366,10 +364,6 @@ public class ScrollingActivity extends AppCompatActivity {
                     Bill temp =billList.get(billList.size()-1);
                     int test2 =temp.getId();
                     setMaxID(test2);
-
-
-
-
             }
 
             /**
