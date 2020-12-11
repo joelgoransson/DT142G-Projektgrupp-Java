@@ -71,13 +71,17 @@ CREATE TABLE Event (
 );
 
 CREATE TABLE Pass (
-    ID INTEGER NOT NULL 
-        GENERATED ALWAYS AS IDENTITY
-        (START WITH 1, INCREMENT BY 1),
+    ID INTEGER NOT NULL,
     Pass INTEGER,
-    Date DATE,
-    EmployeeID INTEGER,
+    WeekDay INTEGER,
+    WeekNr INTEGER,
     PRIMARY KEY(Id)
+);
+
+CREATE TABLE EmployeePass (
+    ID INTEGER NOT NULL PRIMARY KEY,
+    EmployeeID INTEGER,
+    PassID INTEGER
 );
 
 CREATE TABLE Ingredient (
@@ -162,24 +166,71 @@ INSERT INTO MenuItemHasIngredient VALUES (12, 'Vatten', 'Ryskt vatten', 15);
 INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
 
 /* PASS */
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-08', 0);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-08', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-08', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-08', 2);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-09', 0);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-09', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-09', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-09', 2);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-10', 0);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-10', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-10', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-10', 2);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-11', 0);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (1, '2020-12-11', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-11', 1);
-INSERT INTO Pass(Pass, Date, EmployeeID) VALUES (2, '2020-12-11', 2);
+INSERT INTO Pass VALUES (0, 1, 1, 1);
+INSERT INTO Pass VALUES (1, 2, 1, 1);
+INSERT INTO Pass VALUES (2, 1, 2, 1);
+INSERT INTO Pass VALUES (3, 2, 2, 1);
+INSERT INTO Pass VALUES (4, 1, 3, 1);
+INSERT INTO Pass VALUES (5, 2, 3, 1);
+INSERT INTO Pass VALUES (6, 1, 4, 1);
+INSERT INTO Pass VALUES (7, 2, 4, 1);
+INSERT INTO Pass VALUES (8, 1, 5, 1);
+INSERT INTO Pass VALUES (9, 2, 5, 1);
+INSERT INTO Pass VALUES (10, 1, 6, 1);
+INSERT INTO Pass VALUES (11, 2, 6, 1);
+
+INSERT INTO Pass VALUES (12, 1, 1, 2);
+INSERT INTO Pass VALUES (13, 2, 1, 2);
+INSERT INTO Pass VALUES (14, 1, 2, 2);
+INSERT INTO Pass VALUES (15, 2, 2, 2);
+INSERT INTO Pass VALUES (16, 1, 3, 2);
+INSERT INTO Pass VALUES (17, 2, 3, 2);
+INSERT INTO Pass VALUES (18, 1, 4, 2);
+INSERT INTO Pass VALUES (19, 2, 4, 2);
+INSERT INTO Pass VALUES (20, 1, 5, 2);
+INSERT INTO Pass VALUES (21, 2, 5, 2);
+INSERT INTO Pass VALUES (22, 1, 6, 2);
+INSERT INTO Pass VALUES (23, 2, 6, 2);
 
 /* EMPLOYEE */
 INSERT INTO Employee VALUES (0, 'Joel', 'Hej123');
 INSERT INTO Employee VALUES (1, 'Kahre', 'Wow1337');
 INSERT INTO Employee VALUES (2, 'Jocke', 'Wowjocke');
+
+/* EMPLOYEEPASS */
+INSERT INTO EmployeePass VALUES (1, 0, 0);
+INSERT INTO EmployeePass VALUES (2, 1, 0);
+INSERT INTO EmployeePass VALUES (3, 2, 0);
+INSERT INTO EmployeePass VALUES (4, 0, 1);
+INSERT INTO EmployeePass VALUES (5, 1, 1);
+INSERT INTO EmployeePass VALUES (6, 2, 1);
+INSERT INTO EmployeePass VALUES (7, 0, 2);
+INSERT INTO EmployeePass VALUES (8, 1, 2);
+INSERT INTO EmployeePass VALUES (9, 2, 2);
+INSERT INTO EmployeePass VALUES (10, 0, 3);
+INSERT INTO EmployeePass VALUES (11, 1, 3);
+INSERT INTO EmployeePass VALUES (12, 2, 3);
+INSERT INTO EmployeePass VALUES (13, 0, 4);
+INSERT INTO EmployeePass VALUES (14, 1, 4);
+INSERT INTO EmployeePass VALUES (15, 2, 4);
+INSERT INTO EmployeePass VALUES (16, 0, 5);
+INSERT INTO EmployeePass VALUES (17, 1, 5);
+INSERT INTO EmployeePass VALUES (18, 2, 5);
+INSERT INTO EmployeePass VALUES (19, 0, 6);
+INSERT INTO EmployeePass VALUES (20, 1, 6);
+INSERT INTO EmployeePass VALUES (21, 2, 6);
+INSERT INTO EmployeePass VALUES (22, 0, 7);
+INSERT INTO EmployeePass VALUES (23, 1, 7);
+INSERT INTO EmployeePass VALUES (24, 2, 7);
+INSERT INTO EmployeePass VALUES (25, 0, 8);
+INSERT INTO EmployeePass VALUES (26, 1, 8);
+INSERT INTO EmployeePass VALUES (27, 2, 8);
+INSERT INTO EmployeePass VALUES (28, 0, 9);
+INSERT INTO EmployeePass VALUES (29, 1, 9);
+INSERT INTO EmployeePass VALUES (30, 2, 9);
+INSERT INTO EmployeePass VALUES (31, 0, 10);
+INSERT INTO EmployeePass VALUES (32, 1, 10);
+INSERT INTO EmployeePass VALUES (33, 2, 10);
+INSERT INTO EmployeePass VALUES (34, 0, 11);
+INSERT INTO EmployeePass VALUES (35, 1, 11);
+INSERT INTO EmployeePass VALUES (36, 2, 11);
