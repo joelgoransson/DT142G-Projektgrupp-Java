@@ -1,0 +1,304 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28-Nov-2020, 23:28:50
+    Author     : kahre
+*/
+body, html, main {
+	font-family:verdana;
+  height: 100%;
+  margin: 0;
+  padding:0;
+  color:white;
+}
+
+
+/* HEADER */
+.header{
+    background: #574427;
+    padding: 0.5em 8em;
+    margin:0;
+    
+}
+
+
+.header-content{
+    display: flex;
+}
+.header-title{
+    margin: 0;
+    flex-grow: 3;
+    font-size:2.4em;
+    letter-spacing: 0.08em;
+}
+.nav-list{
+    flex-grow: 1;
+    list-style: none;
+    padding: 0;
+    display: inline;
+    text-align: right;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.nav-list li{
+    flex-grow: 1;
+    margin-left:0.5em;
+    font-size: 1.5em;
+}
+.nav-list li a{
+    text-decoration: none;
+    color: white;
+}
+.nav-list li a:hover{
+    color: black;
+}
+
+/* FRONT*/
+.front{
+	background: url(../images/front.png);
+	height: 100%;
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+.front-container{
+	height: 100%;
+}
+.front-menu{
+	margin: 0;
+	text-align: center;
+	font-size: 4vw;
+	height: 75%;
+	display: flex;
+ 	align-items: center;
+  	justify-content: center;	
+  	width: 100%;
+  	opacity: 1;
+}
+.front-menu-container{
+	opacity: 1;
+	margin: 0;
+	color: white;
+
+}
+.front-item{
+	margin: 0;
+}
+
+/* INFORMATION BOXES*/
+.information{
+	display: flex;
+	
+
+}
+.information-box{
+	flex-grow: 1;
+	padding: 1em 0em;
+	width:33.33%;
+	border: 1px solid grey;
+
+}
+.information-content{
+
+	color: #574427;
+	text-align: center;
+  	width: 100%;
+
+
+}
+.information-content h1{
+	margin:0;
+	font-size: 3.2em;
+}
+.information-content p{
+	font-size:1.8em;
+	
+}
+
+
+
+/* MENU */
+.menu{
+	display: flex;
+	width:100%;
+}
+.menu-box{
+	width:50%;
+	height: 100%;
+	background-color: #574427;
+	font-size:5vw;
+	
+}
+.menu-background1{
+	background: url(../images/top.png);
+	background-repeat: no-repeat;
+    background-size: cover;
+	width:50%;
+}
+.menu-background2{
+	background: url(../images/midleback.png);
+	background-repeat: no-repeat;
+    background-size: cover;
+	width:50%;
+}
+.menu-background3{
+	background: url(../images/drinks.jpg);
+	background-repeat: no-repeat;
+    background-size: cover;
+	width:50%;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* MENU CONTENT */
+.menu-title{
+	text-align:center;
+	font-size: 4.5vw;
+}
+.menu-list{
+	margin:0.2em;
+	list-style: none;
+	align-content: center;
+
+
+}
+.menu-item h3 {
+	margin:0em;
+	font-size:2.5vw;
+	font-weight: 600;
+	
+
+}
+.menu-item p{
+	margin:0.3em 0em 1em;
+	font-size:2.1vw;
+}
+
+.drinks h3{
+	margin:0em 0em 0.5em;
+	
+}
+
+.food{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: flex-end;
+
+}
+
+
+
+/*footer*/
+.footer{
+	display:flex;
+	width:100%;
+	background-color: black;
+	color:#574427;
+}
+.footer-content{
+	text-align:center;
+	width:100%;
+}
+.footer p{
+	font-size:1.2em;
+
+}
+.socials{
+	margin: 2em 1em 0em;
+	display: flex;
+  	justify-content: center;
+}
+.socialpic{
+	margin:1em;
+
+}
+.socialpic img{
+	width:3em;
+	height:3em;
+}
+
+/* EVENT */
+.event{
+    display: flex;
+    display: -webkit-flex;
+}
+.event-photo{
+    /*flex: 0 1 75%;*/
+    width: 62.5%;
+}
+.event-info{
+	width:37.5%;
+    /*flex: 0 1 37.5%;*/
+    text-align: center;
+    color: #574427;
+}
+.event-title{
+    font-weight: bold;
+    font-size: 3.5vw;
+    margin-top: 1em;
+}
+.event-time, .event-date{
+    margin: 0em;
+    font-size: 2vw;
+}
+.event-note-title{
+    font-weight: bold;
+    font-size: 3vw;
+    margin: 0em;
+    margin-top: 1.5em;
+}
+.even-note{
+    margin: 0em;
+    margin-top: 0.3em;
+    font-size: 2vw;
+}
+
+
+@media(max-width: 900px){
+	.information{
+		flex-direction: column;
+		
+	}
+	.information-box{
+		width: 99.5%;
+		
+
+
+	}
+	
+	.header{
+		padding:0.4em;
+	}
+	.menu-box{
+		width:100%;
+
+	}
+	.menu-background1,.menu-background2,.menu-background3{
+		width:0%;
+	}
+	.header-title{
+		font-size:1.5em;
+
+	}
+	
+}
+@media(max-width:400px){
+	.header-title{
+		font-size:1.2em;
+
+	}
+	.nav-list li{
+		font-size:1.2em;
+	}
+
+}
+

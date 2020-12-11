@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+       
+    <h:head>
+        <title>Skriv ut meny</title>
+        <link rel="stylesheet" type="text/css" href="../css/printmeny.css"></link>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <meta charset="UTF-8"></meta>
+    </h:head>
+
+    <h:body>
+        ${menuBean.init()}
+        <c:forEach items="#{menuBean.typeList}" var="type">
+            <div class="box #{type}-box">
+                <h2 class="print-type">#{type}</h2>
+                <c:forEach items="#{menuBean.getOneType(type)}" var="item">
+                    <p class="print-text">#{item.name}</p>
+                </c:forEach>
+            </div>
+        </c:forEach>
+    </h:body>
+</html>
