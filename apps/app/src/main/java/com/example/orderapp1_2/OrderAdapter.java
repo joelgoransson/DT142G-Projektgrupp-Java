@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,6 +18,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderapp1_2.retorofit.classes.Bill;
+import com.example.orderapp1_2.retorofit.classes.BillList;
 import com.example.orderapp1_2.retorofit.classes.Order;
 import com.example.orderapp1_2.retorofit.classes.RestaurantClient;
 
@@ -28,6 +30,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private ArrayList<CardItem> cardlist;
     private RestaurantClient restaurantClient;
+    List<Bill> billList;
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
@@ -113,7 +116,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         TimedEvent timedEvent = new TimedEvent(item);
         Timer timer = new Timer();
-        timer.schedule(timedEvent, riktigTid*100);
+        timer.schedule(timedEvent, riktigTid*200);
 
     }
     /**
@@ -136,13 +139,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         public void run ()
         {
-            System.out.println("Skiten körs!!!!");
-            System.out.println(item.getBillid());
-            Billupdater(item);
+            readBillList(item);
         }
     }
     private void Billupdater(CardItem item)
     {
+        System.out.println("Skiten körs!!!!");
+
         restaurantClient = RestaurantClient.getINSTANCE();
         Bill billupdater = new Bill(item.getBillid(),"Tillagad" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
 
@@ -156,8 +159,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 Log.d("Response successful", response.message());
                 Log.d(Order.class.toString(),call.request().toString());
                 Log.d(Order.class.toString(),call.request().body().toString());
-
-
             }
             @Override
             public void onFailure(Call<Bill> call, Throwable t) {
@@ -165,5 +166,39 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 System.out.println("Response fail");
             }
         });
+    }
+
+    private  void readBillList(CardItem item){
+
+        System.out.println("readbilllist out println");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<BillList> call = restaurantClient.getBill();
+        call.enqueue(new Callback<BillList>() {
+
+            @Override
+            public void onResponse(Call<BillList> call, Response<BillList> response) {
+
+                Log.d("Respons sucess raedbill", response.message());
+
+                billList = response.body().getBillList(); //Spara response från databasen till menuList
+                for(Bill bill: billList){
+                    if (bill.getId() == item.getBillid())
+                    {
+                        if(bill.getStatus().equals("KÖKET"))
+                        {
+                            Billupdater(item);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BillList> call, Throwable t) {
+
+                Log.d("Response fail", t.getMessage());
+
+            }
+        });
+
     }
 }

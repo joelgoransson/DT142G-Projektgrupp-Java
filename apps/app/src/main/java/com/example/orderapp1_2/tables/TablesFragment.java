@@ -71,29 +71,6 @@ public class TablesFragment extends Fragment {
         // TODO: Use the ViewModel
 
 
-        System.out.println(cardList.size());
-
-        new Thread(new Runnable(){
-            public void run(){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("vi är här");
-                System.out.println(cardList.size());
-
-
-            }
-        }).start();
-
-
-
-
-
-
-
-
     }
     private void readOrdermenuList(){
         System.out.println("readOrdermenyList out println");
@@ -276,8 +253,19 @@ public class TablesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new OrderAdapter(cardList);
+        ArrayList<CardItem> newList = new ArrayList<>();
+        for (CardItem item:cardList)
+        {
+            if (item.getStatus().equals("KÖKET"))
+            {
+                newList.add(item);
+            }
+        }
+        if (!newList.isEmpty())
+        {
+            adapter = new OrderAdapter(newList);
+            recyclerView.setAdapter(adapter);
+        }
 
-        recyclerView.setAdapter(adapter);
     }
 }

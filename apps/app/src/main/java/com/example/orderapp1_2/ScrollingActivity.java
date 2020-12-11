@@ -133,7 +133,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 String time2 = time.toString();
 
-                generateBill("OK",1,1, time2);
+                generateBill("KÖKET",1,1, time2);
 
                 //readBillList();
 
