@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
+public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapter.OrderViewHolder>{
 
     private ArrayList<CardItem> cardlist;
     private RestaurantClient restaurantClient;
@@ -69,7 +71,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return ovh;
     }
 
-    public OrderAdapter(ArrayList<CardItem> cardlist){
+    public KitchenOrderAdapter(ArrayList<CardItem> cardlist){
         this.cardlist = cardlist;
     }
     /**
@@ -101,10 +103,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         ArrayList<Order> orderlist = item.getOrdersTV();
         Collections.sort(orderlist,(o1, o2) ->o2.getPreptime().compareTo(o1.getPreptime()));
 
+
+        Order tidOrder = orderlist.get(0);
+        double tid = tidOrder.getPreptime();
+        int riktigTid = (int) tid;
+
         for(Order order: orderlist){
             Dishes += order.getMenuitemname()+" - " + order.getComment() + "  " +order.getPreptime()+ "\n";
         }
         holder.infoTV.setText(Dishes);
+
+        TimedEvent timedEvent = new TimedEvent(item);
+        Timer timer = new Timer();
+        timer.schedule(timedEvent, riktigTid*200);
+
     }
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -116,6 +128,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return cardlist.size();
     }
 
+    class TimedEvent extends TimerTask
+    {
+        private CardItem item;
+        TimedEvent(CardItem item)
+        {
+            this.item = item;
+        }
+
+        public void run ()
+        {
+            readBillList(item);
+        }
+    }
     private void Billupdater(CardItem item)
     {
         System.out.println("Skiten körs!!!!");
@@ -158,7 +183,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 for(Bill bill: billList){
                     if (bill.getId() == item.getBillid())
                     {
-                        if(bill.getStatus().equals("TILLAGAD"))
+                        if(bill.getStatus().equals("KÖKET"))
                         {
                             Billupdater(item);
                         }

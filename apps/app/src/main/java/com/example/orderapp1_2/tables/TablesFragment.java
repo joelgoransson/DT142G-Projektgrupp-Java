@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.orderapp1_2.CardItem;
 import com.example.orderapp1_2.OrderAdapter;
@@ -45,6 +46,7 @@ public class TablesFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RestaurantClient restaurantClient;
     private ArrayList<CardItem> cardList = new ArrayList<>();
+    private Button betaladButton;
     List<Bill> billList;
     List<Order> orderList;
     List<MenuItem> menuList;
@@ -68,9 +70,14 @@ public class TablesFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(TablesViewModel.class);
-        // TODO: Use the ViewModel
 
-
+        /*betaladButton = root.findViewById(R.id.betaladButton);
+        betaladButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readBillList();
+            }
+        })*/;
     }
     private void readOrdermenuList(){
         System.out.println("readOrdermenyList out println");
@@ -222,10 +229,6 @@ public class TablesFragment extends Fragment {
                     }
                 }
                 createRecyclerView();
-                //CardListSetter(cardList);
-
-
-
             }
 
             /**
@@ -256,7 +259,7 @@ public class TablesFragment extends Fragment {
         ArrayList<CardItem> newList = new ArrayList<>();
         for (CardItem item:cardList)
         {
-            if (item.getStatus().equals("KÖKET"))
+            if (item.getStatus().equals("TILLAGAD"))
             {
                 newList.add(item);
             }
