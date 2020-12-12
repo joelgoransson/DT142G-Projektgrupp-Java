@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,18 +30,48 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private ArrayList<CardItem> cardlist;
     private RestaurantClient restaurantClient;
+    private OnItemClickListener listener;
     List<Bill> billList;
+
+    public interface OnItemClickListener{
+        void onItemClicked(int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
         public TextView infoTV;
+        public Button payBTN;
 
-        public OrderViewHolder(View itemView) {
+        public OrderViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             bordTV = itemView.findViewById(R.id.bordTextView);
             infoTV = itemView.findViewById(R.id.infoTextView);
+            payBTN = itemView.findViewById(R.id.betaladButton);
+            payBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(listener != null) {
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION)
+                        {
+                            listener.onItemClicked(pos);
+                        }
+                    }
+
+                }
+            });
+
         }
+
     }
+
+
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
@@ -65,7 +97,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_card,parent,false);
-        OrderViewHolder ovh = new OrderViewHolder(v);
+        OrderViewHolder ovh = new OrderViewHolder(v,listener);
         return ovh;
     }
 

@@ -42,7 +42,7 @@ public class TablesFragment extends Fragment {
 
     private TablesViewModel mViewModel;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private OrderAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private RestaurantClient restaurantClient;
     private ArrayList<CardItem> cardList = new ArrayList<>();
@@ -268,6 +268,19 @@ public class TablesFragment extends Fragment {
         {
             adapter = new OrderAdapter(newList);
             recyclerView.setAdapter(adapter);
+            adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+
+                /**
+                 * onClickListener för varje kort i recyklerView
+                 * @param pos är positionen i listan som det valda kortet har och skappas automatiskt av OrderAdapter.
+                 */
+
+                @Override
+                public void onItemClicked(int pos) {
+                    System.out.println(Integer.toString(pos));
+                    //newList.get(pos).setStatus("Status");
+                }
+            });
         }
 
     }
