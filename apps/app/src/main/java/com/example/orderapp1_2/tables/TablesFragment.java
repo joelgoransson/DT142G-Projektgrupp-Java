@@ -51,7 +51,7 @@ public class TablesFragment extends Fragment {
     List<Order> orderList;
     List<MenuItem> menuList;
     private View root;
-    private final ArrayList<CardItem> orders = new ArrayList<>();
+    //private ArrayList<CardItem> orders = new ArrayList<>();
 
     public static TablesFragment newInstance() {
         return new TablesFragment();
@@ -79,6 +79,58 @@ public class TablesFragment extends Fragment {
             }
         })*/;
     }
+
+    private  void readBillList(){
+
+        cardList.clear();
+        System.out.println("readbilllist out println");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<BillList> call = restaurantClient.getBill();
+        call.enqueue(new Callback<BillList>() {
+            /**
+             * Invoked for a received HTTP response.
+             * <p>
+             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
+             *
+             * @param call
+             * @param response
+                */
+            @Override
+            public void onResponse(Call<BillList> call, Response<BillList> response) {
+                Log.d("Respons sucess raedbill", response.message());
+
+                billList = response.body().getBillList(); //Spara response från databasen till menuList
+                for(int i=0;i<billList.size();i++){
+                    Bill tempbill =billList.get(i);
+
+                    int tablenr = tempbill.getTablenr();
+                    int billid= tempbill.getId();
+                    String status = tempbill.getStatus();
+                    String time = tempbill.getTime();
+                    cardList.add(new CardItem(billid,Integer.toString(tablenr),status,time));
+
+                }
+                readOrdermenuList();
+                //CardListSetter(cardList);
+            }
+
+            /**
+             * Invoked when a network exception occurred talking to the server or when an unexpected
+             * exception occurred creating the request or processing the response.
+             *
+             * @param call
+             * @param t
+             */
+            @Override
+            public void onFailure(Call<BillList> call, Throwable t) {
+
+                Log.d("Response fail", t.getMessage());
+
+            }
+        });
+    }
+
     private void readOrdermenuList(){
         System.out.println("readOrdermenyList out println");
         restaurantClient = RestaurantClient.getINSTANCE();
@@ -110,7 +162,6 @@ public class TablesFragment extends Fragment {
                     carditem.setOrdersTV(tempList);
                 }
                 readPreptime();
-
             }
 
             /**
@@ -125,66 +176,8 @@ public class TablesFragment extends Fragment {
                 Log.d("Response fail", t.getMessage());
             }
         });
-
     }
 
-    private  void readBillList(){
-
-        System.out.println("readbilllist out println");
-        restaurantClient = RestaurantClient.getINSTANCE();
-        Call<BillList> call = restaurantClient.getBill();
-        call.enqueue(new Callback<BillList>() {
-            /**
-             * Invoked for a received HTTP response.
-             * <p>
-             * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-             * Call {@link Response#isSuccessful()} to determine if the response indicates success.
-             *
-             * @param call
-             * @param response
-                */
-            @Override
-            public void onResponse(Call<BillList> call, Response<BillList> response) {
-
-
-
-
-                Log.d("Respons sucess raedbill", response.message());
-
-                billList = response.body().getBillList(); //Spara response från databasen till menuList
-                for(int i=0;i<billList.size();i++){
-                    Bill tempbill =billList.get(i);
-
-                    int tablenr = tempbill.getTablenr();
-                    int billid= tempbill.getId();
-                    String status = tempbill.getStatus();
-                    String time = tempbill.getTime();
-                    cardList.add(new CardItem(billid,Integer.toString(tablenr),status,time));
-
-                }
-                readOrdermenuList();
-                //CardListSetter(cardList);
-
-
-
-            }
-
-            /**
-             * Invoked when a network exception occurred talking to the server or when an unexpected
-             * exception occurred creating the request or processing the response.
-             *
-             * @param call
-             * @param t
-             */
-            @Override
-            public void onFailure(Call<BillList> call, Throwable t) {
-
-                Log.d("Response fail", t.getMessage());
-
-            }
-        });
-
-    }
     private  void readPreptime(){
 
         System.out.println("pretime out println");
@@ -202,9 +195,6 @@ public class TablesFragment extends Fragment {
              */
             @Override
             public void onResponse(Call<MenuItemList> call, Response<MenuItemList> response) {
-
-
-
 
                 Log.d("Respons sucess raedbill", response.message());
 
@@ -248,8 +238,6 @@ public class TablesFragment extends Fragment {
 
     }
 
-
-
     private void createRecyclerView(){
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -257,6 +245,7 @@ public class TablesFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<CardItem> newList = new ArrayList<>();
+        newList.clear();
         for (CardItem item:cardList)
         {
             if (item.getStatus().equals("TILLAGAD"))
@@ -264,8 +253,7 @@ public class TablesFragment extends Fragment {
                 newList.add(item);
             }
         }
-        if (!newList.isEmpty())
-        {
+
             adapter = new OrderAdapter(newList);
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
@@ -277,11 +265,73 @@ public class TablesFragment extends Fragment {
 
                 @Override
                 public void onItemClicked(int pos) {
-                    System.out.println(Integer.toString(pos));
-                    //newList.get(pos).setStatus("Status");
+                    System.out.println("Status ändrad till BETALAD");
+                    readBillListForStatusUpdate(newList.get(pos));
+                    //måste lyckas uppdatera scenen då vi klickar här. lyckas inte göra det utan att pajja allt.
                 }
             });
-        }
 
+
+    }
+
+
+    private  void readBillListForStatusUpdate(CardItem item){
+
+        System.out.println("readbilllist out println");
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Call<BillList> call = restaurantClient.getBill();
+        call.enqueue(new Callback<BillList>() {
+
+            @Override
+            public void onResponse(Call<BillList> call, Response<BillList> response) {
+
+                Log.d("Respons sucess raedbill", response.message());
+
+                billList = response.body().getBillList(); //Spara response från databasen till menuList
+                for(Bill bill: billList){
+                    if (bill.getId() == item.getBillid())
+                    {
+                        if(bill.getStatus().equals("TILLAGAD"))
+                        {
+                            Billupdater(item);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<BillList> call, Throwable t) {
+
+                Log.d("Response fail", t.getMessage());
+
+            }
+        });
+
+    }
+
+    private void Billupdater(CardItem item)
+    {
+        System.out.println("Skiten körs!!!!");
+
+        restaurantClient = RestaurantClient.getINSTANCE();
+        Bill billupdater = new Bill(item.getBillid(),"BETALAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
+
+        int id = item.getBillid();
+        String idString = Integer.toString(id);
+
+        Call<Bill> call = restaurantClient.updateBill(idString, billupdater);
+        call.enqueue(new Callback<Bill>() {
+            @Override
+            public void onResponse(Call<Bill> call, Response<Bill> response) {
+                Log.d("Response successful", response.message());
+                Log.d(Order.class.toString(),call.request().toString());
+                Log.d(Order.class.toString(),call.request().body().toString());
+                readBillList();
+            }
+            @Override
+            public void onFailure(Call<Bill> call, Throwable t) {
+                Log.d("Response fail", t.getMessage());
+                System.out.println("Response fail");
+            }
+        });
     }
 }
