@@ -63,7 +63,7 @@ CREATE TABLE Event (
     ID INTEGER NOT NULL PRIMARY KEY,
     Name VARCHAR(20),
     Clock VARCHAR(50),
-    Day VARCHAR(50),
+    Date DATE,
     Image VARCHAR(500), 
     OpeningAct VARCHAR(20),
     Description VARCHAR(50)
@@ -163,7 +163,7 @@ INSERT INTO MenuItemHasIngredient VALUES (11, 'Coca Cola', 'Coca cola', 5);
 INSERT INTO MenuItemHasIngredient VALUES (12, 'Vatten', 'Ryskt vatten', 15);
 
 /* EVENT */
-INSERT INTO Event VALUES(0, 'U2', '10-12', '21/7 - 23/7', 'test', 'Inhaler', 'something something');
+INSERT INTO Event VALUES(0, 'U2', '10-12', 2020-12-21, 'test', 'Inhaler', 'something something');
 
 /* PASS */
 INSERT INTO Pass VALUES (0, 1, 1, 1);
