@@ -153,7 +153,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         System.out.println("Skiten körs!!!!");
 
         restaurantClient = RestaurantClient.getINSTANCE();
-        Bill billupdater = new Bill(item.getBillid(),"TILLAGAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
+        Bill billupdater = new Bill(item.getBillid(),"BETALAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
 
         int id = item.getBillid();
         String idString = Integer.toString(id);

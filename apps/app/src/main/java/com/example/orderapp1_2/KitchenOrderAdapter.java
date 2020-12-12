@@ -165,6 +165,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
                 System.out.println("Response fail");
             }
         });
+
     }
 
     private  void readBillList(CardItem item){
@@ -198,6 +199,5 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
             }
         });
-
     }
 }
