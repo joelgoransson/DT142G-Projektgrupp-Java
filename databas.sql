@@ -163,7 +163,7 @@ INSERT INTO MenuItemHasIngredient VALUES (11, 'Coca Cola', 'Coca cola', 5);
 INSERT INTO MenuItemHasIngredient VALUES (12, 'Vatten', 'Ryskt vatten', 15);
 
 /* EVENT */
-INSERT INTO Event VALUES(0, 'U2', '10-12', 2020-12-21, 'test', 'Inhaler', 'something something');
+INSERT INTO Event VALUES(0, 'U2', '10-12', '2020-12-21', 'test', 'Inhaler', 'something something');
 
 /* PASS */
 INSERT INTO Pass VALUES (0, 1, 1, 1);
