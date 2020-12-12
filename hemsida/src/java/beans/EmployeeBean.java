@@ -50,6 +50,8 @@ public class EmployeeBean implements Serializable {
         for(Employee employee: resultList){
             list.add(employee);
         }
+        Employee employee = new Employee();
+        list.add(employee);
     }
     
     public List<Employee> getEmployees(){
@@ -75,8 +77,15 @@ public class EmployeeBean implements Serializable {
         deleteAll();
         System.out.println(list.size());
         for(Employee item: list){
-            persist(item);
+            try{
+                if(!"".equals(item)){
+                    persist(item);
+                }
+            }catch (RuntimeException e){
+                
+            }
         }
+        list.clear();
     }
     
     public void persist(Object object) {

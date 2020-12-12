@@ -10,7 +10,6 @@
     <ui:define name="body">
         <h:form>
             <c:forEach items="${employeeBean.employees}" var="item">
-                <h1>${item.name}</h1>
                 <h:inputText class="form-input" value="${item.name}"></h:inputText>
             </c:forEach>
             <h:commandButton class="form-buttom" id="submit" value="Submit" action="${employeeBean.submit()}" />
