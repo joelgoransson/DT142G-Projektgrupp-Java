@@ -186,7 +186,7 @@
             <img class="event-photo" alt="image from a concert" src="images/event.jpg"></img>
         </div>
                 
-                <c:forEach items="${eventBean.events}" var="event">
+                <c:forEach items="${eventBean.eventsSortedByDate}" var="event">
                     <div class="event" id="evenemang">
                         <img class="event-photo" alt="image from a concert" src="C:\Users\Sundsvall\Documents\Antons Skafferi\1event[1].jpg"></img>
                    
@@ -194,7 +194,7 @@
                             <h3 class="event-title">${event.name}</h3>
                             <p>${event.image}</p>
                             <p class="event-date">${event.description}</p>
-                            <p class="event-date">${event.day}</p>
+                            <p class="event-date">${event.date}</p>
                             <p class="event-time">${event.clock}</p>
                             <h4 class="event-note-title">Förband:</h4>
                             <p class="even-note">${event.openingact}</p>

@@ -8,7 +8,7 @@
     <ui:define name="title">Ändra Lunchmeny</ui:define>
 
     <ui:define name="body">
-        <h1>Add ingredients</h1>
+        <h1>Lägg till ingredienser</h1>
         ${ingredientBean.initList()}
         <h:form>
             <c:forEach items="${ingredientBean.menuItems}" var="item">
@@ -20,7 +20,7 @@
                     </div>
                 </c:forEach>
             </c:forEach>
-            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${ingredientBean.submit()}" />
+            <h:commandButton class="form-buttom" id="submit" value="Spara" action="${ingredientBean.submit()}" />
         </h:form>
     </ui:define>
 </ui:composition>

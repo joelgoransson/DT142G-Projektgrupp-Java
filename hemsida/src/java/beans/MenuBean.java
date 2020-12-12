@@ -42,7 +42,7 @@ public class MenuBean implements Serializable {
      * Creates a new instance of CarteBean
      */
     public MenuBean() {
-        typeList = Arrays.asList("förrätt", "huvudrätt", "efterrätt", "dryck");
+        typeList = Arrays.asList("Förrätt", "Huvudrätt", "Efterrätt", "Dryck");
     }
 
     public void init(){

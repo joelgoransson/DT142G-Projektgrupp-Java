@@ -31,8 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Event.deleteById", query = "DELETE FROM Event e WHERE e.id = :id"),
     @NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name = :name"),
     @NamedQuery(name = "Event.sortByID", query = "SELECT e FROM Event e ORDER BY e.id desc"),
+    @NamedQuery(name = "Event.sortByDate", query = "SELECT e FROM Event e ORDER BY e.date asc"),
     @NamedQuery(name = "Event.findByClock", query = "SELECT e FROM Event e WHERE e.clock = :clock"),
-    @NamedQuery(name = "Event.findByDay", query = "SELECT e FROM Event e WHERE e.day = :day"),
+    @NamedQuery(name = "Event.findByDate", query = "SELECT e FROM Event e WHERE e.date = :date"),
     @NamedQuery(name = "Event.findByImage", query = "SELECT e FROM Event e WHERE e.image = :image"),
     @NamedQuery(name = "Event.findByOpeningact", query = "SELECT e FROM Event e WHERE e.openingact = :openingact"),
     @NamedQuery(name = "Event.findByDescription", query = "SELECT e FROM Event e WHERE e.description = :description")})
@@ -51,8 +52,8 @@ public class Event implements Serializable {
     @Column(name = "CLOCK")
     private String clock;
     @Size(max = 50)
-    @Column(name = "DAY")
-    private String day;
+    @Column(name = "DATE")
+    private String date;
     @Size(max = 500)
     @Column(name = "IMAGE")
     private String image;
@@ -94,12 +95,12 @@ public class Event implements Serializable {
         this.clock = clock;
     }
 
-    public String getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getImage() {

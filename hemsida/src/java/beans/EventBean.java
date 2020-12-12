@@ -13,7 +13,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +42,7 @@ public class EventBean implements Serializable {
     Event newEvent;
     private Part file;
     private String savepath = System.getProperty("user.home") + "\\Documents\\Antons Skafferi\\";
-
+    
     public Part getFile() {
         return file;
     }
@@ -52,27 +51,12 @@ public class EventBean implements Serializable {
         this.file = file;
     }
     
-    
     public void createEvent(){
         newEvent = new Event();
     }
 
     public Event getNewEvent() {
         return newEvent;
-    }
-
-    
-    private ArrayList<Event> list;
-    
-    public void createHashmap(){
-        try {
-            utx.begin();
-            em.joinTransaction();
-            list = new ArrayList<Event>(em.createNamedQuery("Event.findAll", Event.class).getResultList());
-            utx.commit();
-        }catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private String processFile(){
@@ -124,7 +108,6 @@ public class EventBean implements Serializable {
         try {
             utx.begin();
             em.joinTransaction();
-            //em.createNamedQuery("Lunch.updateById", Lunch.class).setParameter("id", id).setParameter("name", name).executeUpdate();
             em.createNamedQuery("Event.deleteById", Event.class).setParameter("id", id).executeUpdate();
             utx.commit();
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
@@ -138,6 +121,10 @@ public class EventBean implements Serializable {
             return 0;
         }
         return resultList.get(0).getId();
+    }
+    
+    public List<Event> getEventsSortedByDate(){
+        return em.createNamedQuery("Event.sortByDate", Event.class).getResultList();
     }
 
     public List<Event> getEvents(){
