@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Antons Skafferi</string>
+    <string name="app_name" translatable="false">Antons Skafferi</string>
     <string name="Vecka">Vecka 44</string>
     <string name="My_title">Mitt schema</string>
 
