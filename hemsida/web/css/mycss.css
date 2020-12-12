@@ -167,16 +167,20 @@ li {
 	margin:0.2em;
 	list-style: none;
 	align-content: center;
-
-
 }
+
+.menu-list h3{
+	margin:0em;
+	font-size:2.5vw;
+	font-weight: 600;
+}
+
 .menu-item h3 {
 	margin:0em;
 	font-size:2.5vw;
 	font-weight: 600;
-	
-
 }
+
 .menu-item p{
 	margin:0.3em 0em 1em;
 	font-size:2.1vw;

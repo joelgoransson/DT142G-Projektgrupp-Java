@@ -43,6 +43,12 @@ public class EventBean implements Serializable {
     private Part file;
     private String savepath = System.getProperty("user.home") + "\\Documents\\Antons Skafferi\\";
     
+     /**
+     * Creates a new instance of EventBean
+     */
+    public EventBean() {
+    }
+    
     public Part getFile() {
         return file;
     }
@@ -129,12 +135,6 @@ public class EventBean implements Serializable {
 
     public List<Event> getEvents(){
         return em.createNamedQuery("Event.findAll", Event.class).getResultList();
-    }
-    
-    /**
-     * Creates a new instance of EventBean
-     */
-    public EventBean() {
     }
 
     public void persist(Object object) {
