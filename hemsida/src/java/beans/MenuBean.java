@@ -37,12 +37,14 @@ public class MenuBean implements Serializable {
     
     private List<Menuitem> list;
     private final List<String> typeList;
+    private final List<String> foodTypeList;
     private Menuitem newItem;
     /**
      * Creates a new instance of CarteBean
      */
     public MenuBean() {
         typeList = Arrays.asList("Förrätt", "Huvudrätt", "Efterrätt", "Dryck");
+        foodTypeList = Arrays.asList("Förrätt", "Huvudrätt", "Efterrätt");
     }
 
     public void init(){
@@ -52,6 +54,10 @@ public class MenuBean implements Serializable {
     
     public List<Menuitem> getOneType(String type){
         return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", type).getResultList();
+    }
+    
+    public List<Menuitem> getDrink(){
+        return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", "Dryck").getResultList();
     }
     
     public void submit(){
@@ -79,6 +85,10 @@ public class MenuBean implements Serializable {
 
     public List<String> getTypeList() {
         return typeList;
+    }
+    
+    public List<String> getFoodTypeList() {
+        return foodTypeList;
     }
 
     public Menuitem getNewItem() {
