@@ -115,7 +115,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
         TimedEvent timedEvent = new TimedEvent(item);
         Timer timer = new Timer();
-        timer.schedule(timedEvent, riktigTid*200);
+        timer.schedule(timedEvent, riktigTid*100);
 
     }
     /**

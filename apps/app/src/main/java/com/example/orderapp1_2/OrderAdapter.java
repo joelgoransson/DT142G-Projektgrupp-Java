@@ -134,7 +134,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         Collections.sort(orderlist,(o1, o2) ->o2.getPreptime().compareTo(o1.getPreptime()));
 
         for(Order order: orderlist){
-            Dishes += order.getMenuitemname()+" - " + order.getComment() + "  " +order.getPreptime()+ "\n";
+            Dishes += order.getMenuitemname()+ "\n";
         }
         holder.infoTV.setText(Dishes);
     }
