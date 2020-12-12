@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Till första temat -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,7 +8,29 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Till Drawable items -->
     <color name="textview_backround">#FAFAFA</color>
     <color name="textview_border">#BDBDBD</color>
     <color name="grey">#DBDBDB</color>
+
+
+    <!-- Till temat -->
+    <color name="primaryColor">#9e9e9e</color>
+
+    <color name="primaryLightColor">#cfcfcf</color>
+
+    <color name="primaryDarkColor">#707070</color>
+
+    <color name="secondaryColor">#bdbdbd</color>
+
+    <color name="secondaryLightColor">#efefef</color>
+
+    <color name="secondaryDarkColor">#8d8d8d</color>
+
+    <color name="primaryTextColor">#212121</color>
+
+    <color name="secondaryTextColor">#263238</color>
+
+
 </resources>
