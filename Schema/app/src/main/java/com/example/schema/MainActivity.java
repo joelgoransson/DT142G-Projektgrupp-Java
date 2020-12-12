@@ -145,6 +145,17 @@ public class MainActivity extends AppCompatActivity {
         //SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
     }
 
+    public void openSchedule(View view){
+        int viewID = view.getId();
+        String id = view.getResources().getResourceName(viewID);
+        /*String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
+        int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
+        int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));*/
+        //PassCard passCard = findPassCard("Måndag", 1, 1);
+        MySchemaDialog dialog = new MySchemaDialog(viewID, employeeNames);
+        dialog.show(getSupportFragmentManager(), "MySchemaDialog");
+    }
+
     private void schema(){
         int maxPass = 2;
         for(int day = 0; day != 6; day++){

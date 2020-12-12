@@ -24,7 +24,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class My_schema extends AppCompatActivity {
     private static final String BASE_URL="http://192.168.100.101:8080/Hemsida/webresources/";
-    private String emp = "Joel";
+    private String emp;
     public List<PassObject> passList;
     public List<EmPassObject> empPassList;
     public List<PassCard> passCards = new ArrayList<>();
@@ -33,6 +33,7 @@ public class My_schema extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_schema);
+        emp = getIntent().getStringExtra("SELECTED_NAME");
         try {
             runThreads();
         } catch (InterruptedException e) {
