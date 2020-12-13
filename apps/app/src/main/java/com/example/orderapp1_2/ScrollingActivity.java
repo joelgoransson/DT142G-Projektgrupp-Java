@@ -113,7 +113,7 @@ public class ScrollingActivity extends AppCompatActivity {
         //Lägget till main input fält
         mainLayout = findViewById(R.id.linearMain);
         addMainBtn = findViewById(R.id.addMainBtn);
-        addMainBtn.setOnClickListener(new AddButtonListener("Varmrätt", main, "linearMain"));
+        addMainBtn.setOnClickListener(new AddButtonListener("Huvudrätt", main, "linearMain"));
         addMainBtn.performClick();
 
         //Lägget till main input fält
@@ -386,16 +386,16 @@ public class ScrollingActivity extends AppCompatActivity {
                 menuList = response.body().getMenuList(); //Spara response från databasen till menuList
                 for (MenuItem menuItem: menuList) {
                     String test = menuItem.getType();
-                    if(test.equalsIgnoreCase("Starter")){
+                    if(test.equalsIgnoreCase("Förrätt")){
                         starter.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("Main")){
+                    else if(test.equalsIgnoreCase("Huvudrätt")){
                         main.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("Dessert")){
+                    else if(test.equalsIgnoreCase("Efterrätt")){
                         efter.add(menuItem.getName());
                     }
-                    else if(test.equalsIgnoreCase("Drink")){
+                    else if(test.equalsIgnoreCase("Dryck")){
                         drink.add(menuItem.getName());
                     }
                 }
