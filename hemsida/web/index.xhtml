@@ -105,9 +105,11 @@
                             <c:forEach items="${menuBean.getOneType(foodTypeName)}" var="food">
                                 <li class="menu-item">
                                     <div class="food">     
-                                        <p>${food.name}</p>
+                                        <p>${food.name}</p> 
                                         <p>${food.price} kr</p>
                                     </div>
+                                    
+                                    <p class="menu-description">${food.description}</p>   
                                 </li>
                             </c:forEach>  
                         </c:forEach> 

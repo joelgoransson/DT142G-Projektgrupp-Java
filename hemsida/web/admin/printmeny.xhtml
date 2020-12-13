@@ -16,14 +16,17 @@
     </h:head>
 
     <h:body>
+        <div class="menyBackground">
         ${menuBean.init()}
         <c:forEach items="#{menuBean.typeList}" var="type">
             <div class="box #{type}-box">
                 <h2 class="print-type">#{type}</h2>
                 <c:forEach items="#{menuBean.getOneType(type)}" var="item">
                     <p class="print-text">#{item.name}</p>
+                    <p class="print-description">#{item.description}</p>
                 </c:forEach>
             </div>
         </c:forEach>
+        </div>
     </h:body>
 </html>
