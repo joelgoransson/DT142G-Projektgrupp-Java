@@ -124,7 +124,7 @@ public class KitchenFragment extends Fragment {
     }
 
     private  void readBillList(){
-
+        cardList.clear();
         System.out.println("readbilllist out println");
         restaurantClient = RestaurantClient.getINSTANCE();
         Call<BillList> call = restaurantClient.getBill();
@@ -263,11 +263,18 @@ public class KitchenFragment extends Fragment {
                 newList.add(item);
             }
         }
-        if (!newList.isEmpty())
-        {
+
+
             adapter = new KitchenOrderAdapter(newList);
             recyclerView.setAdapter(adapter);
-        }
 
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            readBillList();
+        }).start();
     }
 }
