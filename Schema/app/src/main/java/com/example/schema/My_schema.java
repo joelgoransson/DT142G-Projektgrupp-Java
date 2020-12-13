@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class My_schema extends AppCompatActivity {
-    private static final String BASE_URL="http://192.168.100.101:8080/Hemsida/webresources/";
+    private final String BASE_URL= "http://192.168.0.37:8080/Hemsida/webresources/";
     private String emp;
     public List<PassObject> passList;
     public List<EmPassObject> empPassList;
@@ -108,7 +108,7 @@ public class My_schema extends AppCompatActivity {
             System.out.println(card);
             System.out.println(card.getEmpName());
             if(card.getEmpName().equals(emp)){
-                if(card.getPassNr() == 1){
+                if(card.getPassNr() == 0){
                     textView.append(card.getWeekday() + ", kl 11-14" + "\n");
                 }else {
                     if (card.getWeekday() == weekday(5)) {

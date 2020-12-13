@@ -27,7 +27,7 @@ import android.util.Log;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String BASE_URL="http://192.168.100.101:8080/Hemsida/webresources/";
+    private static final String BASE_URL= "http://192.168.0.37:8080/Hemsida/webresources/";
     public String[] employeeNames;
     public List<EmployeeObject> employeeList;
     public List<EmPassObject> empPassList;
@@ -77,8 +77,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Thread class responsible for creating the PassCard object
+     */
     private class WriteThread implements Runnable{
         @Override
+        /**
+         * Runs through all objects in employeeList and stores names to employeeNames[].
+         * Runs through all EmPassObjects in empPassList and stores them as PassCards to passCards list
+         */
         public void run() {
             List<String> tempList = new ArrayList<>();
             for(EmployeeObject emp : employeeList){
@@ -101,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Converts a integer to a string
+     * @param index the index of the weekday 0-5
+     * @return returns the name of the day
+     */
     private String weekday(int index){
         switch (index) {
             case 0: return "Måndag";
@@ -111,7 +123,23 @@ public class MainActivity extends AppCompatActivity {
             case 5: return "Lördag";
             default: return " ";
         }
+    }
 
+    /**
+     * Takes the name of a weekday and returns the index
+     * @param day name of the day
+     * @return int index of the day
+     */
+    private int weekindex(String day){
+        switch (day) {
+            case "Måndag": return 0;
+            case "Tisdag": return 1;
+            case "Onsdag": return 2;
+            case "Torsdag": return 3;
+            case "Fredag": return 4;
+            case "Lördag": return 5;
+            default: return -1;
+        }
     }
 
     public void my_scheduler(View view){
@@ -119,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * On click listener for the clickable textviews. Opens dialog and sends id and PassCard to dialog
+     * @param view The TextView item clicked on
+     */
     public void Set_Emp(View view) {
         int viewID = view.getId();
         String id = view.getResources().getResourceName(viewID);
@@ -128,21 +160,6 @@ public class MainActivity extends AppCompatActivity {
         PassCard passCard = findPassCard(day, passNr, empNr);
         SetEmpDialog SetEmpDialog = new SetEmpDialog(viewID, employeeNames, passCard);
         SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
-        //openDialog(view.getId());
-        //Log.d("MyApp","I am here");
-    }
-
-    private void openDialog(int i) {
-        //View view = findViewById(i);
-        //String id = view.getResources().getResourceName(view.getId());
-        //String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
-        //int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
-        //int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
-        //System.out.println("Dag "+day+" pass "+passNr+" emp "+empNr);
-
-        //PassCard passCard = findPassCard(day, passNr, empNr);
-        //SetEmpDialog SetEmpDialog = new SetEmpDialog(i, employeeNames, passCard);
-        //SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
     }
 
     public void openSchedule(View view){
@@ -156,22 +173,30 @@ public class MainActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "MySchemaDialog");
     }
 
+    /**
+     * Print the schedule to the layout
+     */
     private void schema(){
-        int maxPass = 2;
-        for(int day = 0; day != 6; day++){
-            if(day==5){ maxPass = 1; }
-            for(int pass = 0; pass < maxPass; pass++){
-                for(int emp = 0; emp != 3; emp++){
-                    Resources res = getResources();
-                    System.out.println(day+" "+pass + " "+emp);
-                    int id = res.getIdentifier("P"+day+pass+emp, "id", this.getPackageName());
-                    TextView textView = findViewById(id);
-                    textView.setText(findPassCard(weekday(day), pass, emp).getEmpName());
-                }
+        for(PassCard item : passCards){
+            int day = weekindex(item.getWeekday());
+            int pass = item.getPassNr()-1;
+            int emp = item.getEmpNr();
+            System.out.println(day+" "+pass+" "+emp);
+            int id = getResources().getIdentifier("P"+day+pass+emp, "id", this.getPackageName());
+            TextView textView = findViewById(id);
+            if(textView != null){
+                textView.setText(item.getEmpName());
             }
         }
     }
 
+    /**
+     * Find and return a PassCard object from the passCards list
+     * @param day The int for the day, 0-5
+     * @param passNr The pass number, 1-2
+     * @param empNr The employee number, 0-2
+     * @return A PassCard with the give day, pass, and emp number.
+     */
     public PassCard findPassCard(String day, int passNr, int empNr){
         for(PassCard i : passCards){
             if(i.getWeekday().equalsIgnoreCase(day) && i.getPassNr()==passNr+1 && i.getEmpNr()==empNr){
