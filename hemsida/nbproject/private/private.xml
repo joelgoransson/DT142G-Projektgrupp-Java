@@ -4,7 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/web/admin/employees.xhtml</file>
+            <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/src/java/beans/LunchBean.java</file>
             <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/src/java/beans/EmployeeBean.java</file>
+            <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/src/java/entities/Employee.java</file>
+            <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/web/admin/event.xhtml</file>
+            <file>file:/D:/Files/Documents/school/Mittuniversitet/DT142G/git/DT142G-Projektgrupp-Java/hemsida/src/java/beans/EventBean.java</file>
         </group>
     </open-files>
 </project-private>

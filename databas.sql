@@ -177,7 +177,6 @@ INSERT INTO Pass VALUES (7, 2, 4, 1);
 INSERT INTO Pass VALUES (8, 1, 5, 1);
 INSERT INTO Pass VALUES (9, 2, 5, 1);
 INSERT INTO Pass VALUES (10, 1, 6, 1);
-INSERT INTO Pass VALUES (11, 2, 6, 1);
 
 INSERT INTO Pass VALUES (12, 1, 0, 2);
 INSERT INTO Pass VALUES (13, 2, 0, 2);
@@ -232,6 +231,3 @@ INSERT INTO EmployeePass VALUES (30, 'Joel', 9, 2);
 INSERT INTO EmployeePass VALUES (31, 'Joel', 10, 0);
 INSERT INTO EmployeePass VALUES (32, 'Joel', 10, 1);
 INSERT INTO EmployeePass VALUES (33, 'Joel', 10, 2);
-INSERT INTO EmployeePass VALUES (34, 'Joel', 11, 0);
-INSERT INTO EmployeePass VALUES (35, 'Joel', 11, 1);
-INSERT INTO EmployeePass VALUES (36, 'Joel', 11, 2);
