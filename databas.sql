@@ -33,6 +33,7 @@ CREATE TABLE MenuItem (
     Name VARCHAR(128) NOT NULL PRIMARY KEY,
     Price INTEGER,
     Type VARCHAR(55),
+    Description  VARCHAR(200),
     PrepTime DOUBLE
 );
 
@@ -124,23 +125,23 @@ INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4, 'Mums');
 INSERT INTO Lunch VALUES (14, 'Kebarulle', 4, 'Riktigt gott');
 
 /* Menuitem */
-INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'Förrätt', 10);
-INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 10);
-INSERT INTO Menuitem VALUES ('Grillad antrecôte', 230, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 10);
-INSERT INTO Menuitem VALUES ('Coca cola', 25, 'Dryck', 10);
-INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'Dryck', 10);
+INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'Förrätt', 'Med handskalade räkor på vitt bröd', 10);
+INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 'En riktig klassiker', 10);
+INSERT INTO Menuitem VALUES ('Grillad entrecôte', 230, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
+INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
+INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 'Från bergskällan i Roslagen', 10);
+INSERT INTO Menuitem VALUES ('Coca cola', 25, 'Dryck', 'Kall', 10);
+INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'Dryck', 'Kall', 10);
 
 /* INGREDIENTS */
 INSERT INTO Ingredient VALUES ('Bröd', 5);
 INSERT INTO Ingredient VALUES ('Anka', 10);
 INSERT INTO Ingredient VALUES ('Lever', 10);
 INSERT INTO Ingredient VALUES ('Grillkål', 5);
-INSERT INTO Ingredient VALUES ('Antrecôte', 5);
+INSERT INTO Ingredient VALUES ('Entrecôte', 5);
 INSERT INTO Ingredient VALUES ('Hjort', 12);
 INSERT INTO Ingredient VALUES ('Löv', 10);
 INSERT INTO Ingredient VALUES ('Något', 5);
@@ -152,8 +153,8 @@ INSERT INTO Ingredient VALUES ('Vatten', 10);
 INSERT INTO MenuItemHasIngredient VALUES (1, 'Bröd', 'Toast skagen', 5);
 INSERT INTO MenuItemHasIngredient VALUES (2, 'Anka', 'Anklever', 5);
 INSERT INTO MenuItemHasIngredient VALUES (3, 'Lever', 'Anklever', 15);
-INSERT INTO MenuItemHasIngredient VALUES (4, 'Grillkål', 'Grillad antrecôte', 15);
-INSERT INTO MenuItemHasIngredient VALUES (5, 'Antrecôte', 'Grillad antrecôte', 5);
+INSERT INTO MenuItemHasIngredient VALUES (4, 'Grillkål', 'Grillad entrecôte', 15);
+INSERT INTO MenuItemHasIngredient VALUES (5, 'Entrecôte', 'Grillad entrecôte', 5);
 INSERT INTO MenuItemHasIngredient VALUES (6, 'Hjort', 'Kryddstekt hjortinnanlår', 15);
 INSERT INTO MenuItemHasIngredient VALUES (7, 'Löv', 'Grönt', 5);
 INSERT INTO MenuItemHasIngredient VALUES (8, 'Något', 'Mousse', 15);
