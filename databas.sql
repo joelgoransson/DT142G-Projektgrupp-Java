@@ -33,6 +33,7 @@ CREATE TABLE MenuItem (
     Name VARCHAR(128) NOT NULL PRIMARY KEY,
     Price INTEGER,
     Type VARCHAR(55),
+    Description  VARCHAR(200),
     PrepTime DOUBLE
 );
 
