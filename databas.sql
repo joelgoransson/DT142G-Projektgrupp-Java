@@ -125,16 +125,16 @@ INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4, 'Mums');
 INSERT INTO Lunch VALUES (14, 'Kebarulle', 4, 'Riktigt gott');
 
 /* Menuitem */
-INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'Förrätt', 10);
-INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 10);
-INSERT INTO Menuitem VALUES ('Grillad entrecôte', 230, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 10);
-INSERT INTO Menuitem VALUES ('Coca cola', 25, 'Dryck', 10);
-INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'Dryck', 10);
+INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'Förrätt', 'Med handskalade räkor på vitt bröd', 10);
+INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 'En riktig klassiker', 10);
+INSERT INTO Menuitem VALUES ('Grillad entrecôte', 230, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
+INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
+INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 'Från bergskällan i Roslagen', 10);
+INSERT INTO Menuitem VALUES ('Coca cola', 25, 'Dryck', 'Kall', 10);
+INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'Dryck', 'Kall', 10);
 
 /* INGREDIENTS */
 INSERT INTO Ingredient VALUES ('Bröd', 5);
