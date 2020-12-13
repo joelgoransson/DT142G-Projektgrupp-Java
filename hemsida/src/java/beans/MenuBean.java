@@ -60,19 +60,22 @@ public class MenuBean implements Serializable {
         return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", "Dryck").getResultList();
     }
     
-    public void submit(){
+    public String submit(){
         persist(newItem);
+        return "/admin/carte.xhtml";
     }
     
-    public void delete(String name){
+    public String delete(String name){
         try {
             utx.begin();
             em.joinTransaction();
             em.createNamedQuery("Menuitem.deleteByName", Menuitem.class).setParameter("name", name).executeUpdate();
             utx.commit();
+            
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
             Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "/admin/carte.xhtml";
     }
     
     public List<Menuitem> getList() {
@@ -99,7 +102,7 @@ public class MenuBean implements Serializable {
         this.newItem = newItem;
     }
     
-    public void persist(Object object) {
+    public String persist(Object object) {
         try {
             utx.begin();
             em.persist(object);
@@ -108,6 +111,7 @@ public class MenuBean implements Serializable {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             throw new RuntimeException(e);
         }
+        return "/admin/carte.xhtml";
     }
     
 }
