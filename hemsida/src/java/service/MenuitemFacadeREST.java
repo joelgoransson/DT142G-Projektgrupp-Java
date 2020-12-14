@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Joel
+ * @author Sundsvall
  */
 @Stateless
 @Path("entities.menuitem")
