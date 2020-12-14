@@ -171,8 +171,13 @@ li {
 
 .menu-list h3{
 	margin:0em;
+        margin-top: 1.5em;
 	font-size:2.5vw;
 	font-weight: 600;
+}
+.menu-list p{
+	margin-bottom: 0.5em;
+	font-size:1.2vw;
 }
 
 .menu-item h3 {
