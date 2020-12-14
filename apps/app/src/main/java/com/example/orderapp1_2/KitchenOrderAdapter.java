@@ -1,5 +1,8 @@
 package com.example.orderapp1_2;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderapp1_2.retorofit.classes.Bill;
@@ -200,4 +204,6 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
             }
         });
     }
+
+
 }

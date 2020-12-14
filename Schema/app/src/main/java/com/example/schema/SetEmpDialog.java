@@ -25,7 +25,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 
 public class SetEmpDialog extends DialogFragment {
-    private static final String BASE_URL="http://192.168.100.101:8080/Hemsida/webresources/";
+    private static final String BASE_URL="http://192.168.1.4:8080/Hemsida/webresources/";
     private String[] arr;
     private String str ;
     private int id;

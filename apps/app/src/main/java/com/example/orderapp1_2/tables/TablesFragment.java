@@ -271,7 +271,14 @@ public class TablesFragment extends Fragment {
                 }
             });
 
-
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            readBillList();
+        }).start();
     }
 
 
