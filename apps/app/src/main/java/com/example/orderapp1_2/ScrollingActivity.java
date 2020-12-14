@@ -174,7 +174,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 if(tomorder  == null || tomorder.trim().isEmpty()){
                         System.out.println("tom Order");
                 }else{
-                    generateBill("KÖKET",1,1, time2);
+                    generateBill("KÖKET",tableNr,1, time2);
                     System.out.println("ORDERN ÄR TOM FÖR FAN!");
                 }
 
@@ -193,7 +193,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(test, "Kall", maxBillID);
                     }
                 }
                 count = mainLayout.getChildCount();
@@ -202,7 +202,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
                     //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(test, "Kall", maxBillID);
                     }
                 }
                 count = efterLayout.getChildCount();
@@ -210,7 +210,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(test, "Kall", maxBillID);
                     }
                 }
                 count = drinkLayout.getChildCount();
@@ -218,7 +218,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
                     String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
                     if(test != null && !test.trim().isEmpty()){
-                        generateOrder(1,test, "Kall", maxBillID);
+                        generateOrder(test, "Kall", maxBillID);
                     }
                 }
 
@@ -421,7 +421,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void generateOrder(int tableid, String dish, String comment, int billid)
+    private void generateOrder( String dish, String comment, int billid)
     {
 
 

@@ -71,13 +71,7 @@ public class TablesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(TablesViewModel.class);
 
-        /*betaladButton = root.findViewById(R.id.betaladButton);
-        betaladButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                readBillList();
-            }
-        })*/;
+
     }
 
     private  void readBillList(){
