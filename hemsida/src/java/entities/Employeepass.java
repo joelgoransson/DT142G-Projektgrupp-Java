@@ -28,8 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Employeepass.findAll", query = "SELECT e FROM Employeepass e"),
     @NamedQuery(name = "Employeepass.findById", query = "SELECT e FROM Employeepass e WHERE e.id = :id"),
     @NamedQuery(name = "Employeepass.findByEmployeename", query = "SELECT e FROM Employeepass e WHERE e.employeename = :employeename"),
-    @NamedQuery(name = "Employeepass.findByPassid", query = "SELECT e FROM Employeepass e WHERE e.passid = :passid"),
-    @NamedQuery(name = "Employeepass.findByEmployeenr", query = "SELECT e FROM Employeepass e WHERE e.employeenr = :employeenr")})
+    @NamedQuery(name = "Employeepass.findByPassid", query = "SELECT e FROM Employeepass e WHERE e.passid = :passid")})
 public class Employeepass implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,8 +42,6 @@ public class Employeepass implements Serializable {
     private String employeename;
     @Column(name = "PASSID")
     private Integer passid;
-    @Column(name = "EMPLOYEENR")
-    private Integer employeenr;
 
     public Employeepass() {
     }
@@ -75,14 +72,6 @@ public class Employeepass implements Serializable {
 
     public void setPassid(Integer passid) {
         this.passid = passid;
-    }
-
-    public Integer getEmployeenr() {
-        return employeenr;
-    }
-
-    public void setEmployeenr(Integer employeenr) {
-        this.employeenr = employeenr;
     }
 
     @Override

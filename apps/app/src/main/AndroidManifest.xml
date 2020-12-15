@@ -5,6 +5,7 @@
 
 
     <application
+        android:name="com.example.orderapp1_2.MyApplication" 
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

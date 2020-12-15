@@ -130,6 +130,7 @@ INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 'En riktig klassiker'
 INSERT INTO Menuitem VALUES ('Grillad entrecôte', 230, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
 INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
 INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 'Serveras med pommes och grönpepparsås', 10);
+INSERT INTO Menuitem VALUES ('Taco', 55, 'Huvudrätt', 'Tortilla,köttfärs,ost', 50);
 INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
 INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 'Gjord av världens bästa choklad', 10);
 INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 'Från bergskällan i Roslagen', 10);
