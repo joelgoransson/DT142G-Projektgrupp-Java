@@ -158,7 +158,6 @@ public class KitchenFragment extends Fragment {
 
                 }
                 readOrdermenuList();
-                //CardListSetter(cardList);
 
 
 
@@ -224,7 +223,6 @@ public class KitchenFragment extends Fragment {
                     }
                 }
                 createRecyclerView();
-                //CardListSetter(cardList);
 
 
 

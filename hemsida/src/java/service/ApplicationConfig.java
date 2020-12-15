@@ -42,8 +42,6 @@ public class ApplicationConfig extends Application {
         resources.add(service.PassFacadeREST.class);
         resources.add(service.TablesFacadeREST.class);
         resources.add(service.WeekdayFacadeREST.class);
-        resources.add(service.WipemployeepassFacadeREST.class);
-        resources.add(service.WippassFacadeREST.class);
     }
     
 }
