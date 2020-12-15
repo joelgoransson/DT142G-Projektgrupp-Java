@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : kahre
 */
 body, html, main {
-	font-family:verdana;
+  font-family:verdana;
   height: 100%;
   margin: 0;
   padding:0;
@@ -18,37 +18,39 @@ body, html, main {
 
 /* HEADER */
 .header{
-    background: #574427;
+    background: #69522f; /*574427;*/
     padding: 0.5em 8em;
     margin:0;
-    
+    position:fixed;
+    width: 100%; /* Full width */ 
 }
-
 
 .header-content{
     display: flex;
 }
+
 .header-title{
     margin: 0;
-    flex-grow: 3;
+    flex-grow: 1;
     font-size:2.4em;
     letter-spacing: 0.08em;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
 }
 .nav-list{
     flex-grow: 1;
     list-style: none;
-    padding: 0;
+    padding-right: 5em;
     display: inline;
-    text-align: right;
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
+
 .nav-list li{
-    flex-grow: 1;
-    margin-left:0.5em;
+    margin-left:2em;
     font-size: 1.5em;
 }
 .nav-list li a{
@@ -85,8 +87,9 @@ body, html, main {
 	opacity: 1;
 	margin: 0;
 	color: white;
-
+        margin-top: 3em;     
 }
+
 .front-item{
 	margin: 0;
 }
