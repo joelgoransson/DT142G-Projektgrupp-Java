@@ -5,7 +5,6 @@ import org.simpleframework.xml.Root;
 
 @Root(name="pass", strict=false)
 public class PassObject {
-
     @Element(name="id")
     private int id;
 
@@ -14,6 +13,9 @@ public class PassObject {
 
     @Element(name="weekday")
     private int weekday;
+
+    @Element(name="weeknr")
+    private int weeknr;
 
     public int getId() {
         return id;
@@ -38,4 +40,8 @@ public class PassObject {
     public void setWeekday(int weekday) {
         this.weekday = weekday;
     }
+
+    public int getWeeknr() { return weeknr; }
+
+    public void setWeeknr(int weeknr) { this.weeknr = weeknr; }
 }

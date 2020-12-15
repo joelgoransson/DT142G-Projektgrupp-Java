@@ -87,7 +87,7 @@ public class Menuitem implements Serializable {
     public void setPreptime(Double preptime) {
         this.preptime = preptime;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

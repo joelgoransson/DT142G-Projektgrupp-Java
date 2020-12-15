@@ -70,7 +70,6 @@ public class EmployeeBean implements Serializable {
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(IngredientBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
     public void submit(){

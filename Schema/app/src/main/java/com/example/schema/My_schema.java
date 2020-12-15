@@ -103,18 +103,18 @@ public class My_schema extends AppCompatActivity {
     }
 
     private void schema(){
-        TextView textView = findViewById(R.id.textView);
+        Resources res = getResources();
         for(PassCard card : passCards){
-            System.out.println(card);
-            System.out.println(card.getEmpName());
             if(card.getEmpName().equals(emp)){
-                if(card.getPassNr() == 0){
-                    textView.append(card.getWeekday() + ", kl 11-14" + "\n");
+                int id = res.getIdentifier(card.getWeekday()+"_text", "id", this.getPackageName());
+                TextView textView = findViewById(id);
+                if(card.getPassNr() == 1){
+                    textView.append("11-14" + "\n");
                 }else {
                     if (card.getWeekday() == weekday(5)) {
-                        textView.append(card.getWeekday() + ", kl 16-23" + "\n");
+                        textView.append("16-23" + "\n");
                     } else {
-                        textView.append(card.getWeekday() + ", kl 16-20" + "\n");
+                        textView.append("16-20" + "\n");
                     }
                 }
             }

@@ -37,12 +37,14 @@ public class MenuBean implements Serializable {
     
     private List<Menuitem> list;
     private final List<String> typeList;
+    private final List<String> foodTypeList;
     private Menuitem newItem;
     /**
      * Creates a new instance of CarteBean
      */
     public MenuBean() {
-        typeList = Arrays.asList("förrätt", "huvudrätt", "efterrätt", "dryck");
+        typeList = Arrays.asList("Förrätt", "Huvudrätt", "Efterrätt", "Dryck");
+        foodTypeList = Arrays.asList("Förrätt", "Huvudrätt", "Efterrätt");
     }
 
     public void init(){
@@ -54,19 +56,26 @@ public class MenuBean implements Serializable {
         return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", type).getResultList();
     }
     
-    public void submit(){
-        persist(newItem);
+    public List<Menuitem> getDrink(){
+        return em.createNamedQuery("Menuitem.findByType", Menuitem.class).setParameter("type", "Dryck").getResultList();
     }
     
-    public void delete(String name){
+    public String submit(){
+        persist(newItem);
+        return "/admin/carte.xhtml";
+    }
+    
+    public String delete(String name){
         try {
             utx.begin();
             em.joinTransaction();
             em.createNamedQuery("Menuitem.deleteByName", Menuitem.class).setParameter("name", name).executeUpdate();
             utx.commit();
+            
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
             Logger.getLogger(LunchBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "/admin/carte.xhtml";
     }
     
     public List<Menuitem> getList() {
@@ -80,6 +89,10 @@ public class MenuBean implements Serializable {
     public List<String> getTypeList() {
         return typeList;
     }
+    
+    public List<String> getFoodTypeList() {
+        return foodTypeList;
+    }
 
     public Menuitem getNewItem() {
         return newItem;
@@ -89,7 +102,7 @@ public class MenuBean implements Serializable {
         this.newItem = newItem;
     }
     
-    public void persist(Object object) {
+    public String persist(Object object) {
         try {
             utx.begin();
             em.persist(object);
@@ -98,6 +111,7 @@ public class MenuBean implements Serializable {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             throw new RuntimeException(e);
         }
+        return "/admin/carte.xhtml";
     }
     
 }

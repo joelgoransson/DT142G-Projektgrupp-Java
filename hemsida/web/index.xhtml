@@ -10,7 +10,7 @@
         <meta charset="UTF-8"></meta>
     </h:head>
     <h:body>
-     <header class="header">
+        <header class="header">
         
             <div class="header-content">
                 <h1 class="header-title">Antons Skafferi</h1>
@@ -20,220 +20,179 @@
                 </ul>
             </div>
         
-    </header>
-	<main>
-		<div class="front-container">
-			<div class="front">
-				<div class="front-menu">
-					<div class="front-menu-container">
-                                            <h2 class="front-item">Dagens Lunch:</h2>                                     
-                                            <p>${indexBean.dayOfWeekString}</p>
-						<p>                                                    
-                                                    <c:forEach items="${lunchBean.getLunchToday()}" var="food">
-                                                        <li class="menu-item">
-                                                            <h3>${food.name}</h3>    
-                                                        </li>
-                                                    </c:forEach>                                          
-                                                </p>
-					</div>
-				</div>
+        </header>
+        <main>
+            <div class="front-container">
+		<div class="front">
+                    <div class="front-menu">
+			<div class="front-menu-container">
+                            <h2 class="front-item">Dagens Lunch:</h2>                                     
+                            <p>${indexBean.dayOfWeekString}</p>
+                            <p>                                                    
+                                <c:forEach items="${lunchBean.getLunchToday()}" var="food">
+                                    <li class="menu-item">
+                                        <h3>${food.name}</h3>    
+                                    </li>
+                                </c:forEach>                                          
+                            </p>
 			</div>
+                    </div>
 		</div>
-		<div class="information">
-			<div class="information-box">
-				<div class="information-content">
-					<h1>Öppet</h1>
-					<p>Vardagar 10:00-20:00 </p>
-					<p>Helger    12:00-23:00</p>
-				</div>
-			</div>
-			<div class="information-box">
-				<div class="information-content">
-					<h1>Plats</h1>
-					<p>någongata 12</p>
-				</div>
-			</div>
-			<div class="information-box">
-				<div class="information-content">
-					<h1>Kontakt</h1>
-					<p>070-111 11 11</p>
-				</div>
-			</div>
-		</div>
-		<div  id="meny" class="menu">
-			<div class="menu-box">
-				<h1 class="menu-title">Lunch</h1>
-                                <ol class="menu-list">
-
-                                    <c:forEach items="${lunchBean.days}" var="day">
-                                        <li class="menu-item">
-                                            <h3>${day.name}</h3>
-                                            
-                                            <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
-                                                <p>${food.name}</p>                   
-                                            </c:forEach>
-                                        </li>
-                                    </c:forEach>
-                                     
-				</ol>
-			</div>
-			<div class="menu-background1"></div> 
-		</div>
-		<div class="menu">
-			<div class="menu-background2"></div> 
-			<div class="menu-box">
-				<h1 class="menu-title">A la Carte</h1>
-				<ol class="menu-list">
-					<li class="menu-item">
-						<div class="food">
-							<h3>Köttbullar och potatis</h3>
-							<h3>129kr</h3>
-						</div>
-						
-						<p>Köttbullar, potatis, lingon</p>
-					</li>
-					<li class="menu-item">
-						<div class="food">
-							<h3>Pizza</h3>
-							<h3>149kr</h3>
-						</div>
-						
-						<p>Surströmmingsgryta</p>
-					</li>
-					<li class="menu-item">
-						<div class="food">
-							<h3>Kycklinglasagnesoppa</h3>
-							<h3>119kr</h3>
-						</div>
-						<p>Kyckling, lasagne, vatten</p>
-					</li>
-					<li class="menu-item">
-						<div class="food">
-							<h3>Oxfile</h3>
-							<h3>149kr</h3>
-						</div>
-						<p>Oxfile,potatismos,sås</p>
-					</li>
-					<li class="menu-item">
-						<div class="food">
-							<h3>Hamburgare</h3>
-							<h3>99kr</h3>
-						</div>
-						<p>Bröd, nötkött, lök, ketchup, bacon, ost</p>
-					</li>
-				</ol>
-			</div>
-		</div>
-		<div class="menu">
-			<div class="menu-box">
-				<h1 class="menu-title">Drycker</h1>
-				<ol class="menu-list">
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Vatten</h3>
-							<h3>10kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Cola</h3>
-							<h3>25kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Fanta</h3>
-							<h3>25kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Öl</h3>
-							<h3>25kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Vin</h3>
-							<h3>50kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Sprite</h3>
-							<h3>25kr</h3>
-						</div>
-					</li>
-					<li class="menu-item drinks">
-						<div class="food">
-							<h3>Vatten deluxe</h3>
-							<h3>199kr</h3>
-						</div>
-					</li>
-				</ol>
-			</div>
-			<div class="menu-background3"></div> 
-		</div>
-            
-            <div class="event">
-            <div class="event-info">
-                <h3 class="event-title">Inhaler</h3>
-                <p class="event-date">20/4</p>
-                <p class="event-time">17:00 - 19:00</p>
-                <h4 class="event-note-title">Förband:</h4>
-                <p class="even-note">DDT</p>
             </div>
-            <img class="event-photo" alt="image from a concert" src="images/event.jpg"></img>
-        </div>
+                 
+            <div class="information">
                 
-                <c:forEach items="${eventBean.events}" var="event">
-                    <div class="event" id="evenemang">
-                        <img class="event-photo" alt="image from a concert" src="C:\Users\Sundsvall\Documents\Antons Skafferi\1event[1].jpg"></img>
-                   
-                        <div class="event-info">
-                            <h3 class="event-title">${event.name}</h3>
-                            <p>${event.image}</p>
-                            <p class="event-date">${event.description}</p>
-                            <p class="event-date">${event.day}</p>
-                            <p class="event-time">${event.clock}</p>
-                            <h4 class="event-note-title">Förband:</h4>
-                            <p class="even-note">${event.openingact}</p>
+        <!-- First information box: Open hours -->
+		<div class="information-box">
+                    <div class="information-content">
+			<h1>Öppet</h1>
+			<p>Vardagar 10:00-20:00 </p>
+			<p>Helger    12:00-23:00</p>
+                    </div>
+                </div>
+                
+        <!-- Middle information box: Address information -->        
+                <div class="information-box">
+                    <div class="information-content">
+                        <h1>Plats</h1>
+                        <p>någongata 12</p>
+                    </div>
+                </div>
+        
+        <!-- Last information box: Contact info -->
+                <div class="information-box">
+                    <div class="information-content">
+                        <h1>Kontakt</h1>
+                        <p>070-111 11 11</p>
+                    </div>
+                </div>
+        
+            </div>
+        <!-- end div class=information -->
+        
+            <div  id="meny" class="menu">
+		<div class="menu-box">
+                    <h1 class="menu-title">Lunch</h1>
+                    <ol class="menu-list">
+                        <c:forEach items="${lunchBean.days}" var="day">
+                            <li class="menu-item">
+                                <h3>${day.name}</h3>
+                                            
+                                <c:forEach items="${lunchBean.getLunchDay(day.id)}" var="food">
+                                    <p>${food.name}</p>                   
+                                </c:forEach>
+                            </li>
+                        </c:forEach>          
+                    </ol>
+		</div>
+                
+                <!-- Lunchmeny Background picture -->
+                <div class="menu-background1"></div> 
+                
+            </div> <!-- end div id=meny, class=meny -->
+        
+            <div class="menu">
+                
+                <!-- A la carte background picture -->
+                <div class="menu-background2"></div>
+                
+                <div class="menu-box">
+                    <h1 class="menu-title">Á la Carte</h1>
+                    <ol class="menu-list">
+                        <c:forEach items="${menuBean.foodTypeList}" var="foodTypeName">
+                            <h3>${foodTypeName}</h3>
+                            
+                            <c:forEach items="${menuBean.getOneType(foodTypeName)}" var="food">
+                                <li class="menu-item">
+                                    <div class="food">     
+                                        <p>${food.name}</p>
+                                        <p>${food.price} kr</p>
+                                    </div>
+                                </li>
+                            </c:forEach>  
+                        </c:forEach> 
+                    </ol>
+		</div>
+                
+            </div> <!-- end div class=menu -->
+            
+            <div class="menu">
+		<div class="menu-box">
+                    <h1 class="menu-title">Drycker</h1>
+                    <ol class="menu-list">
+                        <c:forEach items="${menuBean.drink}" var="drink">
+                            <li class="menu-item drinks">
+                                <div class="food">     
+                                    <h3>${drink.name}</h3>
+                                    <h3>${drink.price} kr</h3>
+                                </div>
+                            </li>
+                        </c:forEach> 
+                    </ol>
+		</div>
+                
+                <!-- Drink meny backgound picture -->
+		<div class="menu-background3"></div>
+                
+            </div><!-- end div class=meny -->
+               
+            <c:forEach items="${eventBean.eventsSortedByDate}" var="event">
+                <div class="event" id="evenemang">
+                        
+                    <img class="event-photo" alt="image from a concert" src="http://localhost:8080/Hemsida/images/event.jpg"></img>
+                        
+                    <div class="event-info">
+                        <h3 class="event-title">${event.name}</h3>
+                        <p>${event.image}</p>
+                        <p class="event-date">${event.description}</p>
+                        <p class="event-date">${event.date}</p>
+                        <p class="event-time">${event.clock}</p>
+                        <h4 class="event-note-title">Förband:</h4>
+                        <p class="even-note">${event.openingact}</p>
+                    </div>
+                </div>
+            </c:forEach>
+                        
+            <div class="event">
+                <div class="event-info">
+                    <h3 class="event-title">Inhaler</h3>
+                    <p class="event-date">20/4</p>
+                    <p class="event-time">17:00 - 19:00</p>
+                    <h4 class="event-note-title">Förband:</h4>
+                    <p class="even-note">DDT</p>
+                </div>
+                <img class="event-photo" alt="image from a concert" src="images/event.jpg"></img>
+            </div>
+		
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="socials">
+                        <div class="socialpic">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+                                <img src="images/facebook.png" alt="facebook"></img>
+                            </a>
+                        </div>
+                    
+                        <div class="socialpic">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+                                <img src="images/insta.png" alt="facebook"></img>
+                            </a>
+                        </div>
+                    
+                        <div class="socialpic">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+                                <img src="images/twitter.png" alt="facebook"></img>
+                            </a>
                         </div>
                     </div>
-                </c:forEach> 
 		
-        <footer class="footer">
-            <div class="footer-content">
-		<div class="socials">
-                    <div class="socialpic">
-			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-                            <img src="images/facebook.png" alt="facebook"></img>
-			</a>
-                    </div>
-                    
-                    <div class="socialpic">
-			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-                            <img src="images/insta.png" alt="facebook"></img>
-			</a>
-                    </div>
-                    
-                    <div class="socialpic">
-			<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-                            <img src="images/twitter.png" alt="facebook"></img>
-			</a>
-                    </div>
-		</div>
-		
-                <p>anton@skafferi.se</p>
-		<p>000 - 000 00 00</p>
-		<p>Copyright</p>
-            </div>
-        </footer>
-    </main>   
-        
-        
-            
-        
+                    <p>anton@skafferi.se</p>
+                    <p>000 - 000 00 00</p>
+                    <p>Copyright</p>
+                </div>
+            </footer>
+        </main>   
+    
     </h:body>
 </html>
 

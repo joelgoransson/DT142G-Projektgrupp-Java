@@ -5,20 +5,20 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="title">Ändra Á la carte meny</ui:define>
+    <ui:define name="title">Ändra Á la carte meny och drycker</ui:define>
 
     <ui:define name="body">
         <a href="printmeny.xhtml">Skriv ut</a>
-        <h1>Add menu item</h1>
+        <h1>Lägg till objekt på menyn</h1>
         <h:form>
             ${menuBean.init()}
-            <h3>Name: </h3>
+            <h3>Namn: </h3>
             <h:inputText class="form-input" value="#{menuBean.newItem.name}"/>
-            <h3>Price: </h3>
+            <h3>Pris: </h3>
             <h:inputText class="form-input" value="#{menuBean.newItem.price}"/>
-            <h3>Prep time: </h3>
+            <h3>Tillagningstid: </h3>
             <h:inputText class="form-input" value="#{menuBean.newItem.preptime}"/>
-            <h3>Type: </h3>
+            <h3>Typ: </h3>
             <h:selectOneMenu value="#{menuBean.newItem.type}">
             <f:selectItem itemValue="#{menuBean.typeList[0]}" itemLabel="#{menuBean.typeList[0]}"/>
                 <f:selectItem itemValue="#{menuBean.typeList[1]}" itemLabel="#{menuBean.typeList[1]}"/>
@@ -26,15 +26,15 @@
                 <f:selectItem itemValue="#{menuBean.typeList[3]}" itemLabel="#{menuBean.typeList[3]}"/>
             </h:selectOneMenu>
             <br/>
-            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${menuBean.submit()}"/>
+            <h:commandButton class="form-buttom" id="submit" value="Spara" action="${menuBean.submit()}"/>
         </h:form>
-        <h1>Delete menu item</h1>
+        <h1>Ta bort menyobjekt</h1>
         <h:form>
         <c:forEach items="#{menuBean.typeList}" var="type">
             <h2 class="form-title">#{type}</h2>
             <c:forEach items="#{menuBean.getOneType(type)}" var="item">
                 <h:outputText value="#{item.name}"/>
-                <h:commandButton class="delete-button" value="Delete" action="${menuBean.delete(item.name)}"/>
+                <h:commandButton class="delete-button" value="Ta bort" action="${menuBean.delete(item.name)}"/>
             </c:forEach>
         </c:forEach>
         </h:form>

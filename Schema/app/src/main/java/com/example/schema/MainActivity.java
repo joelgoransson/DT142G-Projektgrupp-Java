@@ -18,7 +18,9 @@ import com.example.schema.Retrofit.PassObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -33,11 +35,18 @@ public class MainActivity extends AppCompatActivity {
     public List<EmPassObject> empPassList;
     public List<PassObject> passList;
     public List<PassCard> passCards = new ArrayList<>();
+    private int weekNr = 1;
+
+    protected Calendar calendar;
+    protected TextView weekText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Stockholm"));
+        weekText = findViewById(R.id.Vecka);
+        weekText.setText("Vecka "+calendar.get(Calendar.WEEK_OF_YEAR));
         try {
             runThreads();
         } catch (InterruptedException e) {
@@ -96,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < empPassList.size(); i++){
                 EmPassObject item = empPassList.get(i);
                 int passID = item.getPassid();
+                PassObject passObject = passList.get(passID);
                 PassCard pass=new PassCard();
                 pass.setId(item.getId());
                 pass.setEmpNr(item.getEmployeenr());
                 pass.setPassId(passID);
                 pass.setEmpName(item.getEmployeename());
-                pass.setPassNr(passList.get(passID).getPassnr());
-                pass.setWeekday(weekday(passList.get(passID).getWeekday()-1));
+                pass.setPassNr(passObject.getPassnr());
+                pass.setWeekday(weekday(passList.get(passID).getWeekday()));
+                pass.setWeekNr(passObject.getWeeknr());
                 passCards.add(pass);
             }
         }
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             case 3: return "Torsdag";
             case 4: return "Fredag";
             case 5: return "Lördag";
-            default: return " ";
+            default: return "";
         }
     }
 
@@ -157,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
         String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
         int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
         int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
-        PassCard passCard = findPassCard(day, passNr, empNr);
+
+        PassCard passCard = findPassCard(day, passNr, empNr, weekNr);
         SetEmpDialog SetEmpDialog = new SetEmpDialog(viewID, employeeNames, passCard);
         SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
     }
@@ -173,11 +185,33 @@ public class MainActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "MySchemaDialog");
     }
 
+    public void currentSchema(View view){
+        weekNr = 1;
+        weekText.setText("Vecka " + calendar.get(Calendar.WEEK_OF_YEAR));
+        schema();
+    }
+    public void nextSchema(View view){
+        weekNr = 2;
+        int week = calendar.get(Calendar.WEEK_OF_YEAR)+1;
+        weekText.setText("Vecka " + week);
+        schema();
+    }
+
     /**
      * Print the schedule to the layout
      */
-    private void schema(){
-        for(PassCard item : passCards){
+    public void schema(){
+        int startIndex, stopIndex;
+        if(weekNr == 1){
+            startIndex = 0;
+            stopIndex = 36;
+        }else{
+            startIndex = 36;
+            stopIndex = 69;
+        }
+        //for(PassCard item : passCards){
+        for(int i = startIndex; i < stopIndex; i++){
+            PassCard item = passCards.get(i);
             int day = weekindex(item.getWeekday());
             int pass = item.getPassNr()-1;
             int emp = item.getEmpNr();
@@ -195,13 +229,23 @@ public class MainActivity extends AppCompatActivity {
      * @param day The int for the day, 0-5
      * @param passNr The pass number, 1-2
      * @param empNr The employee number, 0-2
+     * @param weekNr the current week being viewed
      * @return A PassCard with the give day, pass, and emp number.
      */
-    public PassCard findPassCard(String day, int passNr, int empNr){
-        for(PassCard i : passCards){
-            if(i.getWeekday().equalsIgnoreCase(day) && i.getPassNr()==passNr+1 && i.getEmpNr()==empNr){
-                System.out.println(i.getEmpName());
-                 return i;
+    public PassCard findPassCard(String day, int passNr, int empNr, int weekNr){
+        int startIndex, stopIndex;
+        if(weekNr == 1){
+            startIndex = 0;
+            stopIndex = 36;
+        }else{
+            startIndex = 36;
+            stopIndex = 69;
+        }
+        for(int i = startIndex; i < stopIndex; i++){
+            PassCard item = passCards.get(i);
+            if(item.getWeekday().equalsIgnoreCase(day) && item.getPassNr() == passNr+1 && item.getEmpNr() == empNr){
+                System.out.println(item.getEmpName());
+                 return item;
             }
         }
         return null;

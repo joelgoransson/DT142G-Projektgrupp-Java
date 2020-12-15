@@ -12,6 +12,7 @@ public class PassCard{
     private int passNr;
     private String weekday;
     private String empName;
+    private int weekNr;
 
     @Override
     public String toString() {
@@ -24,6 +25,10 @@ public class PassCard{
                 ", empName='" + empName + '\'' +
                 '}';
     }
+
+    public int getWeekNr() { return weekNr; }
+
+    public void setWeekNr(int weekNr) { this.weekNr = weekNr; }
 
     public int getId() {
         return id;

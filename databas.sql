@@ -124,16 +124,16 @@ INSERT INTO Lunch VALUES (13, 'Osaltad Fisksoppa', 4, 'Mums');
 INSERT INTO Lunch VALUES (14, 'Kebarulle', 4, 'Riktigt gott');
 
 /* Menuitem */
-INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'förrätt', 10);
-INSERT INTO Menuitem VALUES ('Anklever', 185, 'förrätt', 10);
-INSERT INTO Menuitem VALUES ('Grillad antrecôte', 230, 'huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Grönt', 195, 'huvudrätt', 10);
-INSERT INTO Menuitem VALUES ('Mousse', 195, 'efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'efterrätt', 10);
-INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'dryck', 10);
-INSERT INTO Menuitem VALUES ('Coca cola', 25, 'dryck', 10);
-INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'dryck', 10);
+INSERT INTO Menuitem VALUES ('Toast skagen', 195, 'Förrätt', 10);
+INSERT INTO Menuitem VALUES ('Anklever', 185, 'Förrätt', 10);
+INSERT INTO Menuitem VALUES ('Grillad antrecôte', 230, 'Huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Kryddstekt hjortinnanlår', 205, 'Huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Grönt', 195, 'Huvudrätt', 10);
+INSERT INTO Menuitem VALUES ('Mousse', 195, 'Efterrätt', 10);
+INSERT INTO Menuitem VALUES ('Pannacotta', 195, 'Efterrätt', 10);
+INSERT INTO Menuitem VALUES ('Vatten deluxe', 100, 'Dryck', 10);
+INSERT INTO Menuitem VALUES ('Coca cola', 25, 'Dryck', 10);
+INSERT INTO Menuitem VALUES ('Ryskt vatten', 80, 'Dryck', 10);
 
 /* INGREDIENTS */
 INSERT INTO Ingredient VALUES ('Bröd', 5);
@@ -163,7 +163,7 @@ INSERT INTO MenuItemHasIngredient VALUES (11, 'Coca Cola', 'Coca cola', 5);
 INSERT INTO MenuItemHasIngredient VALUES (12, 'Vatten', 'Ryskt vatten', 15);
 
 /* EVENT */
-INSERT INTO Event VALUES(0, 'U2', '10-12', 2020-12-21, 'test', 'Inhaler', 'something something');
+INSERT INTO Event VALUES(0, 'U2', '10-12', '2020-12-21', 'test', 'Inhaler', 'something something');
 
 /* PASS */
 INSERT INTO Pass VALUES (0, 1, 1, 1);
@@ -177,7 +177,6 @@ INSERT INTO Pass VALUES (7, 2, 4, 1);
 INSERT INTO Pass VALUES (8, 1, 5, 1);
 INSERT INTO Pass VALUES (9, 2, 5, 1);
 INSERT INTO Pass VALUES (10, 1, 6, 1);
-INSERT INTO Pass VALUES (11, 2, 6, 1);
 
 INSERT INTO Pass VALUES (12, 1, 0, 2);
 INSERT INTO Pass VALUES (13, 2, 0, 2);
@@ -232,6 +231,3 @@ INSERT INTO EmployeePass VALUES (30, 'Joel', 9, 2);
 INSERT INTO EmployeePass VALUES (31, 'Joel', 10, 0);
 INSERT INTO EmployeePass VALUES (32, 'Joel', 10, 1);
 INSERT INTO EmployeePass VALUES (33, 'Joel', 10, 2);
-INSERT INTO EmployeePass VALUES (34, 'Joel', 11, 0);
-INSERT INTO EmployeePass VALUES (35, 'Joel', 11, 1);
-INSERT INTO EmployeePass VALUES (36, 'Joel', 11, 2);
