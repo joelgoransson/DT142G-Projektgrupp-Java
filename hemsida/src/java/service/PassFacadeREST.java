@@ -7,6 +7,7 @@ package service;
 
 import entities.Pass;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,6 +42,22 @@ public class PassFacadeREST extends AbstractFacade<Pass> {
     public void create(Pass entity) {
         super.create(entity);
     }
+    
+    @POST
+    @Path("post")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Pass createAutoId(Pass entity){
+        int id = 0;
+        for(Pass i : super.findAll()){
+            if(i.getId() > id){
+                id = i.getId();
+            }
+        }
+        entity.setId(id+1);
+        super.create(entity);
+        return entity;
+    }
 
     @PUT
     @Path("{id}")
@@ -60,6 +77,18 @@ public class PassFacadeREST extends AbstractFacade<Pass> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Pass find(@PathParam("id") Integer id) {
         return super.find(id);
+    }
+    
+    @GET
+    @Path("Pass/{passnr}/Day/{day}/Week/{week}")
+    @Produces(MediaType.APPLICATION_XML)
+    public Pass findSpecial(@PathParam("passnr") Integer passnr, @PathParam("day") Integer day, @PathParam("week") Integer week){
+        for(Pass i : super.findAll()){
+            if(Objects.equals(i.getPass(), passnr) && Objects.equals(i.getWeekday(), day) && Objects.equals(i.getWeeknr(), week)){
+                return i;
+            }
+        }
+        return null;
     }
 
     @GET

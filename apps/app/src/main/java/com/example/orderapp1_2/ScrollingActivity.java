@@ -97,9 +97,9 @@ public class ScrollingActivity extends AppCompatActivity {
         tableNr = intent.getIntExtra(EXTRA_VALUE,0);
 
 ////
-        //retrofit functionen
+        //retrofit functionen som läser in från menuitem
         readXmlFeed();
-        //readOrdersList();
+
 
 
         listenerACTV = new AutoCompleteListener();
@@ -175,7 +175,6 @@ public class ScrollingActivity extends AppCompatActivity {
                     System.out.println("tom Order");
                 }else{
                     generateBill("KÖKET",tableNr,1, time2);
-                    System.out.println("ORDERN ÄR TOM FÖR FAN!");
                 }
 
                 finish();

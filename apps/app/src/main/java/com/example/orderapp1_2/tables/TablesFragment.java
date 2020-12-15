@@ -1,7 +1,12 @@
 package com.example.orderapp1_2.tables;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +23,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.orderapp1_2.CardItem;
+import com.example.orderapp1_2.KitchenOrderAdapter;
+import com.example.orderapp1_2.MyApplication;
 import com.example.orderapp1_2.OrderAdapter;
 import com.example.orderapp1_2.R;
 import com.example.orderapp1_2.retorofit.classes.Bill;
@@ -47,6 +54,8 @@ public class TablesFragment extends Fragment {
     private RestaurantClient restaurantClient;
     private ArrayList<CardItem> cardList = new ArrayList<>();
     private Button betaladButton;
+    ArrayList<CardItem> newList = new ArrayList<>();
+    ArrayList<CardItem> oldList = new ArrayList<>();
     List<Bill> billList;
     List<Order> orderList;
     List<MenuItem> menuList;
@@ -238,15 +247,22 @@ public class TablesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<CardItem> newList = new ArrayList<>();
+        oldList.clear();
+
+        oldList.addAll(newList);
         newList.clear();
         for (CardItem item:cardList)
         {
             if (item.getStatus().equals("TILLAGAD"))
             {
                 newList.add(item);
+
             }
         }
+        if(newList.size() > oldList.size()){
+            addNotification();
+        }
+
 
             adapter = new OrderAdapter(newList);
             recyclerView.setAdapter(adapter);
@@ -267,7 +283,7 @@ public class TablesFragment extends Fragment {
 
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -334,5 +350,29 @@ public class TablesFragment extends Fragment {
                 System.out.println("Response fail");
             }
         });
+    }
+
+    private void addNotification() {
+
+        Context hej = MyApplication.getContext();
+
+
+
+        //builder för notis
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(hej, "testchannel")
+                .setSmallIcon(R.drawable.ic_baseline_room_service_24)
+                .setContentTitle("Köket")
+                .setContentText("Order klar att levera")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
+
+        Intent notificationIntent = new Intent(hej, KitchenOrderAdapter.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(hej, 0, notificationIntent, 0);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManagerCompat manager = NotificationManagerCompat.from(hej);
+        manager.notify(0, builder.build());
     }
 }
