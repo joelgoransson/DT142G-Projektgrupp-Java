@@ -40,7 +40,6 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     private RestaurantClient restaurantClient;
     List<Bill> billList;
 
-    //NotificationActivity testcontext = new NotificationActivity();
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
@@ -154,7 +153,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     private void Billupdater(CardItem item)
     {
         System.out.println("Skiten körs!!!!");
-        addNotification();
+        //addNotification();
         restaurantClient = RestaurantClient.getINSTANCE();
         Bill billupdater = new Bill(item.getBillid(),"TILLAGAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
 
@@ -213,7 +212,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     }
 
     ///Notiser till servering
-
+    /*
     private void addNotification() {
 
         Context hej = MyApplication.getContext();
@@ -225,7 +224,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
                         .setSmallIcon(R.drawable.ic_baseline_room_service_24)
                         .setContentTitle("Order klar")
                         .setContentText("This is a test notification")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setAutoCancel(true);
 
         Intent notificationIntent = new Intent(hej, KitchenOrderAdapter.class);
@@ -237,6 +236,8 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
         NotificationManagerCompat manager = NotificationManagerCompat.from(hej);
         manager.notify(0, builder.build());
     }
+    */
+
 
 
 
