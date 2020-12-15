@@ -2,7 +2,7 @@ package com.example.orderapp1_2;
 import android.app.Application;
 import android.content.Context;
 
-
+//global context class :/ source: randomdude123 on stackoverflow
 public class MyApplication extends Application {
 
     private static Application sApplication;

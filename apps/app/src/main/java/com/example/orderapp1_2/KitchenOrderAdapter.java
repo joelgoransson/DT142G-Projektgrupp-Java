@@ -212,16 +212,10 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
         });
     }
 
-    ///VARNING!!!!!!!!!! ERRORS!!!!!!!!
+    ///Notiser till servering
 
     private void addNotification() {
-        //skapar channel for notis
-        /*
-        config test = new config();
-        NotificationActivity test2 = new NotificationActivity();
-        test2.onCreate();
-        Context hej = test.myapp;
-        */
+
         Context hej = MyApplication.getContext();
 
 
@@ -240,42 +234,15 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
         builder.setContentIntent(pendingIntent);
 
         // Add as notification
-
         NotificationManagerCompat manager = NotificationManagerCompat.from(hej);
         manager.notify(0, builder.build());
     }
 
-    /*
-    private void createNotificationChannel(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "testing";
-            String description = "testing";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("testchannel", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(testcontext);
-            notificationManager.createNotificationChannel(channel);
-        }
 
-    }
-    */
 
 
 
 }
-/*
-class config{
-    public static Context myapp;
 
-}
-class NotificationActivity extends Activity {
-
-    public void onCreate() {
-        config.myapp = this;
-    }
-}
-*/
 
 
