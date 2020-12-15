@@ -47,8 +47,8 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
         public OrderViewHolder(View itemView) {
             super(itemView);
-            bordTV = itemView.findViewById(R.id.bordTextView);
-            infoTV = itemView.findViewById(R.id.infoTextView);
+            bordTV = itemView.findViewById(R.id.bordTextView2);
+            infoTV = itemView.findViewById(R.id.infoTextView2);
         }
     }
 
@@ -75,7 +75,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.kitchen_card,parent,false);
         OrderViewHolder ovh = new OrderViewHolder(v);
         return ovh;
     }
