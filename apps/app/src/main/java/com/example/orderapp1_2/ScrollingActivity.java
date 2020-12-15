@@ -172,7 +172,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 System.out.println("tomorder:" + tomorder);
 
                 if(tomorder  == null || tomorder.trim().isEmpty()){
-                        System.out.println("tom Order");
+                    System.out.println("tom Order");
                 }else{
                     generateBill("KÖKET",tableNr,1, time2);
                     System.out.println("ORDERN ÄR TOM FÖR FAN!");
@@ -186,40 +186,125 @@ public class ScrollingActivity extends AppCompatActivity {
 
             public void createOrdersEtc(){
 
+                String comment = "";
                 System.out.println("neeeeeeeeeeeej!");
                 System.out.println(maxBillID);
                 int count = starterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    //System.out.println(getOrderItem((LinearLayout) starterLayout.getChildAt(i)));
-                    String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
-                    if(test != null && !test.trim().isEmpty()){
-                        generateOrder(test, "Kall", maxBillID);
+
+                    LinearLayout row = (LinearLayout) starterLayout.getChildAt(i);
+                    if(i < count-1)
+                    {
+                        LinearLayout nextrow = (LinearLayout) starterLayout.getChildAt(i+1);
+                        if (nextrow.getChildAt(0) instanceof AutoCompleteTextView)
+                        {
+
+
+                        }
+                        else
+                        {
+                            EditText child = (EditText) nextrow.getChildAt(0);
+                            comment = String.valueOf(child.getText());
+                        }
                     }
+
+                    String test = getOrderItem((LinearLayout) starterLayout.getChildAt(i));
+
+                    if(row.getChildAt(0) instanceof AutoCompleteTextView)
+                    {
+                        if(test != null && !test.trim().isEmpty()){
+                            generateOrder(test, comment, maxBillID);
+
+                        }
+                    }
+                    comment = "";
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
-                    String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
-                    //System.out.println(getOrderItem((LinearLayout) mainLayout.getChildAt(i)));
-                    if(test != null && !test.trim().isEmpty()){
-                        generateOrder(test, "Kall", maxBillID);
+                    LinearLayout row = (LinearLayout) mainLayout.getChildAt(i);
+                    if(i < count-1)
+                    {
+                        LinearLayout nextrow = (LinearLayout) mainLayout.getChildAt(i+1);
+                        if (nextrow.getChildAt(0) instanceof AutoCompleteTextView)
+                        {
+
+
+                        }
+                        else
+                        {
+                            EditText child = (EditText) nextrow.getChildAt(0);
+                            comment = String.valueOf(child.getText());
+                        }
                     }
+
+                    String test = getOrderItem((LinearLayout) mainLayout.getChildAt(i));
+
+                    if(row.getChildAt(0) instanceof AutoCompleteTextView)
+                    {
+                        if(test != null && !test.trim().isEmpty()){
+                            generateOrder(test, comment, maxBillID);
+
+                        }
+                    }
+                    comment = "";
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    //System.out.println(getOrderItem((LinearLayout) efterLayout.getChildAt(i)));
-                    String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
-                    if(test != null && !test.trim().isEmpty()){
-                        generateOrder(test, "Kall", maxBillID);
+                    LinearLayout row = (LinearLayout) efterLayout.getChildAt(i);
+                    if(i < count-1)
+                    {
+                        LinearLayout nextrow = (LinearLayout) efterLayout.getChildAt(i+1);
+                        if (nextrow.getChildAt(0) instanceof AutoCompleteTextView)
+                        {
+
+
+                        }
+                        else
+                        {
+                            EditText child = (EditText) nextrow.getChildAt(0);
+                            comment = String.valueOf(child.getText());
+                        }
                     }
+
+                    String test = getOrderItem((LinearLayout) efterLayout.getChildAt(i));
+
+                    if(row.getChildAt(0) instanceof AutoCompleteTextView)
+                    {
+                        if(test != null && !test.trim().isEmpty()){
+                            generateOrder(test, comment, maxBillID);
+
+                        }
+                    }
+                    comment = "";
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
-                    //System.out.println(getOrderItem((LinearLayout) drinkLayout.getChildAt(i)));
-                    String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
-                    if(test != null && !test.trim().isEmpty()){
-                        generateOrder(test, "Kall", maxBillID);
+                    LinearLayout row = (LinearLayout) drinkLayout.getChildAt(i);
+                    if(i < count-1)
+                    {
+                        LinearLayout nextrow = (LinearLayout) drinkLayout.getChildAt(i+1);
+                        if (nextrow.getChildAt(0) instanceof AutoCompleteTextView)
+                        {
+
+
+                        }
+                        else
+                        {
+                            EditText child = (EditText) nextrow.getChildAt(0);
+                            comment = String.valueOf(child.getText());
+                        }
                     }
+
+                    String test = getOrderItem((LinearLayout) drinkLayout.getChildAt(i));
+
+                    if(row.getChildAt(0) instanceof AutoCompleteTextView)
+                    {
+                        if(test != null && !test.trim().isEmpty()){
+                            generateOrder(test, comment, maxBillID);
+
+                        }
+                    }
+                    comment = "";
                 }
 
 
@@ -314,8 +399,12 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private String getOrderItem(LinearLayout row){
-        AutoCompleteTextView child = (AutoCompleteTextView) row.getChildAt(0);
-        return String.valueOf(child.getText());
+        if (row.getChildAt(0) instanceof AutoCompleteTextView )
+        {
+            AutoCompleteTextView child = (AutoCompleteTextView) row.getChildAt(0);
+            return String.valueOf(child.getText());
+        }
+        return null;
     }
 
 
