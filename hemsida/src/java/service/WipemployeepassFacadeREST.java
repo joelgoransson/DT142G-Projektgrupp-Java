@@ -5,8 +5,7 @@
  */
 package service;
 
-import entities.Employee;
-import java.util.ArrayList;
+import entities.Wipemployeepass;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,61 +19,74 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  *
  * @author joaki
  */
 @Stateless
-@Path("entities.employee")
-public class EmployeeFacadeREST extends AbstractFacade<Employee> {
+@Path("entities.wipemployeepass")
+public class WipemployeepassFacadeREST extends AbstractFacade<Wipemployeepass> {
 
     @PersistenceContext(unitName = "HemsidaPU")
     private EntityManager em;
 
-    public EmployeeFacadeREST() {
-        super(Employee.class);
+    public WipemployeepassFacadeREST() {
+        super(Wipemployeepass.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Employee entity) {
+    public void create(Wipemployeepass entity) {
+        super.create(entity);
+    }
+    
+    @POST
+    @Path("post")
+    @Consumes(MediaType.APPLICATION_XML)
+    public void createNoId(Wipemployeepass entity) {
+        int id = 0;
+        for(Wipemployeepass i : super.findAll()){
+            if(i.getId() > id){
+                id = i.getId();
+            }
+        }
+        entity.setId(id+1);
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") String id, Employee entity) {
+    public void edit(@PathParam("id") Integer id, Wipemployeepass entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Employee find(@PathParam("id") String id) {
+    public Wipemployeepass find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Employee> findAll() {
+    public List<Wipemployeepass> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Employee> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Wipemployeepass> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

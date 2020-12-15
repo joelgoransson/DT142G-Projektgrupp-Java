@@ -6,6 +6,7 @@
 package service;
 
 import entities.Employeepass;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -41,6 +42,20 @@ public class EmployeepassFacadeREST extends AbstractFacade<Employeepass> {
     public void create(Employeepass entity) {
         super.create(entity);
     }
+    
+    @POST
+    @Path("post")
+    @Consumes(MediaType.APPLICATION_XML)
+    public void createNoId(Employeepass entity) {
+        int id = 0;
+        for(Employeepass i : super.findAll()){
+            if(i.getId() > id){
+                id = i.getId();
+            }
+        }
+        entity.setId(id+1);
+        super.create(entity);
+    }
 
     @PUT
     @Path("{id}")
@@ -67,6 +82,18 @@ public class EmployeepassFacadeREST extends AbstractFacade<Employeepass> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Employeepass> findAll() {
         return super.findAll();
+    }
+    
+    @GET
+    @Path("employee/{employeename}")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Employeepass> findByName(@PathParam("employeename") String employeename) {
+        List<Employeepass> ret = new ArrayList<>();
+        for(Employeepass item : super.findAll()){
+            if(item.getEmployeename().equals(employeename))
+                ret.add(item);
+        }
+        return ret;
     }
 
     @GET

@@ -22,14 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author joaki
  */
 @Entity
-@Table(name = "EMPLOYEEPASS")
+@Table(name = "WIPEMPLOYEEPASS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employeepass.findAll", query = "SELECT e FROM Employeepass e"),
-    @NamedQuery(name = "Employeepass.findById", query = "SELECT e FROM Employeepass e WHERE e.id = :id"),
-    @NamedQuery(name = "Employeepass.findByEmployeename", query = "SELECT e FROM Employeepass e WHERE e.employeename = :employeename"),
-    @NamedQuery(name = "Employeepass.findByPassid", query = "SELECT e FROM Employeepass e WHERE e.passid = :passid")})
-public class Employeepass implements Serializable {
+    @NamedQuery(name = "Wipemployeepass.findAll", query = "SELECT w FROM Wipemployeepass w"),
+    @NamedQuery(name = "Wipemployeepass.findById", query = "SELECT w FROM Wipemployeepass w WHERE w.id = :id"),
+    @NamedQuery(name = "Wipemployeepass.findByPassid", query = "SELECT w FROM Wipemployeepass w WHERE w.passid = :passid"),
+    @NamedQuery(name = "Wipemployeepass.findByEmployeename", query = "SELECT w FROM Wipemployeepass w WHERE w.employeename = :employeename")})
+public class Wipemployeepass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,16 +37,16 @@ public class Employeepass implements Serializable {
     @NotNull
     @Column(name = "ID")
     private Integer id;
+    @Column(name = "PASSID")
+    private Integer passid;
     @Size(max = 55)
     @Column(name = "EMPLOYEENAME")
     private String employeename;
-    @Column(name = "PASSID")
-    private Integer passid;
 
-    public Employeepass() {
+    public Wipemployeepass() {
     }
 
-    public Employeepass(Integer id) {
+    public Wipemployeepass(Integer id) {
         this.id = id;
     }
 
@@ -58,20 +58,20 @@ public class Employeepass implements Serializable {
         this.id = id;
     }
 
-    public String getEmployeename() {
-        return employeename;
-    }
-
-    public void setEmployeename(String employeename) {
-        this.employeename = employeename;
-    }
-
     public Integer getPassid() {
         return passid;
     }
 
     public void setPassid(Integer passid) {
         this.passid = passid;
+    }
+
+    public String getEmployeename() {
+        return employeename;
+    }
+
+    public void setEmployeename(String employeename) {
+        this.employeename = employeename;
     }
 
     @Override
@@ -84,10 +84,10 @@ public class Employeepass implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employeepass)) {
+        if (!(object instanceof Wipemployeepass)) {
             return false;
         }
-        Employeepass other = (Employeepass) object;
+        Wipemployeepass other = (Wipemployeepass) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +96,7 @@ public class Employeepass implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Employeepass[ id=" + id + " ]";
+        return "entities.Wipemployeepass[ id=" + id + " ]";
     }
     
 }

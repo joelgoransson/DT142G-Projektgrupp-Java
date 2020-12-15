@@ -14,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,14 +21,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author joaki
  */
 @Entity
-@Table(name = "EMPLOYEEPASS")
+@Table(name = "WIPPASS")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employeepass.findAll", query = "SELECT e FROM Employeepass e"),
-    @NamedQuery(name = "Employeepass.findById", query = "SELECT e FROM Employeepass e WHERE e.id = :id"),
-    @NamedQuery(name = "Employeepass.findByEmployeename", query = "SELECT e FROM Employeepass e WHERE e.employeename = :employeename"),
-    @NamedQuery(name = "Employeepass.findByPassid", query = "SELECT e FROM Employeepass e WHERE e.passid = :passid")})
-public class Employeepass implements Serializable {
+    @NamedQuery(name = "Wippass.findAll", query = "SELECT w FROM Wippass w"),
+    @NamedQuery(name = "Wippass.findById", query = "SELECT w FROM Wippass w WHERE w.id = :id"),
+    @NamedQuery(name = "Wippass.findByPassnr", query = "SELECT w FROM Wippass w WHERE w.passnr = :passnr"),
+    @NamedQuery(name = "Wippass.findByWeek", query = "SELECT w FROM Wippass w WHERE w.week = :week"),
+    @NamedQuery(name = "Wippass.findByDay", query = "SELECT w FROM Wippass w WHERE w.day = :day")})
+public class Wippass implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,16 +37,17 @@ public class Employeepass implements Serializable {
     @NotNull
     @Column(name = "ID")
     private Integer id;
-    @Size(max = 55)
-    @Column(name = "EMPLOYEENAME")
-    private String employeename;
-    @Column(name = "PASSID")
-    private Integer passid;
+    @Column(name = "PASSNR")
+    private Integer passnr;
+    @Column(name = "WEEK")
+    private Integer week;
+    @Column(name = "DAY")
+    private Integer day;
 
-    public Employeepass() {
+    public Wippass() {
     }
 
-    public Employeepass(Integer id) {
+    public Wippass(Integer id) {
         this.id = id;
     }
 
@@ -58,20 +59,28 @@ public class Employeepass implements Serializable {
         this.id = id;
     }
 
-    public String getEmployeename() {
-        return employeename;
+    public Integer getPassnr() {
+        return passnr;
     }
 
-    public void setEmployeename(String employeename) {
-        this.employeename = employeename;
+    public void setPassnr(Integer passnr) {
+        this.passnr = passnr;
     }
 
-    public Integer getPassid() {
-        return passid;
+    public Integer getWeek() {
+        return week;
     }
 
-    public void setPassid(Integer passid) {
-        this.passid = passid;
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
     }
 
     @Override
@@ -84,10 +93,10 @@ public class Employeepass implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employeepass)) {
+        if (!(object instanceof Wippass)) {
             return false;
         }
-        Employeepass other = (Employeepass) object;
+        Wippass other = (Wippass) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +105,7 @@ public class Employeepass implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Employeepass[ id=" + id + " ]";
+        return "entities.Wippass[ id=" + id + " ]";
     }
     
 }
