@@ -13,8 +13,7 @@ public class EmPassObject {
     private String employeename;
     @Element(name="passid")
     private int passid;
-    @Element(name="employeenr")
-    private int employeenr;
+    @Element(name="week")
 
     public EmPassObject(){}
 
@@ -22,7 +21,6 @@ public class EmPassObject {
         id = passCard.getId();
         employeename = passCard.getEmpName();
         passid = passCard.getPassId();
-        employeenr = passCard.getEmpNr();
     }
 
     public int getId() {
@@ -47,13 +45,5 @@ public class EmPassObject {
 
     public void setPassid(int passid) {
         this.passid = passid;
-    }
-
-    public int getEmployeenr() {
-        return employeenr;
-    }
-
-    public void setEmployeenr(int employeenr) {
-        this.employeenr = employeenr;
     }
 }

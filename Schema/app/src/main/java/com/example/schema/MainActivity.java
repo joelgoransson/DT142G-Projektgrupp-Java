@@ -2,6 +2,7 @@ package com.example.schema;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -31,40 +32,96 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL= "http://192.168.0.37:8080/Hemsida/webresources/";
     public String[] employeeNames;
-    public List<EmployeeObject> employeeList;
-    public List<EmPassObject> empPassList;
+    public List<EmployeeObject> employeeList = new ArrayList<>();
+    public List<EmPassObject> emPassObjectList = new ArrayList<>();
     public List<PassObject> passList;
     public List<PassCard> passCards = new ArrayList<>();
-    private int weekNr = 1;
+    private int weekNr;
 
     protected Calendar calendar;
     protected TextView weekText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //System.out.println("============================");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Stockholm"));
+        weekNr = calendar.get(Calendar.WEEK_OF_YEAR);
         weekText = findViewById(R.id.Vecka);
-        weekText.setText("Vecka "+calendar.get(Calendar.WEEK_OF_YEAR));
+        weekText.setText("Vecka "+ weekNr);
+
+        GetThread getter = new GetThread(weekNr);
+        getter.start();
         try {
-            runThreads();
+            getter.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         schema();
     }
 
-    private void runThreads() throws InterruptedException {
-        Thread t1 = new Thread(new ReadThread());
-        Thread t2 = new Thread(new WriteThread());
-        t1.start();
-        t1.join();
-        t2.start();
-        t2.join();
+    protected class GetThread extends Thread{
+        private int weekNr;
+        public GetThread(int weekNr){
+            this.weekNr = weekNr;
+        }
+
+        @Override
+        public void run(){
+            employeeList.clear();
+            emPassObjectList = new ArrayList<>();
+            passCards.clear();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(SimpleXmlConverterFactory.create())
+                    .build();
+            ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+            Call<EmPassList> call = apiInterface.getEmPassList();
+            Call<EmployeeList> empCall = apiInterface.getEmpList();
+            try {
+                emPassObjectList = call.execute().body().getEmPassList();
+                employeeList = empCall.execute().body().getEmployeeList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(emPassObjectList!=null){
+                for(EmPassObject item : emPassObjectList){
+                    Call<PassObject> passCall = apiInterface.getPass(item.getPassid());
+                    PassObject pass = null;
+                    try {
+                        pass = passCall.execute().body();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    passCards.add(new PassCard(item.getId(), item.getPassid(), pass.getPass(), pass.getWeekday(), item.getEmployeename(), pass.getWeeknr()));
+                }
+            }
+
+            List<String> tempList = new ArrayList<>();
+            for(EmployeeObject employee : employeeList){
+                tempList.add(employee.getName());
+            }
+            employeeNames = new String[tempList.size()];
+            tempList.toArray(employeeNames);
+        }
     }
 
-    private class ReadThread implements Runnable{
+    protected class PassThread extends Thread {
+        private int passNr;
+        private int day;
+        private int week;
+        private PassCard passCard;
+
+        public PassThread(int passNr, int day, int week, PassCard passCard) {
+            this.passNr = passNr;
+            this.day = day;
+            this.week = week;
+            this.passCard = passCard;
+        }
+
         @Override
         public void run() {
             Retrofit retrofit = new Retrofit.Builder()
@@ -72,84 +129,24 @@ public class MainActivity extends AppCompatActivity {
                     .addConverterFactory(SimpleXmlConverterFactory.create())
                     .build();
             ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-
-            Call<EmployeeList> empCall = apiInterface.getEmpList();
-            Call<EmPassList> empPassCall = apiInterface.getEmPassList();
-            Call<PassList> passCall = apiInterface.getPassList();
+            Call<PassObject> call = apiInterface.findPass(passNr,day,week);
+            PassObject pass = null;
             try {
-                employeeList = empCall.execute().body().getEmployeeList();
-                empPassList = empPassCall.execute().body().getEmPassList();
-                passList = passCall.execute().body().getPassList();
+                pass = call.execute().body();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * Thread class responsible for creating the PassCard object
-     */
-    private class WriteThread implements Runnable{
-        @Override
-        /**
-         * Runs through all objects in employeeList and stores names to employeeNames[].
-         * Runs through all EmPassObjects in empPassList and stores them as PassCards to passCards list
-         */
-        public void run() {
-            List<String> tempList = new ArrayList<>();
-            for(EmployeeObject emp : employeeList){
-                tempList.add(emp.getName());
+            if(!(pass == null)){
+                passCard.setPassId(pass.getId());
+                passCard.setWeekNr(pass.getWeeknr());
+                passCard.setWeekday(pass.getWeekday());
+                passCard.setPassNr(pass.getPass());
+            }else{
+                passCard.setPassId(-1);
+                passCard.setPassNr(passNr);
+                passCard.setWeekday(day);
+                passCard.setWeekNr(week);
             }
-            employeeNames = new String[tempList.size()];
-            tempList.toArray(employeeNames);
-            for(int i = 0; i < empPassList.size(); i++){
-                EmPassObject item = empPassList.get(i);
-                int passID = item.getPassid();
-                PassObject passObject = passList.get(passID);
-                PassCard pass=new PassCard();
-                pass.setId(item.getId());
-                pass.setEmpNr(item.getEmployeenr());
-                pass.setPassId(passID);
-                pass.setEmpName(item.getEmployeename());
-                pass.setPassNr(passObject.getPassnr());
-                pass.setWeekday(weekday(passList.get(passID).getWeekday()));
-                pass.setWeekNr(passObject.getWeeknr());
-                passCards.add(pass);
-            }
-        }
-    }
-
-    /**
-     * Converts a integer to a string
-     * @param index the index of the weekday 0-5
-     * @return returns the name of the day
-     */
-    private String weekday(int index){
-        switch (index) {
-            case 0: return "Måndag";
-            case 1: return "Tisdag";
-            case 2: return "Onsdag";
-            case 3: return "Torsdag";
-            case 4: return "Fredag";
-            case 5: return "Lördag";
-            default: return "";
-        }
-    }
-
-    /**
-     * Takes the name of a weekday and returns the index
-     * @param day name of the day
-     * @return int index of the day
-     */
-    private int weekindex(String day){
-        switch (day) {
-            case "Måndag": return 0;
-            case "Tisdag": return 1;
-            case "Onsdag": return 2;
-            case "Torsdag": return 3;
-            case "Fredag": return 4;
-            case "Lördag": return 5;
-            default: return -1;
         }
     }
 
@@ -163,15 +160,59 @@ public class MainActivity extends AppCompatActivity {
      * @param view The TextView item clicked on
      */
     public void Set_Emp(View view) {
+        refresh();
+        TextView txt = (TextView) view;
+
         int viewID = view.getId();
         String id = view.getResources().getResourceName(viewID);
-        String day = weekday(Integer.parseInt(String.valueOf(id.charAt(id.length()-3))));
+        int day = Integer.parseInt(String.valueOf(id.charAt(id.length()-3)));
         int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
         int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));
 
-        PassCard passCard = findPassCard(day, passNr, empNr, weekNr);
-        SetEmpDialog SetEmpDialog = new SetEmpDialog(viewID, employeeNames, passCard);
-        SetEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
+        PassCard pass = new PassCard();
+
+        Thread thread = new PassThread(passNr, day, weekNr, pass);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(txt.getText().equals("")){
+            pass.setEmpName("");
+        }else{
+            String name = (String) txt.getText();
+            pass = findPassCard(day, passNr, name, weekNr);
+        }
+        SetEmpDialog setEmpDialog = new SetEmpDialog(viewID, pass);
+        setEmpDialog.show(getSupportFragmentManager(), "SetEMpDialog");
+    }
+
+    public void clear(){
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 2; j++){
+                for(int k = 0; k < 3; k++){
+                    int textID = getResources().getIdentifier("P"+i+j+k, "id", this.getPackageName());
+                    TextView textView = findViewById(textID);
+                    if(textView!=null)
+                        textView.setText("");
+                }
+            }
+        }
+    }
+
+    public void refresh(){
+        clear();
+        Thread t = new GetThread(weekNr);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        weekText.setText("Vecka " + weekNr);
+        schema();
     }
 
     public void openSchedule(View view){
@@ -181,71 +222,76 @@ public class MainActivity extends AppCompatActivity {
         int passNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-2)));
         int empNr = Integer.parseInt(String.valueOf(id.charAt(id.length()-1)));*/
         //PassCard passCard = findPassCard("Måndag", 1, 1);
-        MySchemaDialog dialog = new MySchemaDialog(viewID, employeeNames);
+        MySchemaDialog dialog = new MySchemaDialog(viewID, employeeNames, weekNr);
         dialog.show(getSupportFragmentManager(), "MySchemaDialog");
+        refresh();
     }
 
     public void currentSchema(View view){
-        weekNr = 1;
-        weekText.setText("Vecka " + calendar.get(Calendar.WEEK_OF_YEAR));
-        schema();
-    }
-    public void nextSchema(View view){
-        weekNr = 2;
-        int week = calendar.get(Calendar.WEEK_OF_YEAR)+1;
-        weekText.setText("Vecka " + week);
-        schema();
+        if(weekNr != calendar.get(Calendar.WEEK_OF_YEAR)) {
+            clear();
+            weekNr = calendar.get(Calendar.WEEK_OF_YEAR);
+            Thread t = new GetThread(weekNr);
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            weekText.setText("Vecka " + weekNr);
+            schema();
+        }
     }
 
-    /**
-     * Print the schedule to the layout
-     */
-    public void schema(){
-        int startIndex, stopIndex;
-        if(weekNr == 1){
-            startIndex = 0;
-            stopIndex = 36;
-        }else{
-            startIndex = 36;
-            stopIndex = 69;
+    public void nextSchema(View view){
+        if(weekNr == calendar.get(Calendar.WEEK_OF_YEAR)) {
+            clear();
+            weekNr = calendar.get(Calendar.WEEK_OF_YEAR) + 1;
+            Thread t = new GetThread(weekNr);
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            weekText.setText("Vecka " + weekNr);
+            schema();
         }
-        //for(PassCard item : passCards){
-        for(int i = startIndex; i < stopIndex; i++){
-            PassCard item = passCards.get(i);
-            int day = weekindex(item.getWeekday());
-            int pass = item.getPassNr()-1;
-            int emp = item.getEmpNr();
-            System.out.println(day+" "+pass+" "+emp);
-            int id = getResources().getIdentifier("P"+day+pass+emp, "id", this.getPackageName());
-            TextView textView = findViewById(id);
-            if(textView != null){
-                textView.setText(item.getEmpName());
+    }
+
+    public void schema(){
+        for(int day = 0; day < 6; day++){
+            List<PassCard> list = findPasses(day, 0, weekNr);
+            for(int i = 0; i < list.size(); i++){
+                int textID = getResources().getIdentifier("P"+day+"0"+i, "id", this.getPackageName());
+                TextView textView = findViewById(textID);
+                if(!(textView==null)){
+                    textView.setText(list.get(i).getEmpName());
+                }
+            }
+            list = findPasses(day, 1, weekNr);
+            for(int i = 0; i < list.size(); i++){
+                int textID = getResources().getIdentifier("P"+day+"1"+i, "id", this.getPackageName());
+                TextView textView = findViewById(textID);
+                textView.setText(list.get(i).getEmpName());
             }
         }
     }
 
-    /**
-     * Find and return a PassCard object from the passCards list
-     * @param day The int for the day, 0-5
-     * @param passNr The pass number, 1-2
-     * @param empNr The employee number, 0-2
-     * @param weekNr the current week being viewed
-     * @return A PassCard with the give day, pass, and emp number.
-     */
-    public PassCard findPassCard(String day, int passNr, int empNr, int weekNr){
-        int startIndex, stopIndex;
-        if(weekNr == 1){
-            startIndex = 0;
-            stopIndex = 36;
-        }else{
-            startIndex = 36;
-            stopIndex = 69;
+    public List<PassCard> findPasses(int day, int pass, int weekNr){
+        List<PassCard> ret = new ArrayList<>();
+        for(PassCard item : passCards){
+            if(item.getWeekday()==day && item.getPassNr()==pass && item.getWeekNr()==weekNr){
+                ret.add(item);
+            }
         }
-        for(int i = startIndex; i < stopIndex; i++){
-            PassCard item = passCards.get(i);
-            if(item.getWeekday().equalsIgnoreCase(day) && item.getPassNr() == passNr+1 && item.getEmpNr() == empNr){
-                System.out.println(item.getEmpName());
-                 return item;
+        return ret;
+    }
+
+    public PassCard findPassCard(int day, int passNr, String empName, int weekNr){
+        for(PassCard item : passCards){
+            if(item.getWeekday() == day && item.getPassNr() == passNr && item.getWeekNr() == weekNr && item.getEmpName().equals(empName)){
+                return item;
             }
         }
         return null;

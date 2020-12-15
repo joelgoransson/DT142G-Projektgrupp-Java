@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Joel
+ * @author Sundsvall
  */
 @Entity
 @Table(name = "MENUITEM")
@@ -45,6 +45,9 @@ public class Menuitem implements Serializable {
     @Size(max = 55)
     @Column(name = "TYPE")
     private String type;
+    @Size(max = 200)
+    @Column(name = "DESCRIPTION")
+    private String description;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PREPTIME")
     private Double preptime;
@@ -80,6 +83,14 @@ public class Menuitem implements Serializable {
         this.type = type;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Double getPreptime() {
         return preptime;
     }
@@ -87,7 +98,7 @@ public class Menuitem implements Serializable {
     public void setPreptime(Double preptime) {
         this.preptime = preptime;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

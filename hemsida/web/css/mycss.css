@@ -171,8 +171,13 @@ li {
 
 .menu-list h3{
 	margin:0em;
+        margin-top: 1.5em;
 	font-size:2.5vw;
 	font-weight: 600;
+}
+.menu-list p{
+	margin-bottom: 0.5em;
+	font-size:1.2vw;
 }
 
 .menu-item h3 {
@@ -182,13 +187,19 @@ li {
 }
 
 .menu-item p{
-	margin:0.3em 0em 1em;
+	margin:0.3em 0em 0.5em;
 	font-size:2.1vw;
+}
+.menu-description{
+    margin-bottom: 1em;
+    margin-top: 0em;
+    font-size:0.8vw;
+    font-weight: normal;
+    font-style: italic;
 }
 
 .drinks h3{
-	margin:0em 0em 0.5em;
-	
+	margin:0em 0em 0.5em;	
 }
 
 .food{
@@ -196,9 +207,7 @@ li {
 	flex-direction: row;
 	justify-content: space-between;
 	align-content: flex-end;
-
 }
-
 
 
 /*footer*/

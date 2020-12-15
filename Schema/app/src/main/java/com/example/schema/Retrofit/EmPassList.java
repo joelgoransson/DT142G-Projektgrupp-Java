@@ -7,7 +7,7 @@ import java.util.List;
 
 @Root(name="employeepasses", strict=false)
 public class EmPassList{
-    @ElementList(name="employeepass", inline=true)
+    @ElementList(name="employeepass", inline=true, required = false)
     private List<EmPassObject> emPassList;
 
     public List<EmPassObject> getEmPassList() {

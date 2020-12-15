@@ -1,5 +1,11 @@
 package com.example.orderapp1_2;
 
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +21,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderapp1_2.retorofit.classes.Bill;
@@ -26,11 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapter.OrderViewHolder>{
+public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapter.OrderViewHolder>  {
 
     private ArrayList<CardItem> cardlist;
     private RestaurantClient restaurantClient;
     List<Bill> billList;
+    NotificationActivity testcontext = new NotificationActivity();
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
@@ -38,8 +47,8 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
         public OrderViewHolder(View itemView) {
             super(itemView);
-            bordTV = itemView.findViewById(R.id.bordTextView);
-            infoTV = itemView.findViewById(R.id.infoTextView);
+            bordTV = itemView.findViewById(R.id.bordTextView2);
+            infoTV = itemView.findViewById(R.id.infoTextView2);
         }
     }
 
@@ -66,7 +75,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.kitchen_card,parent,false);
         OrderViewHolder ovh = new OrderViewHolder(v);
         return ovh;
     }
@@ -158,6 +167,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
                 Log.d("Response successful", response.message());
                 Log.d(Order.class.toString(),call.request().toString());
                 Log.d(Order.class.toString(),call.request().body().toString());
+                //addNotification();
             }
             @Override
             public void onFailure(Call<Bill> call, Throwable t) {
@@ -199,5 +209,57 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
 
             }
         });
+    }
+
+    ///VARNING!!!!!!!!!! ERRORS!!!!!!!!
+    /*
+    private void addNotification() {
+        //skapar channel for notis
+        createNotificationChannel();
+
+        //builder för notis
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(testcontext, "testchannel")
+                        .setSmallIcon(R.drawable.ic_baseline_room_service_24)
+                        .setContentTitle("Order klar")
+                        .setContentText("This is a test notification")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
+
+        Intent notificationIntent = new Intent(testcontext, KitchenOrderAdapter.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(testcontext, 0, notificationIntent, 0);
+        builder.setContentIntent(pendingIntent);
+
+        // Add as notification
+        NotificationManagerCompat manager = NotificationManagerCompat.from(testcontext);
+        manager.notify(0, builder.build());
+    }
+
+    //skapar channel för notis
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "testing";
+            String description = "testing";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("testchannel", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(testcontext);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+    }
+    */
+
+}
+class config{
+    public static Context myapp;
+
+}
+class NotificationActivity extends Activity {
+
+    public void onCreate() {
+        config.myapp = this;
     }
 }

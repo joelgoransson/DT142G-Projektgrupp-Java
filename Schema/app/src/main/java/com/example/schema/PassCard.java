@@ -7,10 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PassCard{
     private int id;
-    private int empNr;
     private int passId;
     private int passNr;
-    private String weekday;
+    private int weekday;
     private String empName;
     private int weekNr;
 
@@ -18,12 +17,23 @@ public class PassCard{
     public String toString() {
         return "PassCard{" +
                 "id=" + id +
-                ", empNr=" + empNr +
                 ", passId=" + passId +
                 ", passNr=" + passNr +
-                ", weekday='" + weekday + '\'' +
+                ", weekday=" + weekday +
+                ", weeknr=" + weekNr +
                 ", empName='" + empName + '\'' +
                 '}';
+    }
+
+    public PassCard(){}
+
+    public PassCard(int id, int passId, int passNr, int weekday, String empName, int weekNr) {
+        this.id = id;
+        this.passId = passId;
+        this.passNr = passNr;
+        this.weekday = weekday;
+        this.empName = empName;
+        this.weekNr = weekNr;
     }
 
     public int getWeekNr() { return weekNr; }
@@ -37,10 +47,6 @@ public class PassCard{
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getEmpNr() { return empNr; }
-
-    public void setEmpNr(int empNr) { this.empNr = empNr; }
 
     public int getPassId() {
         return passId;
@@ -58,11 +64,11 @@ public class PassCard{
         this.passNr = passNr;
     }
 
-    public String getWeekday() {
+    public int getWeekday() {
         return weekday;
     }
 
-    public void setWeekday(String weekday) {
+    public void setWeekday(int weekday) {
         this.weekday = weekday;
     }
 
