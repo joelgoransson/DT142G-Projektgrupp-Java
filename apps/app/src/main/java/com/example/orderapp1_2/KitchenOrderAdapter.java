@@ -39,7 +39,8 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     private ArrayList<CardItem> cardlist;
     private RestaurantClient restaurantClient;
     List<Bill> billList;
-    NotificationActivity testcontext = new NotificationActivity();
+
+    //NotificationActivity testcontext = new NotificationActivity();
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView bordTV;
@@ -153,7 +154,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     private void Billupdater(CardItem item)
     {
         System.out.println("Skiten körs!!!!");
-
+        addNotification();
         restaurantClient = RestaurantClient.getINSTANCE();
         Bill billupdater = new Bill(item.getBillid(),"TILLAGAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
 
@@ -167,7 +168,7 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
                 Log.d("Response successful", response.message());
                 Log.d(Order.class.toString(),call.request().toString());
                 Log.d(Order.class.toString(),call.request().body().toString());
-                //addNotification();
+
             }
             @Override
             public void onFailure(Call<Bill> call, Throwable t) {
@@ -212,30 +213,39 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     }
 
     ///VARNING!!!!!!!!!! ERRORS!!!!!!!!
-    /*
+
     private void addNotification() {
         //skapar channel for notis
-        createNotificationChannel();
+        /*
+        config test = new config();
+        NotificationActivity test2 = new NotificationActivity();
+        test2.onCreate();
+        Context hej = test.myapp;
+        */
+        Context hej = MyApplication.getContext();
+
+
 
         //builder för notis
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(testcontext, "testchannel")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(hej, "testchannel")
                         .setSmallIcon(R.drawable.ic_baseline_room_service_24)
                         .setContentTitle("Order klar")
                         .setContentText("This is a test notification")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
 
-        Intent notificationIntent = new Intent(testcontext, KitchenOrderAdapter.class);
+        Intent notificationIntent = new Intent(hej, KitchenOrderAdapter.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(testcontext, 0, notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(hej, 0, notificationIntent, 0);
         builder.setContentIntent(pendingIntent);
 
         // Add as notification
-        NotificationManagerCompat manager = NotificationManagerCompat.from(testcontext);
+
+        NotificationManagerCompat manager = NotificationManagerCompat.from(hej);
         manager.notify(0, builder.build());
     }
 
-    //skapar channel för notis
+    /*
     private void createNotificationChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "testing";
@@ -252,7 +262,10 @@ public class KitchenOrderAdapter extends RecyclerView.Adapter<KitchenOrderAdapte
     }
     */
 
+
+
 }
+/*
 class config{
     public static Context myapp;
 
@@ -263,3 +276,6 @@ class NotificationActivity extends Activity {
         config.myapp = this;
     }
 }
+*/
+
+
