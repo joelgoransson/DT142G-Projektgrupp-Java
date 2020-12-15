@@ -13,28 +13,30 @@
         <header class="header">
         
             <div class="header-content">
-                <h1 class="header-title">Antons Skafferi</h1>
+                <a href="#start" class="header-title">Antons Skafferi</a>
                 <ul class="nav-list">
                     <li><a href="#meny">Meny</a></li>
                     <li><a href="#evenemang">Evenemang</a></li>
+                    <li><a href="#info">Om oss</a></li>
                 </ul>
             </div>
         
         </header>
+        
         <main>
-            <div class="front-container">
+            <div id="start" class="front-container">
 		<div class="front">
                     <div class="front-menu">
 			<div class="front-menu-container">
                             <h2 class="front-item">Dagens Lunch:</h2>                                     
                             <p>${indexBean.dayOfWeekString}</p>
-                            <p>                                                    
+                            <ul>                                                    
                                 <c:forEach items="${lunchBean.getLunchToday()}" var="food">
                                     <li class="menu-item">
                                         <h3>${food.name}</h3>    
                                     </li>
                                 </c:forEach>                                          
-                            </p>
+                            </ul>
 			</div>
                     </div>
 		</div>
@@ -43,7 +45,7 @@
             <div class="information">
                 
         <!-- First information box: Open hours -->
-		<div class="information-box">
+		<div id ="info" class="information-box">
                     <div class="information-content">
 			<h1>Öppet</h1>
 			<p>Vardagar 10:00-20:00 </p>
