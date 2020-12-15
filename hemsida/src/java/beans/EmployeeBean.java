@@ -51,6 +51,7 @@ public class EmployeeBean implements Serializable {
             list.add(employee);
         }
         Employee employee = new Employee();
+        employee.setName("");
         list.add(employee);
     }
     
@@ -77,7 +78,7 @@ public class EmployeeBean implements Serializable {
         System.out.println(list.size());
         for(Employee item: list){
             try{
-                if(!"".equals(item)){
+                if(!"".equals(item.getName())){
                     persist(item);
                 }
             }catch (RuntimeException e){

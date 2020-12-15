@@ -66,6 +66,9 @@ public class EventBean implements Serializable {
     }
     
     private String processFile(){
+        if(file == null){
+            return "";
+        }
         String fileName = Paths.get(getFile().getSubmittedFileName()).getFileName().toString();
         
         if(!Files.exists(Paths.get(savepath))){
