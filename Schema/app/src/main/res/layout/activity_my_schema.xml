@@ -11,7 +11,11 @@
         android:id="@+id/weekText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="end"
+        android:text="TextView"
+        android:textColor="#DA512DA8"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
