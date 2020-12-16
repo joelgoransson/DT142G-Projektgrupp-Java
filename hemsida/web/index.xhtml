@@ -139,9 +139,10 @@
 		<div class="menu-background3"></div>
                 
             </div><!-- end div class=meny -->
-               
+            
+            <div id="evenemang"></div>   
             <c:forEach items="${eventBean.eventsSortedByDate}" var="event">
-                <div class="event" id="evenemang">  
+                <div class="event">  
                     <c:choose>
                         <c:when test="${indexBean.everyOther}">
                             <h:graphicImage class="event-photo" alt="image from a concert" value="/event/${event.image}" />       
