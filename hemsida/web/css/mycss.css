@@ -90,6 +90,10 @@ body, html, main {
         margin-top: 3em;     
 }
 
+.front-menu-container ul{
+	padding: 0;    
+}
+
 .front-item{
 	margin: 0;
 }
