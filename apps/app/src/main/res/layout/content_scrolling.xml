@@ -44,7 +44,7 @@
                 android:id="@+id/mainTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Varmrätt"
+                android:text="Huvudrätt"
                 android:textColor="@color/primaryTextColor" />
 
         </LinearLayout>

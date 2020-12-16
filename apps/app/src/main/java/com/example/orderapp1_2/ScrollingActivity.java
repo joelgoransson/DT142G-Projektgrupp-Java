@@ -47,7 +47,7 @@ import static com.example.orderapp1_2.order.OrderFragment.EXTRA_VALUE;
 
 public class ScrollingActivity extends AppCompatActivity {
     //BASE_URL och SUB_URL tillsammans bildar url till API
-    private static final String BASE_URL = "http://192.168.1.137:46185/Hemsida/webresources/";
+    private static final String BASE_URL = "http://192.168.1.4:8080/Hemsida/webresources/";
     private static final String SUB_URL = "entities.menuitem";
     private RestaurantClient restaurantClient;
     private int tableNr;
@@ -185,7 +185,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
             public void createOrdersEtc(){
 
-                String comment = "";
+                String comment = " ";
                 System.out.println("neeeeeeeeeeeej!");
                 System.out.println(maxBillID);
                 int count = starterLayout.getChildCount();
@@ -216,7 +216,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
                         }
                     }
-                    comment = "";
+                    comment = " ";
                 }
                 count = mainLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -245,7 +245,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
                         }
                     }
-                    comment = "";
+                    comment = " ";
                 }
                 count = efterLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -274,7 +274,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
                         }
                     }
-                    comment = "";
+                    comment = " ";
                 }
                 count = drinkLayout.getChildCount();
                 for(int i = 1; i < count; i++){
@@ -303,7 +303,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
                         }
                     }
-                    comment = "";
+                    comment = " ";
                 }
 
 
