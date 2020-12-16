@@ -136,6 +136,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         for(Order order: orderlist){
             Dishes += order.getMenuitemname()+ "\n";
         }
+        Dishes += "\n"+item.getStatus();
         holder.infoTV.setText(Dishes);
     }
     /**
