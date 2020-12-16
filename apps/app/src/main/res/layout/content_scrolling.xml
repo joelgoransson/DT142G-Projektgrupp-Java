@@ -23,7 +23,8 @@
                 android:id="@+id/starterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Förrätt" />
+                android:text="Förrätt"
+                android:textColor="@color/primaryTextColor" />
 
         </LinearLayout>
 
@@ -43,7 +44,8 @@
                 android:id="@+id/mainTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Varmrätt" />
+                android:text="Varmrätt"
+                android:textColor="@color/primaryTextColor" />
 
         </LinearLayout>
 
@@ -63,7 +65,8 @@
                 android:id="@+id/efterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Efterrätt" />
+                android:text="Efterrätt"
+                android:textColor="@color/primaryTextColor" />
 
         </LinearLayout>
 
@@ -83,7 +86,8 @@
                 android:id="@+id/drinkTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dryck" />
+                android:text="Dryck"
+                android:textColor="@color/primaryTextColor" />
 
         </LinearLayout>
 
@@ -97,7 +101,9 @@
             android:id="@+id/okBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:text="Ok"
+            app:backgroundTint="#B000897B"
+            app:backgroundTintMode="screen" />
 
     </LinearLayout>
 
