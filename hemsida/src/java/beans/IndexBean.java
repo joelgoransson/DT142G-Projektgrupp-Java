@@ -19,6 +19,19 @@ import java.util.Vector;
 @SessionScoped
 public class IndexBean implements Serializable {
 
+    private boolean everyOther = false;
+
+    public boolean isEveryOther() {
+        everyOther = !everyOther;
+        return everyOther;
+    }
+
+    public void setEveryOther(boolean everyOther) {
+        this.everyOther = everyOther;
+    }
+    
+    
+    
     /**
      * Creates a new instance of IndexBean
      */

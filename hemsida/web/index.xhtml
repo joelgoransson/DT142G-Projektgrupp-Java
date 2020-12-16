@@ -142,16 +142,32 @@
                
             <c:forEach items="${eventBean.eventsSortedByDate}" var="event">
                 <div class="event" id="evenemang">  
-                    <h:graphicImage class="event-photo" alt="image from a concert" value="/event/${event.image}" />       
-                    <div class="event-info">
-                        <h3 class="event-title">${event.name}</h3>
-                        <p>${event.image}</p>
-                        <p class="event-date">${event.description}</p>
-                        <p class="event-date">${event.date}</p>
-                        <p class="event-time">${event.clock}</p>
-                        <h4 class="event-note-title">Förband:</h4>
-                        <p class="even-note">${event.openingact}</p>
-                    </div>
+                    <c:choose>
+                        <c:when test="${indexBean.everyOther}">
+                            <h:graphicImage class="event-photo" alt="image from a concert" value="/event/${event.image}" />       
+                            <div class="event-info">
+                                <h3 class="event-title">${event.name}</h3>
+                                <p>${event.image}</p>
+                                <p class="event-date">${event.description}</p>
+                                <p class="event-date">${event.date}</p>
+                                <p class="event-time">${event.clock}</p>
+                                <h4 class="event-note-title">Förband:</h4>
+                                <p class="even-note">${event.openingact}</p>
+                            </div>
+                        </c:when>
+                        <c:otherwise>    
+                            <div class="event-info">
+                                <h3 class="event-title">${event.name}</h3>
+                                <p>${event.image}</p>
+                                <p class="event-date">${event.description}</p>
+                                <p class="event-date">${event.date}</p>
+                                <p class="event-time">${event.clock}</p>
+                                <h4 class="event-note-title">Förband:</h4>
+                                <p class="even-note">${event.openingact}</p>
+                            </div>
+                            <h:graphicImage class="event-photo" alt="image from a concert" value="/event/${event.image}" />   
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:forEach>
                         
