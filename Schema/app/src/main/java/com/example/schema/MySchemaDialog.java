@@ -25,10 +25,12 @@ public class MySchemaDialog extends DialogFragment {
     private String str;
     private int id;
     private PassCard passCard;
+    private int week;
 
-    public MySchemaDialog(int id, String[] arr) {
+    public MySchemaDialog(int id, String[] arr, int week) {
         this.arr = arr;
         this.id = id;
+        this.week = week;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class MySchemaDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(getActivity(), My_schema.class);
                 intent.putExtra("SELECTED_NAME", arr[which]);
+                intent.putExtra("SELECTED_WEEK", week);
                 startActivity(intent);
             }
         }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {

@@ -19,11 +19,22 @@ import java.util.Vector;
 @SessionScoped
 public class IndexBean implements Serializable {
 
-    /**
+    private boolean everyOther = false;
+    
+     /**
      * Creates a new instance of IndexBean
      */
     public IndexBean() {
     }
+
+    public boolean isEveryOther() {
+        everyOther = !everyOther;
+        return everyOther;
+    }
+
+    public void setEveryOther(boolean everyOther) {
+        this.everyOther = everyOther;
+    }   
     
     public String getDayOfWeekString(){
         int dayOfWeek = DayOfWeekInt();

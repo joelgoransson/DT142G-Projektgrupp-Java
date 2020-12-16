@@ -41,7 +41,7 @@ public class EventBean implements Serializable {
     
     Event newEvent;
     private Part file;
-    private String savepath = System.getProperty("user.home") + "\\Documents\\Antons Skafferi\\";
+    private String savepath = System.getProperty("user.home") + "\\glassfish_server\\glassfish\\domains\\domain1\\applications\\event\\"; // + System.getProperty("user.home") \\glassfish_server\\glassfish
     
      /**
      * Creates a new instance of EventBean
@@ -101,7 +101,8 @@ public class EventBean implements Serializable {
         newEvent.setId(findMaxID()+1);
         String filepath = processFile();
         System.out.println(filepath);
-        newEvent.setImage(filepath);
+        String fileName = Paths.get(getFile().getSubmittedFileName()).getFileName().toString();
+        newEvent.setImage(fileName);
         
         try {
             utx.begin();
