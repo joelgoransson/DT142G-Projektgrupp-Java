@@ -141,10 +141,8 @@
             </div><!-- end div class=meny -->
                
             <c:forEach items="${eventBean.eventsSortedByDate}" var="event">
-                <div class="event" id="evenemang">
-                        
-                    <img class="event-photo" alt="image from a concert" src="http://localhost:8080/Hemsida/images/event.jpg"></img>
-                        
+                <div class="event" id="evenemang">  
+                    <h:graphicImage class="event-photo" alt="image from a concert" value="/event/${event.image}" />       
                     <div class="event-info">
                         <h3 class="event-title">${event.name}</h3>
                         <p>${event.image}</p>
@@ -159,13 +157,15 @@
                         
             <div class="event">
                 <div class="event-info">
-                    <h3 class="event-title">Inhaler</h3>
+                    <h3 class="event-title">Testa kopplingen</h3>
                     <p class="event-date">20/4</p>
                     <p class="event-time">17:00 - 19:00</p>
                     <h4 class="event-note-title">Förband:</h4>
                     <p class="even-note">DDT</p>
                 </div>
-                <img class="event-photo" alt="image from a concert" src="images/event.jpg"></img>
+                 <h:graphicImage class="event-photo"
+                    value="/event/event.jpg" />
+                <!--<img class="event-photo" alt="image from a concert" src="/event/event.jpg"></img>-->
             </div>
 		
             <footer class="footer">
