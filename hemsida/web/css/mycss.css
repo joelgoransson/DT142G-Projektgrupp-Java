@@ -98,6 +98,7 @@ body, html, main {
 	margin: 0;
 }
 
+
 /* INFORMATION BOXES*/
 .information{
 	display: flex;
@@ -311,14 +312,19 @@ li {
 	}
 	
 }
-@media(max-width:400px){
+@media(max-width:600px){
 	.header-title{
-		font-size:1.2em;
+            font-size:1.5em;
+            padding: 0.5em 0.5em;
 
 	}
+        .nav-list{
+            display:block;
+        }
 	.nav-list li{
-		font-size:1.2em;
+            font-size:1.2em;
 	}
+        
 
 }
 

@@ -253,11 +253,12 @@ public class TablesFragment extends Fragment {
         newList.clear();
         for (CardItem item:cardList)
         {
-            if (item.getStatus().equals("TILLAGAD"))
+            if (item.getStatus().equals("TILLAGAD") ||item.getStatus().equals("SERVERAD"))
             {
                 newList.add(item);
 
             }
+
         }
         if(newList.size() > oldList.size()){
             addNotification();
@@ -275,7 +276,8 @@ public class TablesFragment extends Fragment {
 
                 @Override
                 public void onItemClicked(int pos) {
-                    System.out.println("Status ändrad till BETALAD");
+
+
                     readBillListForStatusUpdate(newList.get(pos));
                     //måste lyckas uppdatera scenen då vi klickar här. lyckas inte göra det utan att pajja allt.
                 }
@@ -312,6 +314,10 @@ public class TablesFragment extends Fragment {
                         {
                             Billupdater(item);
                         }
+                        else if(bill.getStatus().equals("SERVERAD")){
+                            Billupdater(item);
+                        }
+
                     }
                 }
             }
@@ -327,10 +333,17 @@ public class TablesFragment extends Fragment {
 
     private void Billupdater(CardItem item)
     {
-        System.out.println("Skiten körs!!!!");
+        String tempstatus ="";
+        if(item.getStatus().equals("TILLAGAD"))
+        {
+            tempstatus="SERVERAD";
+        }
+        else if(item.getStatus().equals("SERVERAD")){
+            tempstatus="BETALAD";
+        }
 
         restaurantClient = RestaurantClient.getINSTANCE();
-        Bill billupdater = new Bill(item.getBillid(),"BETALAD" ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
+        Bill billupdater = new Bill(item.getBillid(),tempstatus ,Integer. parseInt(item.getBordTV()) ,1,item.getTime());
 
         int id = item.getBillid();
         String idString = Integer.toString(id);
