@@ -7,11 +7,12 @@
     <ui:define name="title">Ändra Anställda</ui:define>
 
     <ui:define name="body">
+        <h1>Redigera anställda</h1>
         <h:form>
             <c:forEach items="${employeeBean.employees}" var="item">
                 <h:inputText class="form-input" value="${item.name}"></h:inputText>
             </c:forEach>
-            <h:commandButton class="form-buttom" id="submit" value="Submit" action="${employeeBean.submit()}" />
+            <h:commandButton class="form-buttom" id="submit" value="Spara" action="${employeeBean.submit()}" />
         </h:form>
     </ui:define>
 </ui:composition>
