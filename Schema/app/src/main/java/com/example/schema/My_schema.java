@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class My_schema extends AppCompatActivity {
-    private final String BASE_URL= "http://192.168.0.37:8080/Hemsida/webresources/";
+    private final String BASE_URL= "http://192.168.1.4:8080/Hemsida/webresources/";
     private String emp;
     private int week;
     public List<PassObject> passList;
@@ -81,11 +81,11 @@ public class My_schema extends AppCompatActivity {
         for(PassCard card : passCards){
             int id = res.getIdentifier("day_"+card.getWeekday(), "id", this.getPackageName());
             TextView textView = findViewById(id);
-            if(card.getPassNr() == 0){
-                 textView.append("11-14" + "\n");
+            if(card.getWeekday() == 5){
+                 textView.append("16-23" + "\n");
              }else{
-                 if (card.getWeekday() == 5) {
-                     textView.append("16-23" + "\n");
+                 if (card.getPassNr() == 0) {
+                     textView.append("11-14" + "\n");
                  } else {
                      textView.append("16-20" + "\n");
                  }

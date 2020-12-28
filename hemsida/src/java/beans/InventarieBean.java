@@ -52,9 +52,9 @@ public class InventarieBean implements Serializable{
     }
     
     public List<Ingredient> getIngredients(){
-        if(list.isEmpty()){
+        //if(list.isEmpty()){
             init();
-        }
+        //}
         return list;
     }
     

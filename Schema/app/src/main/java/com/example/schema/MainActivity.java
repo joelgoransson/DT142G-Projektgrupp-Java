@@ -30,7 +30,7 @@ import android.util.Log;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String BASE_URL= "http://192.168.0.37:8080/Hemsida/webresources/";
+    private static final String BASE_URL= "http://192.168.1.4:8080/Hemsida/webresources/";
     public String[] employeeNames;
     public List<EmployeeObject> employeeList = new ArrayList<>();
     public List<EmPassObject> emPassObjectList = new ArrayList<>();
