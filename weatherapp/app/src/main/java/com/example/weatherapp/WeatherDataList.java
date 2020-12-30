@@ -7,7 +7,7 @@ import java.util.List;
 
 @Root(name="product", strict=false)
 public class WeatherDataList {
-    @ElementList(inline = true, required = false)
+    @ElementList(name = "time", inline = true)
     private List<WeatherData> weatherList;
 
     public List<WeatherData> getWeatherList() {

@@ -38,7 +38,8 @@ private List<WeatherData> weatherDataList;
             public void onResponse(Call<WeatherDataList> call, Response<WeatherDataList> response) {
                 Log.d("Conneciton succes", response.message());
                 weatherDataList = response.body().getWeatherList();
-
+                String temp = response.body().toString();
+                System.out.println("");
             }
 
             @Override

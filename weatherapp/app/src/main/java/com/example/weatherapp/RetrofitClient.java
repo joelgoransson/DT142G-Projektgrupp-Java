@@ -24,6 +24,7 @@ public class RetrofitClient {
         {
             INSTANCE = new RetrofitClient();
         }
+
         return INSTANCE;
     }
     public Call<WeatherDataList> getWeatherData(String lat, String lon){ return weatherInterface.getWeatherData(lat,lon);}
