@@ -1,20 +1,29 @@
 package com.example.weatherapp;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
 
-@Root(name="product", strict=false)
+@Root(name="weatherdata", strict=false)
 public class WeatherDataList {
-    @ElementList(name = "time", inline = true)
-    private List<WeatherData> weatherList;
+    @Element(name="product")
+    private Product product;
 
-    public List<WeatherData> getWeatherList() {
-        return weatherList;
+    @Root(name="product", strict=false)
+    static class Product{
+
+        @Attribute(name = "class")
+        private String classs;
+
+        @ElementList(inline=true, required = false)
+        private List<WeatherData> weatherList;
     }
 
-    public void setWeatherList(List<WeatherData> weatherList) {
-        this.weatherList = weatherList;
-    }
+
+
+
+
 }

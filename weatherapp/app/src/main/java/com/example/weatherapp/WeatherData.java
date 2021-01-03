@@ -1,20 +1,23 @@
 package com.example.weatherapp;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 
-@Root(name="time", strict = false)
+@Element(name="time")
 public class WeatherData {
     @Element(name="location")
-    private String location;
+    private Location location;
 
 
-    public String getLocation() {
-        return location;
+    public class Location{
+        @Attribute(name = "altitude")
+        private String altitude;
+
+        public Location(@Attribute(name = "altitude") String altitude ){
+            this.altitude= altitude;
+        }
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+
 }
